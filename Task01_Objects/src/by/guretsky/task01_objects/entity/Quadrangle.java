@@ -1,24 +1,23 @@
 package by.guretsky.task01_objects.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Quadrangle {
-    private List<Point> points;
+    private List<PointForQuadrangle> points;
 
     private Quadrangle() {
     }
 
-    public Quadrangle(final ArrayList<Point> pointsFromFile) {
+    public Quadrangle(final List<PointForQuadrangle> pointsFromFile) {
         this.points = pointsFromFile;
     }
 
-    public List<Point> getPoints() {
+    public List<PointForQuadrangle> getPoints() {
         return points;
     }
 
-    public void setPoints(final List<Point> pointsFromFile) {
+    public void setPoints(final List<PointForQuadrangle> pointsFromFile) {
         this.points = pointsFromFile;
     }
 
