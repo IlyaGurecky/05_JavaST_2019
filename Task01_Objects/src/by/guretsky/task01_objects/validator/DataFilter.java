@@ -26,6 +26,10 @@ public class DataFilter {
             }
             if (isCorrect) {
                 filteredData.add(str);
+            } else if (str.equals("")) {
+                LOGGER.info("Line is empty");
+            } else {
+                LOGGER.info("Line: " + str + " is incorrect");
             }
         }
 
