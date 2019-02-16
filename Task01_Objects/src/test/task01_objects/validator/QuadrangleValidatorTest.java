@@ -10,7 +10,7 @@ import java.util.List;
 
 @SuppressWarnings("CheckStyle")
 public class QuadrangleValidatorTest {
-
+/*
     @Test(description = "Positive script for the fact that our"
             + " figure is quadrangle")
     public void testIsQuadrangle() {
@@ -29,5 +29,5 @@ public class QuadrangleValidatorTest {
         QuadrangleValidator validator = new QuadrangleValidator();
         boolean isQuadrangle = validator.isQuadrangle(points);
         Assert.assertFalse(isQuadrangle);
-    }
+    }*/
 }
