@@ -15,15 +15,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class DataReader {
-    private static final Logger LOGGER = LogManager.getLogger(DataReader.class);
+public class FileDataReader {
+    private static final Logger LOGGER = LogManager.getLogger(FileDataReader.class);
     private Path path;
     private List<String> stringList = new ArrayList<>();
 
-    private DataReader() {
+    private FileDataReader() {
     }
 
-    public DataReader(final String filePath) throws FileDoesNotExistException {
+    public FileDataReader(final String filePath) throws FileDoesNotExistException {
         if (filePath != null) {
             path = Paths.get(filePath);
         } else {

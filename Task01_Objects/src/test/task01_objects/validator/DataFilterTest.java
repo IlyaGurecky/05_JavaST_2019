@@ -1,7 +1,7 @@
 package test.task01_objects.validator;
 
 import by.guretsky.task01_objects.exception.FileDoesNotExistException;
-import by.guretsky.task01_objects.reader.DataReader;
+import by.guretsky.task01_objects.reader.FileDataReader;
 import by.guretsky.task01_objects.validator.DataFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,8 +21,8 @@ public class DataFilterTest {
 
     @Test(description = "Positive script for file data validator")
     public void testFilterFileData() throws FileDoesNotExistException {
-        DataReader dataReader = new DataReader(FILE_PATH);
-        List<String> filerData = dataReader.readStringList();
+        FileDataReader fileDataReader = new FileDataReader(FILE_PATH);
+        List<String> filerData = fileDataReader.readStringList();
         DataFilter dataFilter = new DataFilter();
         List<String> actual = dataFilter.filterFileData(filerData);
         List<String> expected = new ArrayList<>(Arrays
