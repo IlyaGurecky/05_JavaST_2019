@@ -19,8 +19,16 @@ public class QuadrangleCreatorTest {
 
 
     @Test(description = "Positive script for the creator")
-    public void testCreateQuadrangle1() {
-
+    public void testCreateQuadrangle1() throws
+            IncorrectQuadranglePointsException {
+        List<Point> points = new ArrayList<>(Arrays
+                .asList(new Point(-2.0, 0.0),
+                        new Point(0.0, 1.0),
+                        new Point(1.0, 3.0),
+                        new Point(4.0, 0.0)));
+        Quadrangle actualQuadrangle = creator.createQuadrangle(points);
+        Quadrangle expectedQuadrangle = new Quadrangle(points);
+        Assert.assertEquals(actualQuadrangle, expectedQuadrangle);
     }
 
     @Test(expectedExceptions = IncorrectQuadranglePointsException.class,
