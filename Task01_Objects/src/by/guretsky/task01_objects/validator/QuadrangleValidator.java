@@ -18,12 +18,7 @@ public class QuadrangleValidator {
         boolean thirdCheck = checkPoints(point2, point3, point4);
         boolean fourthCheck = checkPoints(point1, point3, point4);
 
-        if (firstCheck || secondCheck || thirdCheck || fourthCheck) {
-            return false;
-        } else {
-            return true;
-        }
-
+        return !firstCheck && !secondCheck && !thirdCheck && !fourthCheck;
     }
 
     private boolean checkPoints(final PointForQuadrangle point1,
@@ -34,6 +29,7 @@ public class QuadrangleValidator {
 
         Double resultOnYPoint = (point1.getY() - point2.getY())
                 / (point3.getY() - point2.getY());
+
         return resultOnXPoint.equals(resultOnYPoint);
     }
 }
