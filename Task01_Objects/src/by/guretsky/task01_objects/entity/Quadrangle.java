@@ -1,7 +1,6 @@
 package by.guretsky.task01_objects.entity;
 
 import java.util.List;
-import java.util.Objects;
 
 public class Quadrangle {
     private List<PointForQuadrangle> points;
@@ -30,11 +29,14 @@ public class Quadrangle {
             return false;
         }
         Quadrangle that = (Quadrangle) o;
-        return Objects.equals(points, that.points);
+        return points.equals(that.points);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(points);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((points == null) ? 0 : points.hashCode());
+        return result;
     }
 }

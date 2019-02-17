@@ -1,6 +1,5 @@
 package by.guretsky.task01_objects.entity;
 
-import java.util.Objects;
 
 public class PointForQuadrangle {
     private Double x;
@@ -39,12 +38,17 @@ public class PointForQuadrangle {
             return false;
         }
         PointForQuadrangle pointForQuadrangle = (PointForQuadrangle) o;
-        return Objects.equals(x, pointForQuadrangle.x) && Objects.equals(y, pointForQuadrangle.y);
+        return x.equals(pointForQuadrangle.x)
+                && y.equals(pointForQuadrangle.y);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((x == null) ? 0 : x.hashCode());
+        result = prime * result + ((y == null) ? 0 : y.hashCode());
+        return result;
     }
 
     @Override
