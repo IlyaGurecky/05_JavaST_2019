@@ -1,7 +1,7 @@
 package test.task01_objects.action;
 
 import by.guretsky.task01_objects.action.QuadrangleCalculator;
-import by.guretsky.task01_objects.entity.PointForQuadrangle;
+import by.guretsky.task01_objects.entity.Point;
 import by.guretsky.task01_objects.entity.Quadrangle;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -11,18 +11,22 @@ import java.util.Arrays;
 
 @SuppressWarnings("CheckStyle")
 public class QuadrangleCalculatorTest {
-    private QuadrangleCalculator quadrangleCalculator = new QuadrangleCalculator();
+    private final QuadrangleCalculator quadrangleCalculator =
+            new QuadrangleCalculator();
 
     @DataProvider(name = "data_for_square")
     public Object[][] createCorrectData1() {
-        PointForQuadrangle point1 = new PointForQuadrangle(2.0, 2.0);
-        PointForQuadrangle point2 = new PointForQuadrangle(4.0, -3.0);
-        PointForQuadrangle point3 = new PointForQuadrangle(-4.0, -3.0);
-        PointForQuadrangle point4 = new PointForQuadrangle(-2.0, 2.0);
-
         return new Object[][]{
-                {new Quadrangle(Arrays.asList(point1, point2, point3, point4)), 30.0},
-
+                {new Quadrangle(Arrays
+                        .asList(new Point(2.0, 2.0),
+                                new Point(4.0, -3.0),
+                                new Point(-4.0, -3.0),
+                                new Point(-2.0, 2.0))), 30.0},
+                {new Quadrangle(Arrays
+                        .asList(new Point(1.0, 4.0),
+                                new Point(1.0, 0.0),
+                                new Point(-1.0, 0.0),
+                                new Point(-1.0, 4.0))), 8.0},
         };
     }
 
@@ -36,14 +40,17 @@ public class QuadrangleCalculatorTest {
 
     @DataProvider(name = "data_for_perimeter")
     public Object[][] createCorrectData2() {
-        PointForQuadrangle point1 = new PointForQuadrangle(2.0, 2.0);
-        PointForQuadrangle point2 = new PointForQuadrangle(2.0, -2.0);
-        PointForQuadrangle point3 = new PointForQuadrangle(-2.0, -2.0);
-        PointForQuadrangle point4 = new PointForQuadrangle(-2.0, 2.0);
-
         return new Object[][]{
-                {new Quadrangle(Arrays.asList(point1, point2, point3, point4)), 16.0},
-
+                {new Quadrangle(Arrays
+                        .asList(new Point(2.0, 2.0),
+                                new Point(2.0, -2.0),
+                                new Point(-2.0, -2.0),
+                                new Point(-2.0, 2.0))), 16.0},
+                {new Quadrangle(Arrays
+                        .asList(new Point(1.0, 3.0),
+                                new Point(1.0, 0.0),
+                                new Point(-1.0, 0.0),
+                                new Point(-1.0, 3.0))), 10.0},
         };
     }
 

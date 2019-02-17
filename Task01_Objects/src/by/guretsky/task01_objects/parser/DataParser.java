@@ -12,9 +12,9 @@ public class DataParser {
         Map<Integer, List<Double>> parsedDataMap = new HashMap<>();
         List<Double> numbers;
         int lineCounter = 0;
-        for (String str : filteredList) {
+        for (String line : filteredList) {
             numbers = new ArrayList<>();
-            for (String stringNumber : str.split(SPLIT_PATTERN)) {
+            for (String stringNumber : line.split(SPLIT_PATTERN)) {
                 numbers.add(Double.parseDouble(stringNumber));
             }
             parsedDataMap.put(lineCounter++, numbers);

@@ -3,20 +3,20 @@ package by.guretsky.task01_objects.entity;
 import java.util.List;
 
 public class Quadrangle {
-    private List<PointForQuadrangle> points;
+    private List<Point> points;
 
     private Quadrangle() {
     }
 
-    public Quadrangle(final List<PointForQuadrangle> pointsFromFile) {
+    public Quadrangle(final List<Point> pointsFromFile) {
         this.points = pointsFromFile;
     }
 
-    public List<PointForQuadrangle> getPoints() {
+    public List<Point> getPoints() {
         return points;
     }
 
-    public void setPoints(final List<PointForQuadrangle> pointsFromFile) {
+    public void setPoints(final List<Point> pointsFromFile) {
         this.points = pointsFromFile;
     }
 

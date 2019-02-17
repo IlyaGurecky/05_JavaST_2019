@@ -1,14 +1,14 @@
 package by.guretsky.task01_objects.entity;
 
 
-public class PointForQuadrangle {
+public class Point {
     private Double x;
     private Double y;
 
-    private PointForQuadrangle() {
+    private Point() {
     }
 
-    public PointForQuadrangle(final Double pointX, final Double pointY) {
+    public Point(final Double pointX, final Double pointY) {
         x = pointX;
         y = pointY;
     }
@@ -37,9 +37,9 @@ public class PointForQuadrangle {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PointForQuadrangle pointForQuadrangle = (PointForQuadrangle) o;
-        return x.equals(pointForQuadrangle.x)
-                && y.equals(pointForQuadrangle.y);
+        Point point = (Point) o;
+        return x.equals(point.x)
+                && y.equals(point.y);
     }
 
     @Override
@@ -53,6 +53,6 @@ public class PointForQuadrangle {
 
     @Override
     public String toString() {
-        return "PointForQuadrangle{" + "x=" + x + ", y=" + y + '}';
+        return "Point{" + "x=" + x + ", y=" + y + '}';
     }
 }
