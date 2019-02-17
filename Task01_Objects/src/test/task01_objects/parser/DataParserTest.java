@@ -2,7 +2,6 @@ package test.task01_objects.parser;
 
 import by.guretsky.task01_objects.parser.DataParser;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -11,7 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-
 
 @SuppressWarnings("CheckStyle")
 public class DataParserTest {

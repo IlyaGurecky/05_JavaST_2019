@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.testng.Assert.*;
-
 @SuppressWarnings("CheckStyle")
 public class QuadrangleCreatorTest {
     private final QuadrangleCreator creator = new QuadrangleCreator();
@@ -44,5 +42,4 @@ public class QuadrangleCreatorTest {
         Quadrangle expectedQuadrangle = new Quadrangle(new ArrayList<>());
         Assert.assertEquals(actualQuadrangle, expectedQuadrangle);
     }
-
 }

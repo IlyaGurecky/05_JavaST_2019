@@ -24,7 +24,6 @@ public class DataFilterTest {
         List<String> expected = new ArrayList<>(Arrays
                 .asList("2 2 2 -2 -2 -2 -2 2",
                         "2 3 4 5 6 7 8 1"));
-
         Assert.assertEquals(actual, expected);
     }
 }
