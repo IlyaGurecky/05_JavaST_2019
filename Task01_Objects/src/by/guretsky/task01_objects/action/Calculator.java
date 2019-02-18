@@ -5,7 +5,7 @@ import by.guretsky.task01_objects.entity.Quadrangle;
 
 import java.util.List;
 
-public class QuadrangleCalculator {
+public class Calculator {
     private List<Point> points;
 
     public Double square(final Quadrangle quadrangle) {
@@ -21,8 +21,8 @@ public class QuadrangleCalculator {
                 - points.get(0).getX() * points.get(3).getY()) / 2;
     }
 
-    private Double calculateSide(final Point point1,
-                                 final Point point2) {
+    public Double calculateSide(final Point point1,
+                                final Point point2) {
         return Math.sqrt((point1.getX() - point2.getX())
                 * (point1.getX() - point2.getX()) + (point1.getY()
                 - point2.getY()) * (point1.getY() - point2.getY()));

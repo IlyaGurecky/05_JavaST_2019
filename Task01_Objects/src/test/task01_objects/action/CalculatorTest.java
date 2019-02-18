@@ -1,6 +1,6 @@
 package test.task01_objects.action;
 
-import by.guretsky.task01_objects.action.QuadrangleCalculator;
+import by.guretsky.task01_objects.action.Calculator;
 import by.guretsky.task01_objects.entity.Point;
 import by.guretsky.task01_objects.entity.Quadrangle;
 import org.testng.Assert;
@@ -10,9 +10,9 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 
 @SuppressWarnings("CheckStyle")
-public class QuadrangleCalculatorTest {
-    private final QuadrangleCalculator quadrangleCalculator =
-            new QuadrangleCalculator();
+public class CalculatorTest {
+    private final Calculator calculator =
+            new Calculator();
 
     @DataProvider(name = "data_for_square")
     public Object[][] createCorrectData1() {
@@ -34,7 +34,7 @@ public class QuadrangleCalculatorTest {
             dataProvider = "data_for_square")
     public void testSquare(Quadrangle quadrangle, double s) {
         Double expected = s;
-        Double actual = quadrangleCalculator.square(quadrangle);
+        Double actual = calculator.square(quadrangle);
         Assert.assertEquals(actual, expected);
     }
 
@@ -58,7 +58,27 @@ public class QuadrangleCalculatorTest {
             dataProvider = "data_for_perimeter")
     public void testPerimeter(Quadrangle quadrangle, double s) {
         Double expected = s;
-        Double actual = quadrangleCalculator.perimeter(quadrangle);
+        Double actual = calculator.perimeter(quadrangle);
+        Assert.assertEquals(actual, expected);
+    }
+
+    @DataProvider(name = "data_for_side")
+    public Object[][] createCorrectData3() {
+        return new Object[][]{
+                {new Point(-2.0, 2.0),
+                        new Point(4.0, 2.0), 6.0},
+                {new Point(-2.0, -1.0),
+                        new Point(3.0, -1.0), 5.0},
+                {new Point(2.0, 2.0),
+                        new Point(2.0, 2.0), 0}
+        };
+    }
+
+    @Test(description = "Positive script for the side length calculator",
+            dataProvider = "data_for_side")
+    public void testCalculateSide(Point point1, Point point2, double len) {
+        Double expected = len;
+        Double actual = calculator.calculateSide(point1, point2);
         Assert.assertEquals(actual, expected);
     }
 }
