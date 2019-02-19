@@ -3,22 +3,24 @@ package by.guretsky.task01_objects.action;
 import by.guretsky.task01_objects.entity.Point;
 import by.guretsky.task01_objects.entity.Quadrangle;
 
-import java.util.List;
-
 public class Calculator {
-    private List<Point> points;
-
     public Double square(final Quadrangle quadrangle) {
-        points = quadrangle.getPoints();
-
-        return Math.abs(points.get(0).getX() * points.get(1).getY()
-                + points.get(1).getX() * points.get(2).getY()
-                + points.get(2).getX() * points.get(3).getY()
-                + points.get(3).getX() * points.get(0).getY()
-                - points.get(1).getX() * points.get(0).getY()
-                - points.get(2).getX() * points.get(1).getY()
-                - points.get(3).getX() * points.get(2).getY()
-                - points.get(0).getX() * points.get(3).getY()) / 2;
+        return Math.abs(quadrangle.getPoint(0).getX()
+                * quadrangle.getPoint(1).getY()
+                + quadrangle.getPoint(1).getX()
+                * quadrangle.getPoint(2).getY()
+                + quadrangle.getPoint(2).getX()
+                * quadrangle.getPoint(3).getY()
+                + quadrangle.getPoint(3).getX()
+                * quadrangle.getPoint(0).getY()
+                - quadrangle.getPoint(1).getX()
+                * quadrangle.getPoint(0).getY()
+                - quadrangle.getPoint(2).getX()
+                * quadrangle.getPoint(1).getY()
+                - quadrangle.getPoint(3).getX()
+                * quadrangle.getPoint(2).getY()
+                - quadrangle.getPoint(0).getX()
+                * quadrangle.getPoint(3).getY()) / 2;
     }
 
     public Double calculateSide(final Point point1,
@@ -29,12 +31,14 @@ public class Calculator {
     }
 
     public Double perimeter(final Quadrangle quadrangle) {
-        points = quadrangle.getPoints();
-
-        Double firstSide = calculateSide(points.get(0), points.get(1));
-        Double secondSide = calculateSide(points.get(1), points.get(2));
-        Double thirdSide = calculateSide(points.get(2), points.get(3));
-        Double fourthSide = calculateSide(points.get(3), points.get(0));
+        Double firstSide = calculateSide(quadrangle.getPoint(0),
+                quadrangle.getPoint(1));
+        Double secondSide = calculateSide(quadrangle.getPoint(1),
+                quadrangle.getPoint(2));
+        Double thirdSide = calculateSide(quadrangle.getPoint(2),
+                quadrangle.getPoint(3));
+        Double fourthSide = calculateSide(quadrangle.getPoint(3),
+                quadrangle.getPoint(0));
 
         return firstSide + secondSide + thirdSide + fourthSide;
     }
