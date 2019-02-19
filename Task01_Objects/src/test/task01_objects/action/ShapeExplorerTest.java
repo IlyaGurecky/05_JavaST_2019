@@ -84,7 +84,7 @@ public class ShapeExplorerTest {
         Assert.assertFalse(isTrapezium);
     }
 
-    /*@Test(description = "Positive script for the quadrangle convex test")
+    @Test(description = "Negative script for the quadrangle convex test")
     public void testIsConvex1() {
         quadrangle = new Quadrangle(Arrays
                 .asList(new Point(-2.0, 1.0),
@@ -93,10 +93,10 @@ public class ShapeExplorerTest {
                         new Point(1.0, 2.0)));
         ShapeExplorer quadrangleType = new ShapeExplorer(quadrangle);
         boolean isConvex = quadrangleType.isConvex();
-        Assert.assertTrue(isConvex);
-    }*/
+        Assert.assertFalse(isConvex);
+    }
 
-    /*@Test(description = "Negative script for the quadrangle convex test")
+    @Test(description = "Positive script for the quadrangle convex test")
     public void testIsConvex2() {
         quadrangle = new Quadrangle(Arrays
                 .asList(new Point(-2.0, 2.0),
@@ -105,7 +105,6 @@ public class ShapeExplorerTest {
                         new Point(-3.0, -4.0)));
         ShapeExplorer quadrangleType = new ShapeExplorer(quadrangle);
         boolean isConvex = quadrangleType.isConvex();
-        Assert.assertFalse(isConvex);
-    }*/
-
+        Assert.assertTrue(isConvex);
+    }
 }

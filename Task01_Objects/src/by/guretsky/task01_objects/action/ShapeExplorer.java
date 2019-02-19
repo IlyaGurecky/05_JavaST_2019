@@ -1,5 +1,6 @@
 package by.guretsky.task01_objects.action;
 
+import by.guretsky.task01_objects.entity.Point;
 import by.guretsky.task01_objects.entity.Quadrangle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,8 +14,8 @@ public class ShapeExplorer {
     private ShapeExplorer() {
     }
 
-    public ShapeExplorer(final Quadrangle quadrangle) {
-        this.quadrangle = quadrangle;
+    public ShapeExplorer(final Quadrangle initQuadrangle) {
+        this.quadrangle = initQuadrangle;
     }
 
     public boolean isSquare() {
@@ -48,8 +49,8 @@ public class ShapeExplorer {
         }
     }
 
-    private Double getAngularCoeff(final int firstPointIndex,
-                                   final int secondPointIndex) {
+    private Double getAngularCoefficient(final int firstPointIndex,
+                                         final int secondPointIndex) {
         return (quadrangle.getPoint(firstPointIndex).getX()
                 - quadrangle.getPoint(secondPointIndex).getX())
                 / (quadrangle.getPoint(firstPointIndex).getY()
@@ -57,10 +58,10 @@ public class ShapeExplorer {
     }
 
     public boolean isTrapezium() {
-        Double angularCoefficient1 = getAngularCoeff(0, 1);
-        Double angularCoefficient2 = getAngularCoeff(1, 2);
-        Double angularCoefficient3 = getAngularCoeff(3, 2);
-        Double angularCoefficient4 = getAngularCoeff(0, 3);
+        Double angularCoefficient1 = getAngularCoefficient(0, 1);
+        Double angularCoefficient2 = getAngularCoefficient(1, 2);
+        Double angularCoefficient3 = getAngularCoefficient(3, 2);
+        Double angularCoefficient4 = getAngularCoefficient(0, 3);
 
         return (angularCoefficient1.equals(angularCoefficient3)
                 && !angularCoefficient2.equals(angularCoefficient4)
@@ -68,8 +69,34 @@ public class ShapeExplorer {
                 && !angularCoefficient1.equals(angularCoefficient3));
     }
 
-    public boolean isConvex() {
+    private boolean isPointsInOneHalfPlane(final Point diagonalPoint1,
+                                           final Point diagonalPoint2,
+                                           final Point checkPoint1,
+                                           final Point checkPoint2) {
+        double result1 = ((checkPoint1.getX() - diagonalPoint1.getX())
+                / (diagonalPoint2.getX() - diagonalPoint1.getX()))
+                - ((checkPoint1.getY() - diagonalPoint1.getY())
+                / (diagonalPoint2.getY() - diagonalPoint1.getY()));
 
-        return false;
+        double result2 = ((checkPoint2.getX() - diagonalPoint1.getX())
+                / (diagonalPoint2.getX() - diagonalPoint1.getX()))
+                - ((checkPoint2.getY() - diagonalPoint1.getY())
+                / (diagonalPoint2.getY() - diagonalPoint1.getY()));
+
+        return (result1 > 0 && result2 > 0) || (result1 < 0 && result2 < 0);
+    }
+
+    public boolean isConvex() {
+        Point point1 = quadrangle.getPoint(0);
+        Point point2 = quadrangle.getPoint(1);
+        Point point3 = quadrangle.getPoint(2);
+        Point point4 = quadrangle.getPoint(3);
+
+        boolean isInOneHalfPlane1 = isPointsInOneHalfPlane(point1, point3,
+                point2, point4);
+        boolean isInOneHalfPlane2 = isPointsInOneHalfPlane(point2, point4,
+                point1, point3);
+
+        return !isInOneHalfPlane1 && !isInOneHalfPlane2;
     }
 }
