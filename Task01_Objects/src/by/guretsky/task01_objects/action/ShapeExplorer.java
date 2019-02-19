@@ -19,28 +19,33 @@ public class ShapeExplorer {
     }
 
     public boolean isSquare() {
-        Double diagonal1 = calculator.calculateSide(quadrangle.getPoint(0),
-                quadrangle.getPoint(2));
-        Double diagonal2 = calculator.calculateSide(quadrangle.getPoint(1),
-                quadrangle.getPoint(3));
-        if (diagonal1.equals(diagonal2)) {
-            LOGGER.info("This quadrangle is square");
-            return true;
-        } else {
-            return false;
-        }
+        final int point1 = 0;
+        final int point2 = 1;
+        final int point3 = 2;
+        final int point4 = 3;
+
+        Double diagonal1 = calculator.calculateSide(quadrangle.getPoint(point1),
+                quadrangle.getPoint(point3));
+        Double diagonal2 = calculator.calculateSide(quadrangle.getPoint(point2),
+                quadrangle.getPoint(point4));
+        return diagonal1.equals(diagonal2);
     }
 
     public boolean isRhombus() {
+        final int point1 = 0;
+        final int point2 = 1;
+        final int point3 = 2;
+        final int point4 = 3;
+
         if (!isSquare()) {
-            Double sideA = calculator.calculateSide(quadrangle.getPoint(0),
-                    quadrangle.getPoint(1));
-            Double sideB = calculator.calculateSide(quadrangle.getPoint(1),
-                    quadrangle.getPoint(2));
-            Double sideC = calculator.calculateSide(quadrangle.getPoint(2),
-                    quadrangle.getPoint(3));
-            Double sideD = calculator.calculateSide(quadrangle.getPoint(3),
-                    quadrangle.getPoint(0));
+            Double sideA = calculator.calculateSide(quadrangle.getPoint(point1),
+                    quadrangle.getPoint(point2));
+            Double sideB = calculator.calculateSide(quadrangle.getPoint(point2),
+                    quadrangle.getPoint(point3));
+            Double sideC = calculator.calculateSide(quadrangle.getPoint(point3),
+                    quadrangle.getPoint(point4));
+            Double sideD = calculator.calculateSide(quadrangle.getPoint(point4),
+                    quadrangle.getPoint(point1));
 
             return sideA.equals(sideB) && sideA.equals(sideC)
                     && sideA.equals(sideD);
@@ -58,10 +63,15 @@ public class ShapeExplorer {
     }
 
     public boolean isTrapezium() {
-        Double angularCoefficient1 = getAngularCoefficient(0, 1);
-        Double angularCoefficient2 = getAngularCoefficient(1, 2);
-        Double angularCoefficient3 = getAngularCoefficient(3, 2);
-        Double angularCoefficient4 = getAngularCoefficient(0, 3);
+        final int point1 = 0;
+        final int point2 = 1;
+        final int point3 = 2;
+        final int point4 = 3;
+
+        Double angularCoefficient1 = getAngularCoefficient(point1, point2);
+        Double angularCoefficient2 = getAngularCoefficient(point2, point3);
+        Double angularCoefficient3 = getAngularCoefficient(point4, point3);
+        Double angularCoefficient4 = getAngularCoefficient(point1, point4);
 
         return (angularCoefficient1.equals(angularCoefficient3)
                 && !angularCoefficient2.equals(angularCoefficient4)
@@ -87,10 +97,15 @@ public class ShapeExplorer {
     }
 
     public boolean isConvex() {
-        Point point1 = quadrangle.getPoint(0);
-        Point point2 = quadrangle.getPoint(1);
-        Point point3 = quadrangle.getPoint(2);
-        Point point4 = quadrangle.getPoint(3);
+        final int firstPoint = 0;
+        final int secondPoint = 1;
+        final int thirdPoint = 2;
+        final int fourthPoint = 3;
+
+        Point point1 = quadrangle.getPoint(firstPoint);
+        Point point2 = quadrangle.getPoint(secondPoint);
+        Point point3 = quadrangle.getPoint(thirdPoint);
+        Point point4 = quadrangle.getPoint(fourthPoint);
 
         boolean isInOneHalfPlane1 = isPointsInOneHalfPlane(point1, point3,
                 point2, point4);

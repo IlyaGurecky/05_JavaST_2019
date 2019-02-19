@@ -7,10 +7,15 @@ import java.util.List;
 public class QuadrangleValidator {
 
     public boolean isQuadrangle(final List<Point> points) {
-        Point point1 = points.get(0);
-        Point point2 = points.get(1);
-        Point point3 = points.get(2);
-        Point point4 = points.get(3);
+        final int firstPoint = 0;
+        final int secondPoint = 1;
+        final int thirdPoint = 2;
+        final int fourthPoint = 3;
+
+        Point point1 = points.get(firstPoint);
+        Point point2 = points.get(secondPoint);
+        Point point3 = points.get(thirdPoint);
+        Point point4 = points.get(fourthPoint);
 
         boolean firstCheck = checkPoints(point1, point2, point3);
         boolean secondCheck = checkPoints(point1, point2, point4);
