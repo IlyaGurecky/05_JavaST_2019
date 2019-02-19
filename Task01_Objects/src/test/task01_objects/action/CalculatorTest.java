@@ -32,7 +32,7 @@ public class CalculatorTest {
 
     @Test(description = "Positive script of the square calculation",
             dataProvider = "data_for_square")
-    public void testSquare(Quadrangle quadrangle, double s) {
+    public void testSquare(final Quadrangle quadrangle, final double s) {
         Double expected = s;
         Double actual = calculator.square(quadrangle);
         Assert.assertEquals(actual, expected);
@@ -56,7 +56,7 @@ public class CalculatorTest {
 
     @Test(description = "Positive script of the perimeter calculation",
             dataProvider = "data_for_perimeter")
-    public void testPerimeter(Quadrangle quadrangle, double s) {
+    public void testPerimeter(final Quadrangle quadrangle, final double s) {
         Double expected = s;
         Double actual = calculator.perimeter(quadrangle);
         Assert.assertEquals(actual, expected);
@@ -76,7 +76,8 @@ public class CalculatorTest {
 
     @Test(description = "Positive script for the side length calculator",
             dataProvider = "data_for_side")
-    public void testCalculateSide(Point point1, Point point2, double len) {
+    public void testCalculateSide(final Point point1, final Point point2,
+                                  final double len) {
         Double expected = len;
         Double actual = calculator.calculateSide(point1, point2);
         Assert.assertEquals(actual, expected);

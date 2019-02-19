@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings("CheckStyle")
 public class FileDataReaderTest {
     private static final String FILE_PATH = "data" + File.separator
             + "test.txt";

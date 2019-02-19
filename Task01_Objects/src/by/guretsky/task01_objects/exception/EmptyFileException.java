@@ -4,7 +4,7 @@ public class EmptyFileException extends Exception {
     public EmptyFileException() {
     }
 
-    public EmptyFileException(String message) {
+    public EmptyFileException(final String message) {
         super(message);
     }
 }

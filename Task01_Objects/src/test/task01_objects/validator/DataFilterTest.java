@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings("CheckStyle")
 public class DataFilterTest {
     private static final String FILE_PATH = "data" + File.separator
             + "info.txt";

@@ -8,7 +8,8 @@ import java.util.Map;
 public class DataParser {
     private static final String SPLIT_PATTERN = "\\s+";
 
-    public Map<Integer, List<Double>> parseDouble(final List<String> filteredList) {
+    public Map<Integer, List<Double>> parseDouble(final List<String>
+                                                          filteredList) {
         Map<Integer, List<Double>> parsedDataMap = new HashMap<>();
         List<Double> numbers;
         int lineCounter = 0;

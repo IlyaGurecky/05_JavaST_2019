@@ -16,14 +16,16 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileDataReader {
-    private static final Logger LOGGER = LogManager.getLogger(FileDataReader.class);
+    private static final Logger LOGGER = LogManager
+            .getLogger(FileDataReader.class);
     private Path path;
     private List<String> stringList = new ArrayList<>();
 
     private FileDataReader() {
     }
 
-    public FileDataReader(final String filePath) throws FileDoesNotExistException {
+    public FileDataReader(final String filePath) throws
+            FileDoesNotExistException {
         if (filePath != null) {
             path = Paths.get(filePath);
         } else {
