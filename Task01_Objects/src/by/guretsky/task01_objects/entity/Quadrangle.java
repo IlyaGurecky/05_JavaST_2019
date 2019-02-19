@@ -12,12 +12,16 @@ public class Quadrangle {
         this.points = pointsFromFile;
     }
 
-    public List<Point> getPoints() {
-        return points;
+    public Point getPoint(final int index) {
+        return points.get(index);
     }
 
-    public void setPoints(final List<Point> pointsFromFile) {
-        this.points = pointsFromFile;
+    public void setPointX(final int pointIndex, final Double x) {
+        this.points.get(pointIndex).setX(x);
+    }
+
+    public void setPointY(final int pointIndex, final Double y) {
+        this.points.get(pointIndex).setY(y);
     }
 
     @Override
