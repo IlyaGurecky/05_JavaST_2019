@@ -95,8 +95,16 @@ public class Point {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((x == null) ? 0 : x.hashCode());
-        result = prime * result + ((y == null) ? 0 : y.hashCode());
+        if (x == null) {
+            result = prime * result;
+        } else {
+            result = prime * result + x.hashCode();
+        }
+        if (y == null) {
+            result = prime * result;
+        } else {
+            result = prime * result + y.hashCode();
+        }
         return result;
     }
 
