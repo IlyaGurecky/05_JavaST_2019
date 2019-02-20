@@ -1,5 +1,5 @@
 /**
- * Entity classes need to store data.
+ * Geometry classes need to store data.
  *
  * @author ilyaguretsky
  */

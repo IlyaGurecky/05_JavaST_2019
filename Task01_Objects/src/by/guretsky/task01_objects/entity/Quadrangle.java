@@ -1,5 +1,9 @@
 package by.guretsky.task01_objects.entity;
 
+import by.guretsky.task01_objects.exception.IncorrectQuadranglePointsException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
 
 /**
@@ -7,7 +11,12 @@ import java.util.List;
  *
  * @author ilyaguretsky
  */
-public class Quadrangle {
+public class Quadrangle implements Geometry {
+    /**
+     * Logger, which used to log events.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(Quadrangle.class);
+
     /**
      * List of the {@link Point}, which form a quadrangle.
      */
@@ -25,9 +34,19 @@ public class Quadrangle {
      * Constructor - to create new object with special parameter.
      *
      * @param pointsFromFile list of the {@link Point}
+     * @throws IncorrectQuadranglePointsException if amount of point is
+     *                                            incorrect
      */
-    public Quadrangle(final List<Point> pointsFromFile) {
-        this.points = pointsFromFile;
+    public Quadrangle(final List<Point> pointsFromFile) throws
+            IncorrectQuadranglePointsException {
+        final int numberOfElements = 4;
+        if (pointsFromFile.size() == numberOfElements) {
+            this.points = pointsFromFile;
+        } else {
+            LOGGER.error("The number of points is not equal to 4");
+            throw new IncorrectQuadranglePointsException("Incorrect amount "
+                    + " of points");
+        }
     }
 
     /**

@@ -9,10 +9,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@SuppressWarnings("CheckStyle")
+/**
+ * Test class for {@link QuadrangleValidator}.
+ */
 public class QuadrangleValidatorTest {
+    /**
+     * The list of the {@link Point} objects, which form the
+     * {@link by.guretsky.task01_objects.entity.Quadrangle}.
+     */
     private List<Point> pointsList;
 
+    /**
+     * Positive test method for {@link QuadrangleValidator#isQuadrangle(List)}.
+     */
     @Test(description = "Positive script for the fact that our"
             + " figure is quadrangle")
     public void testIsQuadrangle() {
@@ -26,6 +35,9 @@ public class QuadrangleValidatorTest {
         Assert.assertTrue(isQuadrangle);
     }
 
+    /**
+     * Negative test method for {@link QuadrangleValidator#isQuadrangle(List)}.
+     */
     @Test(description = "Negative script for the fact that our"
             + " figure is quadrangle")
     public void testIsNotQuadrangle() {

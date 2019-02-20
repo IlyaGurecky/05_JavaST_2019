@@ -9,9 +9,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@SuppressWarnings("CheckStyle")
+/**
+ * Test class for {@link PointFactoryImpl}.
+ */
 public class PointFactoryImplTest {
-
+    /**
+     * Positive test method for {@link PointFactoryImpl#createPointsList(List)}.
+     */
     @Test(description = "Positive script for point list creator")
     public void testCreatePoints() {
         List<Double> xy = new ArrayList<>(Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0,
@@ -23,7 +27,6 @@ public class PointFactoryImplTest {
                         new Point(5.0, 6.0),
                         new Point(7.0, 8.0)));
         List<Point> actualPointsList = creator.createPointsList(xy);
-
         Assert.assertEquals(actualPointsList, expected);
     }
 }

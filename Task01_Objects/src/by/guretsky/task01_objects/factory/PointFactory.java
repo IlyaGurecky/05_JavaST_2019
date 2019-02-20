@@ -5,7 +5,7 @@ import by.guretsky.task01_objects.entity.Point;
 /**
  * Interface for point factory.
  */
-public interface PointFactory extends Factory {
+public interface PointFactory extends Factory<Point> {
     /**
      * The method creates {@link Point} object.
      *

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Interface for quadrangle factory.
  */
-public interface QuadrangleFactory extends Factory {
+public interface QuadrangleFactory extends Factory<Quadrangle> {
     /**
      * The method validates list of the {@link Point} and
      * create {@link Quadrangle} object.

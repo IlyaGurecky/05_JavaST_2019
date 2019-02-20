@@ -7,10 +7,10 @@ import by.guretsky.task01_objects.validator.QuadrangleValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Quadrangle factory. Include create methods for the one {@link Quadrangle}

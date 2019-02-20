@@ -11,11 +11,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-@SuppressWarnings("CheckStyle")
+/**
+ * Test class for {@link DataParser}.
+ */
 public class DataParserTest {
+    /**
+     * Expected map.
+     */
     private Map<Integer, List<Double>> expected;
+    /**
+     * List of the string numbers.
+     */
     private List<String> stringList;
 
+    /**
+     * Initialization method.
+     */
     @BeforeTest
     public void initialization() {
         stringList = new ArrayList<>(Arrays.asList("1 2 3 4", "2 4 5 6"));
@@ -28,6 +39,9 @@ public class DataParserTest {
         expected.put(1, doubles2);
     }
 
+    /**
+     * Test method for {@link DataParser#parseDouble(List)}.
+     */
     @Test(description = "Positive script for the data parser")
     public void testParseDouble() {
         DataParser dataParser = new DataParser();

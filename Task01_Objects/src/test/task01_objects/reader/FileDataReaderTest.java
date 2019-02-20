@@ -10,12 +10,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@SuppressWarnings("CheckStyle")
+/**
+ * Test class for {@link FileDataReader}.
+ */
 public class FileDataReaderTest {
+    /**
+     * Path of the info file.
+     */
     private static final String FILE_PATH = "data" + File.separator
             + "test.txt";
+    /**
+     * {@link FileDataReader} object.
+     */
     private FileDataReader fileDataReader;
 
+    /**
+     * Negative test method for {@link FileDataReader#readStringList()}.
+     *
+     * @throws FileDoesNotExistException if file doesn't exist
+     */
     @Test(description = "Negative script when file path is null",
             expectedExceptions = FileDoesNotExistException.class)
     public void testReadStringList1() throws FileDoesNotExistException {
@@ -26,6 +39,11 @@ public class FileDataReaderTest {
         Assert.assertEquals(actualInfo, expected);
     }
 
+    /**
+     * Positive test method for {@link FileDataReader#readStringList()}.
+     *
+     * @throws FileDoesNotExistException if file doesn't exist
+     */
     @Test(description = "Positive script for reader")
     public void testReadStringList2() throws FileDoesNotExistException {
         fileDataReader = new FileDataReader(FILE_PATH);

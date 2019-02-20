@@ -3,33 +3,57 @@ package test.task01_objects.action;
 import by.guretsky.task01_objects.action.Calculator;
 import by.guretsky.task01_objects.entity.Point;
 import by.guretsky.task01_objects.entity.Quadrangle;
+import by.guretsky.task01_objects.exception.IncorrectQuadranglePointsException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 
-@SuppressWarnings("CheckStyle")
+/**
+ * Test class for {@link Calculator}.
+ */
 public class CalculatorTest {
+    /**
+     * {@link Calculator} object.
+     */
     private final Calculator calculator =
             new Calculator();
 
+    /**
+     * Data provider to square test method.
+     *
+     * @return Object[][]
+     * @throws IncorrectQuadranglePointsException if amount of points are not
+     *                                            equals to 4
+     */
     @DataProvider(name = "data_for_square")
-    public Object[][] createCorrectData1() {
+    public Object[][] createCorrectData1() throws
+            IncorrectQuadranglePointsException {
+        final double firstExpectedSquare = 30.0;
+        final double secondExpectedSquare = 8.0;
         return new Object[][]{
                 {new Quadrangle(Arrays
                         .asList(new Point(2.0, 2.0),
                                 new Point(4.0, -3.0),
                                 new Point(-4.0, -3.0),
-                                new Point(-2.0, 2.0))), 30.0},
+                                new Point(-2.0, 2.0))),
+                        firstExpectedSquare},
                 {new Quadrangle(Arrays
                         .asList(new Point(1.0, 4.0),
                                 new Point(1.0, 0.0),
                                 new Point(-1.0, 0.0),
-                                new Point(-1.0, 4.0))), 8.0},
+                                new Point(-1.0, 4.0))),
+                        secondExpectedSquare},
         };
     }
 
+    /**
+     * Positive test method for square calculation.
+     *
+     * @param quadrangle {@link Quadrangle} object
+     * @param s          expected square
+     */
     @Test(description = "Positive script of the square calculation",
             dataProvider = "data_for_square")
     public void testSquare(final Quadrangle quadrangle, final double s) {
@@ -38,8 +62,16 @@ public class CalculatorTest {
         Assert.assertEquals(actual, expected);
     }
 
+    /**
+     * Data provider to perimeter test method.
+     *
+     * @return Object[][]
+     * @throws IncorrectQuadranglePointsException if amount of points are not
+     *                                            equals to 4
+     */
     @DataProvider(name = "data_for_perimeter")
-    public Object[][] createCorrectData2() {
+    public Object[][] createCorrectData2() throws
+            IncorrectQuadranglePointsException {
         return new Object[][]{
                 {new Quadrangle(Arrays
                         .asList(new Point(2.0, 2.0),
@@ -54,6 +86,12 @@ public class CalculatorTest {
         };
     }
 
+    /**
+     * Positive test method for perimeter calculation.
+     *
+     * @param quadrangle {@link Quadrangle} object
+     * @param s          expected perimeter
+     */
     @Test(description = "Positive script of the perimeter calculation",
             dataProvider = "data_for_perimeter")
     public void testPerimeter(final Quadrangle quadrangle, final double s) {
@@ -62,6 +100,11 @@ public class CalculatorTest {
         Assert.assertEquals(actual, expected);
     }
 
+    /**
+     * Data provider to side calculate test method.
+     *
+     * @return Object[][]
+     */
     @DataProvider(name = "data_for_side")
     public Object[][] createCorrectData3() {
         return new Object[][]{
@@ -74,6 +117,13 @@ public class CalculatorTest {
         };
     }
 
+    /**
+     * Positive test method for side calculate.
+     *
+     * @param point1 first side point
+     * @param point2 second side point
+     * @param len    expected side length
+     */
     @Test(description = "Positive script for the side length calculator",
             dataProvider = "data_for_side")
     public void testCalculateSide(final Point point1, final Point point2,

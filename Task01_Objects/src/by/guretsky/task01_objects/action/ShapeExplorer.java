@@ -49,7 +49,7 @@ public class ShapeExplorer {
                 quadrangle.getPoint(point3));
         Double diagonal2 = calculator.calculateSide(quadrangle.getPoint(point2),
                 quadrangle.getPoint(point4));
-        return diagonal1.equals(diagonal2);
+        return diagonal1.compareTo(diagonal2) == 0;
     }
 
     /**
@@ -73,8 +73,9 @@ public class ShapeExplorer {
             Double sideD = calculator.calculateSide(quadrangle.getPoint(point4),
                     quadrangle.getPoint(point1));
 
-            return sideA.equals(sideB) && sideA.equals(sideC)
-                    && sideA.equals(sideD);
+            return (sideA.compareTo(sideB) == 0)
+                    && (sideA.compareTo(sideC) == 0)
+                    && (sideA.compareTo(sideD) == 0);
         } else {
             return false;
         }
@@ -87,8 +88,8 @@ public class ShapeExplorer {
      * @param secondPointIndex second side point
      * @return angular coefficient of the line
      */
-    private Double getAngularCoefficient(final int firstPointIndex,
-                                         final int secondPointIndex) {
+    private Double calcAngularCoefficient(final int firstPointIndex,
+                                          final int secondPointIndex) {
         return (quadrangle.getPoint(firstPointIndex).getX()
                 - quadrangle.getPoint(secondPointIndex).getX())
                 / (quadrangle.getPoint(firstPointIndex).getY()
@@ -106,15 +107,15 @@ public class ShapeExplorer {
         final int point3 = 2;
         final int point4 = 3;
 
-        Double angularCoefficient1 = getAngularCoefficient(point1, point2);
-        Double angularCoefficient2 = getAngularCoefficient(point2, point3);
-        Double angularCoefficient3 = getAngularCoefficient(point4, point3);
-        Double angularCoefficient4 = getAngularCoefficient(point1, point4);
+        Double angularCoefficient1 = calcAngularCoefficient(point1, point2);
+        Double angularCoefficient2 = calcAngularCoefficient(point2, point3);
+        Double angularCoefficient3 = calcAngularCoefficient(point4, point3);
+        Double angularCoefficient4 = calcAngularCoefficient(point1, point4);
 
-        return (angularCoefficient1.equals(angularCoefficient3)
-                && !angularCoefficient2.equals(angularCoefficient4)
-                || angularCoefficient2.equals(angularCoefficient4)
-                && !angularCoefficient1.equals(angularCoefficient3));
+        return (angularCoefficient1.compareTo(angularCoefficient3) == 0
+                && angularCoefficient2.compareTo(angularCoefficient4) != 0)
+                || (angularCoefficient2.compareTo(angularCoefficient4) == 0
+                && angularCoefficient1.compareTo(angularCoefficient3) != 0);
     }
 
     /**

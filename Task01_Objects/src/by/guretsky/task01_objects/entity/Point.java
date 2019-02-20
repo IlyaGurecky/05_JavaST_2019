@@ -5,7 +5,7 @@ package by.guretsky.task01_objects.entity;
  *
  * @author ilyaguretsky
  */
-public class Point {
+public class Point implements Geometry {
     /**
      * X coordinate.
      */
@@ -84,8 +84,8 @@ public class Point {
             return false;
         }
         Point point = (Point) o;
-        return x.equals(point.x)
-                && y.equals(point.y);
+        return Double.compare(x, point.x) == 0
+                && Double.compare(y, point.y) == 0;
     }
 
     /**
