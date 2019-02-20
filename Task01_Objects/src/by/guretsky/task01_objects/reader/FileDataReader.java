@@ -15,15 +15,38 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Data reader class. Include method to read data from file.
+ */
 public class FileDataReader {
+    /**
+     * Logger, which used to log event.
+     */
     private static final Logger LOGGER = LogManager
             .getLogger(FileDataReader.class);
+    /**
+     * Need to work with files.
+     */
     private Path path;
+    /**
+     * List of the file lines.
+     */
     private List<String> stringList = new ArrayList<>();
 
+    /**
+     * Private constructor.
+     *
+     * @see FileDataReader#FileDataReader(String)
+     */
     private FileDataReader() {
     }
 
+    /**
+     * Constructor - to create object with parameters.
+     *
+     * @param filePath path to the file
+     * @throws FileDoesNotExistException if file doesn't exist
+     */
     public FileDataReader(final String filePath) throws
             FileDoesNotExistException {
         if (filePath != null) {
@@ -33,6 +56,11 @@ public class FileDataReader {
         }
     }
 
+    /**
+     * Method read information from file and collect to the list.
+     *
+     * @return list of the file lines
+     */
     public List<String> readStringList() {
         try (Stream<String> stringStream = Files.lines(path)) {
             stringList = stringStream.collect(Collectors.toList());

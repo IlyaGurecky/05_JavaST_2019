@@ -2,22 +2,44 @@ package by.guretsky.task01_objects.action;
 
 import by.guretsky.task01_objects.entity.Point;
 import by.guretsky.task01_objects.entity.Quadrangle;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
+/**
+ * Class for determine the type of {@link Quadrangle}.
+ */
 public class ShapeExplorer {
-    private static final Logger LOGGER = LogManager
-            .getLogger(ShapeExplorer.class);
+
+    /**
+     * Object, which used to calculate side length
+     * {@link Calculator#calculateSide(Point, Point)}.
+     */
     private final Calculator calculator = new Calculator();
+    /**
+     * {@link Quadrangle} object.
+     */
     private Quadrangle quadrangle;
 
+    /**
+     * Private constructor.
+     *
+     * @see ShapeExplorer#ShapeExplorer(Quadrangle)
+     */
     private ShapeExplorer() {
     }
 
+    /**
+     * Constructor, which used to create object with parameters.
+     *
+     * @param initQuadrangle {@link Quadrangle} object
+     */
     public ShapeExplorer(final Quadrangle initQuadrangle) {
         this.quadrangle = initQuadrangle;
     }
 
+    /**
+     * The Method checks whether the figure is square.
+     *
+     * @return true if the figure is square
+     */
     public boolean isSquare() {
         final int point1 = 0;
         final int point2 = 1;
@@ -31,6 +53,11 @@ public class ShapeExplorer {
         return diagonal1.equals(diagonal2);
     }
 
+    /**
+     * The Method checks whether the figure is rhombus.
+     *
+     * @return true if the figure is rhombus
+     */
     public boolean isRhombus() {
         final int point1 = 0;
         final int point2 = 1;
@@ -54,6 +81,13 @@ public class ShapeExplorer {
         }
     }
 
+    /**
+     * The method calculates the angular coefficient of the line.
+     *
+     * @param firstPointIndex  first side point
+     * @param secondPointIndex second side point
+     * @return angular coefficient of the line
+     */
     private Double getAngularCoefficient(final int firstPointIndex,
                                          final int secondPointIndex) {
         return (quadrangle.getPoint(firstPointIndex).getX()
@@ -62,6 +96,11 @@ public class ShapeExplorer {
                 - quadrangle.getPoint(secondPointIndex).getY());
     }
 
+    /**
+     * The method checks whether the figure is trapezium.
+     *
+     * @return true if the figure is trapezium
+     */
     public boolean isTrapezium() {
         final int point1 = 0;
         final int point2 = 1;
@@ -79,6 +118,15 @@ public class ShapeExplorer {
                 && !angularCoefficient1.equals(angularCoefficient3));
     }
 
+    /**
+     * The method checks if the points are on the same half-plane.
+     *
+     * @param diagonalPoint1 first point of diagonal line
+     * @param diagonalPoint2 second point of diagonal line
+     * @param checkPoint1    point, which need to check
+     * @param checkPoint2    point, which need to check
+     * @return true if the checkPoints are on the same half-plane
+     */
     private boolean isPointsInOneHalfPlane(final Point diagonalPoint1,
                                            final Point diagonalPoint2,
                                            final Point checkPoint1,
@@ -96,6 +144,11 @@ public class ShapeExplorer {
         return (result1 > 0 && result2 > 0) || (result1 < 0 && result2 < 0);
     }
 
+    /**
+     * The method checks whether the figure is convex.
+     *
+     * @return true if the figure is convex
+     */
     public boolean isConvex() {
         final int firstPoint = 0;
         final int secondPoint = 1;

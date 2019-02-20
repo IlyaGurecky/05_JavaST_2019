@@ -3,7 +3,17 @@ package by.guretsky.task01_objects.action;
 import by.guretsky.task01_objects.entity.Point;
 import by.guretsky.task01_objects.entity.Quadrangle;
 
+/**
+ * Class include methods, which calculate square, perimeter and side length
+ * of the  {@link Quadrangle}.
+ */
 public class Calculator {
+    /**
+     * The method calculates square of the {@link Quadrangle}.
+     *
+     * @param quadrangle Quadrangle object
+     * @return square of the {@link Quadrangle}
+     */
     public Double square(final Quadrangle quadrangle) {
         final int firstPoint = 0;
         final int secondPoint = 1;
@@ -28,6 +38,13 @@ public class Calculator {
                 * quadrangle.getPoint(fourthPoint).getY()) / 2;
     }
 
+    /**
+     * The method calculates {@link Quadrangle} side length.
+     *
+     * @param point1 first side point
+     * @param point2 second side point
+     * @return length of the side
+     */
     public Double calculateSide(final Point point1,
                                 final Point point2) {
         return Math.sqrt((point1.getX() - point2.getX())
@@ -35,6 +52,12 @@ public class Calculator {
                 - point2.getY()) * (point1.getY() - point2.getY()));
     }
 
+    /**
+     * The method calculates perimeter of the {@link Quadrangle} object.
+     *
+     * @param quadrangle {@link Quadrangle} object
+     * @return perimeter of the quadrangle
+     */
     public Double perimeter(final Quadrangle quadrangle) {
         final int firstPoint = 0;
         final int secondPoint = 1;
