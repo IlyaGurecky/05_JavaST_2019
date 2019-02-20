@@ -15,7 +15,7 @@ public class DataParser {
     private static final String SPLIT_PATTERN = "\\s+";
 
     /**
-     * Method parse list of the string numbers into double list and add this
+     * The method parse list of the string numbers into double list and add this
      * list in Map.
      *
      * @param filteredList list of the string numbers, which we want to parse

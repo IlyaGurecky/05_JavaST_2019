@@ -18,7 +18,7 @@ import java.util.Set;
  */
 public class QuadrangleFactoryImpl implements QuadrangleFactory {
     /**
-     * Logger to log events in the class.
+     * Logger, which used to log events in the class.
      */
     private static final Logger LOGGER = LogManager
             .getLogger(QuadrangleFactoryImpl.class);
@@ -37,14 +37,14 @@ public class QuadrangleFactoryImpl implements QuadrangleFactory {
         if (validator.isQuadrangle(points)) {
             return new Quadrangle(points);
         } else {
-            LOGGER.error("You can't create quadrangle with this points:"
+            LOGGER.error("You can't create quadrangle with " + points
                     + " are on one line");
             throw new IncorrectQuadranglePointsException("Points in one line");
         }
     }
 
     /**
-     * Method create list of the quadrangle objects from the Map of
+     * The method creates list of the quadrangle objects from the Map of
      * different coordinates.
      *
      * @param info Map of the coordinates

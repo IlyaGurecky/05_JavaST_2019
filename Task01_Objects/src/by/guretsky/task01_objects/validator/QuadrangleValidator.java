@@ -9,9 +9,8 @@ import java.util.List;
  * {@link by.guretsky.task01_objects.entity.Quadrangle}.
  */
 public class QuadrangleValidator {
-
     /**
-     * Method check if list of the {@link Point} is correct to create an
+     * The method checks if list of the {@link Point} is correct to create an
      * {@link by.guretsky.task01_objects.entity.Quadrangle} object.
      *
      * @param points list of the point, which form figure

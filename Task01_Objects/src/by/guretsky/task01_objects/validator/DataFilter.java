@@ -24,7 +24,7 @@ public class DataFilter {
     private static final String SPLIT_PATTERN = "\\s+";
 
     /**
-     * Method used to filter data and create list of correct information.
+     * The method used to filter data and create list of correct information.
      *
      * @param fileData string list of the data to be filtered
      * @return filtered string list

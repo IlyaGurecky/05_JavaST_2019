@@ -24,7 +24,7 @@ public class PointFactoryImpl implements PointFactory {
     }
 
     /**
-     * Method create list of the points.
+     * The method creates list of the points.
      *
      * @param points list of the double numbers
      * @return list of the points

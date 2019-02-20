@@ -11,8 +11,8 @@ import java.util.List;
  */
 public interface QuadrangleFactory extends Factory {
     /**
-     * Method validate list of the {@link Point} and create {@link Quadrangle}
-     * object.
+     * The method validates list of the {@link Point} and
+     * create {@link Quadrangle} object.
      *
      * @param points list of the points, which form quadrangle
      * @return {@link Quadrangle} object

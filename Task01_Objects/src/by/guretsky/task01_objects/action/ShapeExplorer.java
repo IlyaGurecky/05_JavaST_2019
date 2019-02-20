@@ -7,7 +7,6 @@ import by.guretsky.task01_objects.entity.Quadrangle;
  * Class for determine the type of {@link Quadrangle}.
  */
 public class ShapeExplorer {
-
     /**
      * Object, which used to calculate side length
      * {@link Calculator#calculateSide(Point, Point)}.

@@ -7,7 +7,8 @@ import by.guretsky.task01_objects.entity.Point;
  */
 public interface PointFactory extends Factory {
     /**
-     * Method create {@link Point} object.
+     * The method creates {@link Point} object.
+     *
      * @param x X coordinate
      * @param y Y coordinate
      * @return Point object with X, Y coordinates

@@ -57,7 +57,7 @@ public class FileDataReader {
     }
 
     /**
-     * Method read information from file and collect to the list.
+     * The method reads information from file and collect to the list.
      *
      * @return list of the file lines
      */
