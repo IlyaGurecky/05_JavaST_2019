@@ -1,4 +1,5 @@
-This program lets to user calculate square and perimeter of quadrangle.
+This program lets to user calculate square and perimeter of quadrangle and
+determine its type.
 
 Input data in file: 4 2D dots (8 numbers). The points should be entered
 clockwise or counterclockwise.
