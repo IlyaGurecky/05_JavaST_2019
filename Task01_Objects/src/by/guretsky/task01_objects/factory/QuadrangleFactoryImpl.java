@@ -12,10 +12,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Quadrangle factory. Include create methods for the one {@link Quadrangle}
+ * object and for the list of quadrangles.
+ */
 public class QuadrangleFactoryImpl implements QuadrangleFactory {
+    /**
+     * Logger to log events in the class.
+     */
     private static final Logger LOGGER = LogManager
             .getLogger(QuadrangleFactoryImpl.class);
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param points list of the points, which form quadrangle
+     * @return
+     * @throws IncorrectQuadranglePointsException
+     */
     @Override
     public Quadrangle createQuadrangle(final List<Point> points) throws
             IncorrectQuadranglePointsException {
@@ -29,6 +43,15 @@ public class QuadrangleFactoryImpl implements QuadrangleFactory {
         }
     }
 
+    /**
+     * Method create list of the quadrangle objects from the Map of
+     * different coordinates.
+     *
+     * @param info Map of the coordinates
+     * @return list of the quadrangle objects
+     * @throws IncorrectQuadranglePointsException if points can't form
+     *                                            quadrangle object
+     */
     public List<Quadrangle> createQuadranglesList(final Map<Integer,
             List<Double>> info) throws IncorrectQuadranglePointsException {
         List<Quadrangle> quadrangles = new ArrayList<>();
