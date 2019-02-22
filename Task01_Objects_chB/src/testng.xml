@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name= "Suit1">
+    <test name = "test1">
+        <classes>
+            <class name = "test.task01_objects.action.CalculatorTest"/>
+            <class name = "test.task01_objects.action.ShapeExplorerTest"/>
+            <class name = "test.task01_objects.factory.PointFactoryImplTest"/>
+            <class name = "test.task01_objects.factory.QuadrangleFactoryImplTest"/>
+            <class name = "test.task01_objects.parser.DataParserTest"/>
+            <class name = "test.task01_objects.reader.FileDataReaderTest"/>
+            <class name = "test.task01_objects.validator.DataFilterTest"/>
+            <class name = "test.task01_objects.validator.QuadrangleValidatorTest"/>
+        </classes>
+    </test>
+</suite>
+
