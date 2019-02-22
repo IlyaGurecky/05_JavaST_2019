@@ -30,8 +30,8 @@ public class QuadrangleRepositorySingleton implements Observer {
     public void addFigure(final Quadrangle quadrangle) throws
             IncorrectArgumentException {
         if (quadrangle == null) {
-            LOGGER.error("Incorrect argument, we can't delete this "
-                    + " figure from repository");
+            LOGGER.error("Incorrect argument, we can't add this "
+                    + " figure to repository");
             throw new IncorrectArgumentException("Argument is null");
         }
         quadrangles.add(quadrangle);
