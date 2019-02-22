@@ -11,24 +11,24 @@
 
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="${patternshort}" />
+            <PatternLayout pattern="${patternshort}"/>
         </Console>
         <File name="TxtFile" fileName="logs/text.log" bufferedIO="true">
-            <PatternLayout pattern="${patternfull}" />
+            <PatternLayout pattern="${patternfull}"/>
         </File>
     </Appenders>
 
     <Loggers>
         <Logger name="by.training.log4j2hello.User" level="debug"
                 additivity="true">
-            <AppenderRef ref="Console" />
-            <AppenderRef ref="TxtFile" />
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="TxtFile"/>
         </Logger>
 
         <!-- Root Logger -->
         <Root level="all">
-            <AppenderRef ref="Console" />
-            <AppenderRef ref="TxtFile" />
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="TxtFile"/>
         </Root>
     </Loggers>
 

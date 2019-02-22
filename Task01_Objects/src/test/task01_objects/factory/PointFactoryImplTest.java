@@ -1,4 +1,4 @@
-package test.task01_objects.creator;
+package test.task01_objects.factory;
 
 import by.guretsky.task01_objects.entity.Point;
 import by.guretsky.task01_objects.factory.PointFactoryImpl;
@@ -16,7 +16,7 @@ public class PointFactoryImplTest {
     /**
      * Positive test method for {@link PointFactoryImpl#createPointsList(List)}.
      */
-    @Test(description = "Positive script for point list creator")
+    @Test(description = "Positive script for point list factory")
     public void testCreatePoints() {
         List<Double> xy = new ArrayList<>(Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0,
                 6.0, 7.0, 8.0));

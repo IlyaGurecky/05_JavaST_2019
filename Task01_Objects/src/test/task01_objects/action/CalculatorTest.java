@@ -72,17 +72,21 @@ public class CalculatorTest {
     @DataProvider(name = "data_for_perimeter")
     public Object[][] createCorrectData2() throws
             IncorrectQuadranglePointsException {
+        final double expectedPerimeter1 = 16.0;
+        final double expectedPerimeter2 = 10.0;
         return new Object[][]{
                 {new Quadrangle(Arrays
                         .asList(new Point(2.0, 2.0),
                                 new Point(2.0, -2.0),
                                 new Point(-2.0, -2.0),
-                                new Point(-2.0, 2.0))), 16.0},
+                                new Point(-2.0, 2.0))),
+                        expectedPerimeter1},
                 {new Quadrangle(Arrays
                         .asList(new Point(1.0, 3.0),
                                 new Point(1.0, 0.0),
                                 new Point(-1.0, 0.0),
-                                new Point(-1.0, 3.0))), 10.0},
+                                new Point(-1.0, 3.0))),
+                        expectedPerimeter2},
         };
     }
 
@@ -107,13 +111,19 @@ public class CalculatorTest {
      */
     @DataProvider(name = "data_for_side")
     public Object[][] createCorrectData3() {
+        final double expectedSideLength1 = 6.0;
+        final double expectedSideLength2 = 5.0;
+        final double expectedSideLength3 = 0.0;
         return new Object[][]{
                 {new Point(-2.0, 2.0),
-                        new Point(4.0, 2.0), 6.0},
+                        new Point(4.0, 2.0),
+                        expectedSideLength1},
                 {new Point(-2.0, -1.0),
-                        new Point(3.0, -1.0), 5.0},
+                        new Point(3.0, -1.0),
+                        expectedSideLength2},
                 {new Point(2.0, 2.0),
-                        new Point(2.0, 2.0), 0}
+                        new Point(2.0, 2.0),
+                        expectedSideLength3}
         };
     }
 
