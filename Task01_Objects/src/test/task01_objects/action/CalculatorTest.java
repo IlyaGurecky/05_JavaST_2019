@@ -3,7 +3,7 @@ package test.task01_objects.action;
 import by.guretsky.task01_objects.action.Calculator;
 import by.guretsky.task01_objects.entity.Point;
 import by.guretsky.task01_objects.entity.Quadrangle;
-import by.guretsky.task01_objects.exception.IncorrectQuadranglePointsException;
+import by.guretsky.task01_objects.exception.IncorrectQuadrangleDataException;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -24,12 +24,12 @@ public class CalculatorTest {
      * Data provider to square test method.
      *
      * @return Object[][]
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @DataProvider(name = "data_for_square")
     public Object[][] createCorrectData1() throws
-            IncorrectQuadranglePointsException {
+            IncorrectQuadrangleDataException {
         final double firstExpectedSquare = 30.0;
         final double secondExpectedSquare = 8.0;
         return new Object[][]{
@@ -66,12 +66,12 @@ public class CalculatorTest {
      * Data provider to perimeter test method.
      *
      * @return Object[][]
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @DataProvider(name = "data_for_perimeter")
     public Object[][] createCorrectData2() throws
-            IncorrectQuadranglePointsException {
+            IncorrectQuadrangleDataException {
         final double expectedPerimeter1 = 16.0;
         final double expectedPerimeter2 = 10.0;
         return new Object[][]{

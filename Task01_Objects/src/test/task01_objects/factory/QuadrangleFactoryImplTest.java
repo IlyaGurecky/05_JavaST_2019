@@ -2,7 +2,7 @@ package test.task01_objects.factory;
 
 import by.guretsky.task01_objects.entity.Point;
 import by.guretsky.task01_objects.entity.Quadrangle;
-import by.guretsky.task01_objects.exception.IncorrectQuadranglePointsException;
+import by.guretsky.task01_objects.exception.IncorrectQuadrangleDataException;
 import by.guretsky.task01_objects.factory.QuadrangleFactoryImpl;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -26,12 +26,12 @@ public class QuadrangleFactoryImplTest {
      * Positive test method for
      * {@link QuadrangleFactoryImpl#createQuadrangle(List)}.
      *
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @Test(description = "Positive script for the factory")
     public void testCreateQuadrangle1() throws
-            IncorrectQuadranglePointsException {
+            IncorrectQuadrangleDataException {
         List<Point> points = new ArrayList<>(Arrays
                 .asList(new Point(-2.0, 0.0),
                         new Point(0.0, 1.0),
@@ -46,13 +46,13 @@ public class QuadrangleFactoryImplTest {
      * Negative test method for
      * {@link QuadrangleFactoryImpl#createQuadrangle(List)}.
      *
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
-    @Test(expectedExceptions = IncorrectQuadranglePointsException.class,
+    @Test(expectedExceptions = IncorrectQuadrangleDataException.class,
             description = "Negative script for the factory")
     public void testCreateQuadrangle2() throws
-            IncorrectQuadranglePointsException {
+            IncorrectQuadrangleDataException {
         List<Point> points = new ArrayList<>(Arrays
                 .asList(new Point(-1.0, 0.0),
                         new Point(0.0, 1.0),
@@ -67,12 +67,12 @@ public class QuadrangleFactoryImplTest {
      * Positive test method for
      * {@link QuadrangleFactoryImpl#createQuadranglesList(Map)} (List)}.
      *
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @Test(description = "Positive script for the factory")
     public void testCreateQuadrangleList1() throws
-            IncorrectQuadranglePointsException {
+            IncorrectQuadrangleDataException {
         List<Point> pointList1 = new ArrayList<>(Arrays
                 .asList(new Point(1.0, 2.0),
                         new Point(-3.0, 3.0),
@@ -102,12 +102,12 @@ public class QuadrangleFactoryImplTest {
      * Negative test method for the
      * {@link QuadrangleFactoryImpl#createQuadranglesList(Map)} (List)}.
      *
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @Test(description = "Negative script for the factory")
     public void testCreateQuadrangleList2() throws
-            IncorrectQuadranglePointsException {
+            IncorrectQuadrangleDataException {
         List<Point> pointList1 = new ArrayList<>(Arrays
                 .asList(new Point(1.0, 2.0),
                         new Point(-3.0, 3.0),
