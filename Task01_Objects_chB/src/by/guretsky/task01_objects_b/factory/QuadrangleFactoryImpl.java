@@ -2,7 +2,7 @@ package by.guretsky.task01_objects_b.factory;
 
 import by.guretsky.task01_objects_b.entity.Point;
 import by.guretsky.task01_objects_b.entity.Quadrangle;
-import by.guretsky.task01_objects_b.exception.IncorrectQuadranglePointsException;
+import by.guretsky.task01_objects_b.exception.IncorrectQuadrangleDataException;
 import by.guretsky.task01_objects_b.validator.QuadrangleValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,18 +28,18 @@ public class QuadrangleFactoryImpl implements QuadrangleFactory {
      *
      * @param points list of the points, which form quadrangle
      * @return
-     * @throws IncorrectQuadranglePointsException
+     * @throws IncorrectQuadrangleDataException
      */
     @Override
     public Quadrangle createQuadrangle(final List<Point> points) throws
-            IncorrectQuadranglePointsException {
+            IncorrectQuadrangleDataException {
         QuadrangleValidator validator = new QuadrangleValidator();
         if (validator.isQuadrangle(points)) {
             return new Quadrangle(points);
         } else {
             LOGGER.error("You can't create quadrangle with " + points
                     + " are on one line");
-            throw new IncorrectQuadranglePointsException("Points in one line");
+            throw new IncorrectQuadrangleDataException("Points in one line");
         }
     }
 
@@ -49,11 +49,11 @@ public class QuadrangleFactoryImpl implements QuadrangleFactory {
      *
      * @param info Map of the coordinates
      * @return list of the quadrangle objects
-     * @throws IncorrectQuadranglePointsException if points can't form
+     * @throws IncorrectQuadrangleDataException if points can't form
      *                                            quadrangle object
      */
     public List<Quadrangle> createQuadranglesList(final Map<Integer,
-            List<Double>> info) throws IncorrectQuadranglePointsException {
+            List<Double>> info) throws IncorrectQuadrangleDataException {
         List<Quadrangle> quadrangles = new ArrayList<>();
         Set<Integer> keys = info.keySet();
         PointFactoryImpl pointsListCreator = new PointFactoryImpl();

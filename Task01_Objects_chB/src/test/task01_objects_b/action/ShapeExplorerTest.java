@@ -3,7 +3,7 @@ package test.task01_objects_b.action;
 import by.guretsky.task01_objects_b.action.ShapeExplorer;
 import by.guretsky.task01_objects_b.entity.Point;
 import by.guretsky.task01_objects_b.entity.Quadrangle;
-import by.guretsky.task01_objects_b.exception.IncorrectQuadranglePointsException;
+import by.guretsky.task01_objects_b.exception.IncorrectQuadrangleDataException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -21,11 +21,11 @@ public class ShapeExplorerTest {
     /**
      * Positive test method for {@link ShapeExplorer#isSquare()}.
      *
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @Test(description = "Positive script for the square test")
-    public void testIsSquare1() throws IncorrectQuadranglePointsException {
+    public void testIsSquare1() throws IncorrectQuadrangleDataException {
         quadrangle = new Quadrangle(Arrays
                 .asList(new Point(-1.0, -1.0),
                         new Point(-1.0, 3.0),
@@ -39,11 +39,11 @@ public class ShapeExplorerTest {
     /**
      * Negative test method for {@link ShapeExplorer#isSquare()}.
      *
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @Test(description = "Negative script for the square test")
-    public void testIsSquare2() throws IncorrectQuadranglePointsException {
+    public void testIsSquare2() throws IncorrectQuadrangleDataException {
         quadrangle = new Quadrangle(Arrays
                 .asList(new Point(-2.0, 2.0),
                         new Point(2.0, 3.0),
@@ -57,11 +57,11 @@ public class ShapeExplorerTest {
     /**
      * Positive test method for {@link ShapeExplorer#isRhombus()}.
      *
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @Test(description = "Positive script for the rhombus test")
-    public void testIsRhombus1() throws IncorrectQuadranglePointsException {
+    public void testIsRhombus1() throws IncorrectQuadrangleDataException {
         quadrangle = new Quadrangle(Arrays
                 .asList(new Point(0.0, 3.0),
                         new Point(2.0, 0.0),
@@ -75,11 +75,11 @@ public class ShapeExplorerTest {
     /**
      * Negative test method for {@link ShapeExplorer#isRhombus()}.
      *
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @Test(description = "Negative script for the rhombus test")
-    public void testIsRhombus2() throws IncorrectQuadranglePointsException {
+    public void testIsRhombus2() throws IncorrectQuadrangleDataException {
         quadrangle = new Quadrangle(Arrays
                 .asList(new Point(1.0, 3.0),
                         new Point(2.0, 0.0),
@@ -93,11 +93,11 @@ public class ShapeExplorerTest {
     /**
      * Positive test method for {@link ShapeExplorer#isTrapezium()}.
      *
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @Test(description = "Positive script for the trapezium test")
-    public void testIsTrapezium1() throws IncorrectQuadranglePointsException {
+    public void testIsTrapezium1() throws IncorrectQuadrangleDataException {
         quadrangle = new Quadrangle(Arrays
                 .asList(new Point(-3.0, 2.0),
                         new Point(2.0, 2.0),
@@ -111,11 +111,11 @@ public class ShapeExplorerTest {
     /**
      * Negative test method for {@link ShapeExplorer#isTrapezium()}.
      *
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @Test(description = "Negative script for the trapezium test")
-    public void testIsTrapezium2() throws IncorrectQuadranglePointsException {
+    public void testIsTrapezium2() throws IncorrectQuadrangleDataException {
         quadrangle = new Quadrangle(Arrays
                 .asList(new Point(-1.0, 2.0),
                         new Point(2.0, 3.0),
@@ -129,11 +129,11 @@ public class ShapeExplorerTest {
     /**
      * Negative test method for {@link ShapeExplorer#isConvex()}.
      *
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @Test(description = "Negative script for the quadrangle convex test")
-    public void testIsConvex1() throws IncorrectQuadranglePointsException {
+    public void testIsConvex1() throws IncorrectQuadrangleDataException {
         quadrangle = new Quadrangle(Arrays
                 .asList(new Point(-2.0, 1.0),
                         new Point(1.0, 3.0),
@@ -147,11 +147,11 @@ public class ShapeExplorerTest {
     /**
      * Positive test method for {@link ShapeExplorer#isConvex()}.
      *
-     * @throws IncorrectQuadranglePointsException if amount of points are not
+     * @throws IncorrectQuadrangleDataException if amount of points are not
      *                                            equals to 4
      */
     @Test(description = "Positive script for the quadrangle convex test")
-    public void testIsConvex2() throws IncorrectQuadranglePointsException {
+    public void testIsConvex2() throws IncorrectQuadrangleDataException {
         quadrangle = new Quadrangle(Arrays
                 .asList(new Point(-2.0, 2.0),
                         new Point(4.0, 5.0),

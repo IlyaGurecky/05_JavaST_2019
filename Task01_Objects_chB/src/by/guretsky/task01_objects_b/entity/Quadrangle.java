@@ -1,6 +1,6 @@
 package by.guretsky.task01_objects_b.entity;
 
-import by.guretsky.task01_objects_b.exception.IncorrectQuadranglePointsException;
+import by.guretsky.task01_objects_b.exception.IncorrectQuadrangleDataException;
 import by.guretsky.task01_objects_b.observer.Observable;
 import by.guretsky.task01_objects_b.observer.Observer;
 import org.apache.logging.log4j.LogManager;
@@ -42,17 +42,17 @@ public class Quadrangle implements Geometry, Observable {
      * Constructor - to create new object with special parameter.
      *
      * @param pointsFromFile list of the {@link Point}
-     * @throws IncorrectQuadranglePointsException if amount of point is
-     *                                            incorrect
+     * @throws IncorrectQuadrangleDataException if amount of point is
+     *                                          incorrect
      */
     public Quadrangle(final List<Point> pointsFromFile) throws
-            IncorrectQuadranglePointsException {
+            IncorrectQuadrangleDataException {
         final int numberOfElements = 4;
         if (pointsFromFile.size() == numberOfElements) {
             this.points = pointsFromFile;
         } else {
             LOGGER.error("The number of points is not equal to 4");
-            throw new IncorrectQuadranglePointsException("Incorrect amount "
+            throw new IncorrectQuadrangleDataException("Incorrect amount "
                     + " of points");
         }
     }
@@ -72,8 +72,14 @@ public class Quadrangle implements Geometry, Observable {
      *
      * @param pointIndex index of the necessary point
      * @param x          new value of the X coordinate
+     * @throws IncorrectQuadrangleDataException if index is incorrect
      */
-    public void setPointX(final int pointIndex, final Double x) {
+    public void setPointX(final int pointIndex, final Double x) throws
+            IncorrectQuadrangleDataException {
+        if (pointIndex < 0 || pointIndex >= 4) {
+            LOGGER.error("Argument is incorrect");
+            throw new IncorrectQuadrangleDataException("Incorrect argument");
+        }
         this.points.get(pointIndex).setX(x);
     }
 
@@ -82,8 +88,14 @@ public class Quadrangle implements Geometry, Observable {
      *
      * @param pointIndex index of the necessary point
      * @param y          new value of the X coordinate
+     * @throws IncorrectQuadrangleDataException if index is incorrect
      */
-    public void setPointY(final int pointIndex, final Double y) {
+    public void setPointY(final int pointIndex, final Double y) throws
+            IncorrectQuadrangleDataException {
+        if (pointIndex < 0 || pointIndex >= 4) {
+            LOGGER.error("Argument is incorrect");
+            throw new IncorrectQuadrangleDataException("Incorrect argument");
+        }
         this.points.get(pointIndex).setY(y);
     }
 
@@ -123,7 +135,7 @@ public class Quadrangle implements Geometry, Observable {
      * @param observer observer we need to add
      */
     @Override
-    public void addObserver(Observer observer) {
+    public void addObserver(final Observer observer) {
         observers.add(observer);
     }
 
@@ -133,7 +145,7 @@ public class Quadrangle implements Geometry, Observable {
      * @param observer observer we need to add
      */
     @Override
-    public void deleteObserver(Observer observer) {
+    public void deleteObserver(final Observer observer) {
         observers.remove(observer);
     }
 

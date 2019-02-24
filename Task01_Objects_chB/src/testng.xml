@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name= "Suit1">
+<suite name = "Suit1">
     <test name = "test1">
         <classes>
             <class name = "test.task01_objects_b.action.CalculatorTest"/>

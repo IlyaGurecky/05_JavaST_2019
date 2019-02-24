@@ -10,8 +10,11 @@ public class QuadrangleRecorder implements Observer {
     private double square;
     private double perimeter;
 
-    public void register(final Quadrangle quadrangle) {
+    public QuadrangleRecorder() {
         id = idCount++;
+    }
+
+    public void register(final Quadrangle quadrangle) {
         calculate(quadrangle);
     }
 
@@ -27,14 +30,14 @@ public class QuadrangleRecorder implements Observer {
         return perimeter;
     }
 
-    private void calculate(Quadrangle quadrangle) {
+    private void calculate(final Quadrangle quadrangle) {
         Calculator calculator = new Calculator();
         square = calculator.square(quadrangle);
         perimeter = calculator.perimeter(quadrangle);
     }
 
     @Override
-    public void update(Object obj) {
+    public void update(final Object obj) {
         calculate((Quadrangle) obj);
     }
 }

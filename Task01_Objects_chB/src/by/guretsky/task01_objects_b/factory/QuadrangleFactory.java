@@ -2,7 +2,7 @@ package by.guretsky.task01_objects_b.factory;
 
 import by.guretsky.task01_objects_b.entity.Point;
 import by.guretsky.task01_objects_b.entity.Quadrangle;
-import by.guretsky.task01_objects_b.exception.IncorrectQuadranglePointsException;
+import by.guretsky.task01_objects_b.exception.IncorrectQuadrangleDataException;
 
 import java.util.List;
 
@@ -16,9 +16,9 @@ public interface QuadrangleFactory extends Factory<Quadrangle> {
      *
      * @param points list of the points, which form quadrangle
      * @return {@link Quadrangle} object
-     * @throws IncorrectQuadranglePointsException if points can't form
+     * @throws IncorrectQuadrangleDataException if points can't form
      *                                            Quadrangle object
      */
     Quadrangle createQuadrangle(List<Point> points) throws
-            IncorrectQuadranglePointsException;
+            IncorrectQuadrangleDataException;
 }
