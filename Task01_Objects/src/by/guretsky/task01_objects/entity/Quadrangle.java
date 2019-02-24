@@ -18,6 +18,11 @@ public class Quadrangle implements Geometry {
     private static final Logger LOGGER = LogManager.getLogger(Quadrangle.class);
 
     /**
+     * Amount of points in quadrangle.
+     */
+    private static final int AMOUNT_OF_POINTS = 4;
+
+    /**
      * List of the {@link Point}, which form a quadrangle.
      */
     private List<Point> points;
@@ -68,7 +73,7 @@ public class Quadrangle implements Geometry {
      */
     public void setPointX(final int pointIndex, final Double x) throws
             IncorrectQuadrangleDataException {
-        if (pointIndex < 0 || pointIndex >= 4) {
+        if (pointIndex < 0 || pointIndex >= AMOUNT_OF_POINTS) {
             LOGGER.error("Argument is incorrect");
             throw new IncorrectQuadrangleDataException("Incorrect argument");
         }
@@ -84,7 +89,7 @@ public class Quadrangle implements Geometry {
      */
     public void setPointY(final int pointIndex, final Double y) throws
             IncorrectQuadrangleDataException {
-        if (pointIndex < 0 || pointIndex >= 4) {
+        if (pointIndex < 0 || pointIndex >= AMOUNT_OF_POINTS) {
             LOGGER.error("Argument is incorrect");
             throw new IncorrectQuadrangleDataException("Incorrect argument");
         }
