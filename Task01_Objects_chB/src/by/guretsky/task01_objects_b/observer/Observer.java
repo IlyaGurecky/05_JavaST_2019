@@ -5,7 +5,7 @@ package by.guretsky.task01_objects_b.observer;
  */
 public interface Observer {
     /**
-     * The method is used to update information in observer.
+     * The method is used to update information in observers.
      *
      * @param obj changes.
      */
