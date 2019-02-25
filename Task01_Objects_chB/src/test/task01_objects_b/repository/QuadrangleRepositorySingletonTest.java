@@ -7,6 +7,7 @@ import by.guretsky.task01_objects_b.exception.IncorrectQuadrangleDataException;
 import by.guretsky.task01_objects_b.registrator.QuadrangleRecorder;
 import by.guretsky.task01_objects_b.repository.QuadrangleRepositorySingleton;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -181,9 +182,7 @@ public class QuadrangleRepositorySingletonTest {
         repository.changeQuadranglePointX(0, 0,
                 -8.0);
         List<QuadrangleRecorder> actualRecorders = repository.getRecorders();
-
         final double expectedSquare = 28.0;
-
         Assert.assertEquals(actualRecorders.get(0).getSquare(), expectedSquare);
     }
 
@@ -204,7 +203,6 @@ public class QuadrangleRepositorySingletonTest {
                 4.0);
         List<QuadrangleRecorder> actualRecorders = repository.getRecorders();
         final double expectedSquare = 32.0;
-
         Assert.assertEquals(actualRecorders.get(0).getSquare(), expectedSquare);
     }
 
@@ -224,9 +222,7 @@ public class QuadrangleRepositorySingletonTest {
         repository.changeQuadranglePointX(2, 0,
                 -8.0);
         List<QuadrangleRecorder> actualRecorders = repository.getRecorders();
-
         final double expectedSquare = 28.0;
-
         Assert.assertEquals(actualRecorders.get(0).getSquare(), expectedSquare);
     }
 
@@ -247,7 +243,14 @@ public class QuadrangleRepositorySingletonTest {
                 4.0);
         List<QuadrangleRecorder> actualRecorders = repository.getRecorders();
         final double expectedSquare = 32.0;
-
         Assert.assertEquals(actualRecorders.get(0).getSquare(), expectedSquare);
+    }
+
+    /**
+     * The method clear repository.
+     */
+    @AfterClass
+    public void clear() {
+        repository.deleteAll();
     }
 }
