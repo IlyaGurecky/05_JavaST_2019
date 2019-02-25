@@ -5,6 +5,7 @@ import by.guretsky.task01_objects_b.exception.IncorrectArgumentException;
 import by.guretsky.task01_objects_b.exception.IncorrectQuadrangleDataException;
 import by.guretsky.task01_objects_b.observer.Observer;
 import by.guretsky.task01_objects_b.registrator.QuadrangleRecorder;
+import by.guretsky.task01_objects_b.repository.specification.FindByIdQuadrangleSpecification;
 import by.guretsky.task01_objects_b.repository.specification.FindQuadrangleSpecification;
 import by.guretsky.task01_objects_b.repository.specification.QuadrangleSpecification;
 import by.guretsky.task01_objects_b.repository.specification.SortQuadrangleSpecification;
@@ -138,6 +139,7 @@ public final class QuadrangleRepositorySingleton implements Observer {
     public void deleteAll() {
         quadrangles.clear();
         recorders.clear();
+        QuadrangleRecorder.resetIdCounter();
     }
 
     /**
@@ -207,7 +209,6 @@ public final class QuadrangleRepositorySingleton implements Observer {
      */
     public List<Quadrangle> query(final QuadrangleSpecification specification) {
         List<Quadrangle> quadrangleList;
-
         if (specification instanceof SortQuadrangleSpecification) {
             quadrangleList = getQuadrangles();
             quadrangleList.sort(((SortQuadrangleSpecification) specification)
@@ -220,6 +221,19 @@ public final class QuadrangleRepositorySingleton implements Observer {
                     quadrangleList.add(quadrangle);
                 }
             }
+            return quadrangleList;
+        } else if (specification.getClass()
+                == FindByIdQuadrangleSpecification.class) {
+            quadrangleList = new ArrayList<>();
+            int counter = 0;
+            for (Quadrangle quadrangle : quadrangles) {
+                QuadrangleRecorder recorder = recorders.get(counter++);
+                if (((FindByIdQuadrangleSpecification) specification)
+                        .specified(recorder)) {
+                    quadrangleList.add(quadrangle);
+                }
+            }
+            return quadrangleList;
         } else {
             LOGGER.info("Incorrect query");
             return new ArrayList<>();
