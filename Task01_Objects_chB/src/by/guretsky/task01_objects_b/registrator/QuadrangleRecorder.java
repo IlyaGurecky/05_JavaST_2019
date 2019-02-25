@@ -80,6 +80,13 @@ public class QuadrangleRecorder implements Observer {
     }
 
     /**
+     * The method nullifies id counter. Used only when cleaning the repository.
+     */
+    public static void resetIdCounter() {
+        idCount = 0;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
