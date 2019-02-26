@@ -5,7 +5,7 @@ import by.guretsky.task01_objects_b.exception.IncorrectArgumentException;
 import by.guretsky.task01_objects_b.exception.IncorrectQuadrangleDataException;
 import by.guretsky.task01_objects_b.observer.Observer;
 import by.guretsky.task01_objects_b.registrator.QuadrangleRecorder;
-import by.guretsky.task01_objects_b.repository.specification.FindByIdQuadrangleSpecification;
+import by.guretsky.task01_objects_b.repository.specification.FindByQuadrangleCharacteristics;
 import by.guretsky.task01_objects_b.repository.specification.FindQuadrangleSpecification;
 import by.guretsky.task01_objects_b.repository.specification.QuadrangleSpecification;
 import by.guretsky.task01_objects_b.repository.specification.SortQuadrangleSpecification;
@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class is used to store objects and information about this objects.
@@ -139,7 +140,21 @@ public final class QuadrangleRepositorySingleton implements Observer {
     public void deleteAll() {
         quadrangles.clear();
         recorders.clear();
-        QuadrangleRecorder.resetIdCounter();
+    }
+
+    /**
+     * The method helps to find quadrangle by recorder ID.
+     *
+     * @param id id, which you need
+     * @return quadrangle
+     */
+    private Optional<Quadrangle> findQuadrangleById(final int id) {
+        for (Quadrangle quadrangle : quadrangles) {
+            if (quadrangle.getId() == id) {
+                return Optional.of(quadrangle);
+            }
+        }
+        return Optional.empty();
     }
 
     /**
@@ -213,32 +228,33 @@ public final class QuadrangleRepositorySingleton implements Observer {
             quadrangleList = getQuadrangles();
             quadrangleList.sort(((SortQuadrangleSpecification) specification)
                     .specifiedComparator());
+            return quadrangleList;
+
         } else if (specification instanceof FindQuadrangleSpecification) {
             quadrangleList = new ArrayList<>();
-            for (Quadrangle quadrangle : quadrangles) {
-                if (((FindQuadrangleSpecification) specification)
-                        .specified(quadrangle)) {
-                    quadrangleList.add(quadrangle);
+            if (specification instanceof FindByQuadrangleCharacteristics) {
+                for (QuadrangleRecorder recorder : recorders) {
+                    if (((FindByQuadrangleCharacteristics) specification)
+                            .specified(recorder)) {
+                        Optional<Quadrangle> quadrangle =
+                                findQuadrangleById(recorder.getId());
+                        quadrangle.ifPresent(quadrangleList::add);
+                    }
                 }
-            }
-            return quadrangleList;
-        } else if (specification.getClass()
-                == FindByIdQuadrangleSpecification.class) {
-            quadrangleList = new ArrayList<>();
-            int counter = 0;
-            for (Quadrangle quadrangle : quadrangles) {
-                QuadrangleRecorder recorder = recorders.get(counter++);
-                if (((FindByIdQuadrangleSpecification) specification)
-                        .specified(recorder)) {
-                    quadrangleList.add(quadrangle);
+                return quadrangleList;
+            } else {
+                for (Quadrangle quadrangle : quadrangles) {
+                    if (((FindQuadrangleSpecification) specification)
+                            .specified(quadrangle)) {
+                        quadrangleList.add(quadrangle);
+                    }
                 }
+                return quadrangleList;
             }
-            return quadrangleList;
         } else {
             LOGGER.info("Incorrect query");
             return new ArrayList<>();
         }
-        return quadrangleList;
     }
 
     /**
