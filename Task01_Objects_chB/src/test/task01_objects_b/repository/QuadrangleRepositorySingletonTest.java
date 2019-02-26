@@ -7,9 +7,10 @@ import by.guretsky.task01_objects_b.exception.IncorrectQuadrangleDataException;
 import by.guretsky.task01_objects_b.registrator.QuadrangleRecorder;
 import by.guretsky.task01_objects_b.repository.QuadrangleRepositorySingleton;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterClass;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,6 +56,14 @@ public class QuadrangleRepositorySingletonTest {
     }
 
     /**
+     * Clear repository after test method.
+     */
+    @AfterMethod
+    public void clearRepository() {
+        repository.deleteAll();
+    }
+
+    /**
      * Positive test method for
      * {@link QuadrangleRepositorySingleton#addFigure(Quadrangle)}.
      *
@@ -64,11 +73,9 @@ public class QuadrangleRepositorySingletonTest {
     public void testAddFigure() throws IncorrectArgumentException {
         List<Quadrangle> expectedList = new ArrayList<>(Arrays
                 .asList(quadrangle1, quadrangle2));
-
         repository.addFigure(quadrangle1);
         repository.addFigure(quadrangle2);
         List<Quadrangle> actualList = repository.getQuadrangles();
-        repository.deleteAll();
         Assert.assertEquals(actualList, expectedList);
     }
 
@@ -87,7 +94,6 @@ public class QuadrangleRepositorySingletonTest {
         repository.addFigure(null);
         repository.addFigure(quadrangle2);
         List<Quadrangle> actualList = repository.getQuadrangles();
-        repository.deleteAll();
         Assert.assertEquals(actualList, expectedList);
     }
 
@@ -98,8 +104,7 @@ public class QuadrangleRepositorySingletonTest {
      *
      * @throws IncorrectArgumentException if arguments is incorrect
      */
-    @Test(description = "Positive script for the delete method",
-            dependsOnMethods = {"testAddFigure"})
+    @Test(description = "Positive script for the delete method")
     public void testDeleteFigure() throws IncorrectArgumentException {
         List<Quadrangle> expectedList = new ArrayList<>(Arrays
                 .asList(quadrangle2));
@@ -135,16 +140,15 @@ public class QuadrangleRepositorySingletonTest {
      *
      * @throws IncorrectArgumentException if arguments is incorrect
      */
-    @Test(description = "Positive script for the delete method",
-            dependsOnMethods = {"testDeleteFigure"})
+    @Test(description = "Positive script for the delete method")
     public void testDeleteFigure1() throws IncorrectArgumentException {
         List<Quadrangle> expectedList = new ArrayList<>(Arrays
-                .asList(quadrangle1));
+                .asList(quadrangle2));
 
         repository.addFigure(quadrangle1);
+        repository.addFigure(quadrangle2);
         repository.deleteFigure(0);
         List<Quadrangle> actualList = repository.getQuadrangles();
-        repository.deleteAll();
         Assert.assertEquals(actualList, expectedList);
     }
 
@@ -172,13 +176,11 @@ public class QuadrangleRepositorySingletonTest {
      * @throws IncorrectQuadrangleDataException if number of point < 0 or
      *                                          bigger than 4
      */
-    @Test(description = "Positive script for the change point x method",
-            dependsOnMethods = {"testDeleteFigure1"})
+    @Test(description = "Positive script for the change point x method")
     public void testChangeQuadranglePointX() throws IncorrectArgumentException,
             IncorrectQuadrangleDataException {
         repository.addFigure(quadrangle1);
         repository.addFigure(quadrangle2);
-
         repository.changeQuadranglePointX(0, 0,
                 -8.0);
         List<QuadrangleRecorder> actualRecorders = repository.getRecorders();
@@ -196,9 +198,10 @@ public class QuadrangleRepositorySingletonTest {
      *                                          bigger than 4
      */
     @Test(description = "Positive script for the change point y method",
-            dependsOnMethods = {"testChangeQuadranglePointX"})
+    dependsOnMethods = {"testChangeQuadranglePointX"})
     public void testChangeQuadranglePointY() throws IncorrectArgumentException,
             IncorrectQuadrangleDataException {
+        repository.addFigure(quadrangle1);
         repository.changeQuadranglePointY(0, 0,
                 4.0);
         List<QuadrangleRecorder> actualRecorders = repository.getRecorders();

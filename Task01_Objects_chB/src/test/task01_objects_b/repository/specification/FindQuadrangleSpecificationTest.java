@@ -125,7 +125,9 @@ public class FindQuadrangleSpecificationTest {
                 {new FindByPerimeterQuadrangleSpecification(8.0,
                         24.0), Arrays.asList(quadrangle1, quadrangle2)},
                 {new FindBySquareQuadrangleSpecification(37.0,
-                        144.0), Arrays.asList(quadrangle3, quadrangle4)}
+                        144.0), Arrays.asList(quadrangle3, quadrangle4)},
+                {new FindByIdQuadrangleSpecification(2, 3),
+                        Arrays.asList(quadrangle3, quadrangle4)}
         };
     }
 
@@ -141,18 +143,6 @@ public class FindQuadrangleSpecificationTest {
                                               specification,
                                       final List<Quadrangle> expectedList) {
         List<Quadrangle> actualList = repository.query(specification);
-        Assert.assertEquals(actualList, expectedList);
-    }
-
-    /**
-     * Test method for the FindById specification.
-     */
-    @Test(description = "Positive test for find by id method")
-    public void testFindById() {
-        FindByIdQuadrangleSpecification find =
-                new FindByIdQuadrangleSpecification(2, 3);
-        List<Quadrangle> expectedList = Arrays.asList(quadrangle3, quadrangle4);
-        List<Quadrangle> actualList = repository.query(find);
         Assert.assertEquals(actualList, expectedList);
     }
 
