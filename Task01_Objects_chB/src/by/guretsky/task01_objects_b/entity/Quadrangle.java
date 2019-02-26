@@ -26,6 +26,16 @@ public class Quadrangle implements Geometry, Observable {
     private static final int AMOUNT_OF_POINTS = 4;
 
     /**
+     * This variable helps to calc object id.
+     */
+    private static int idCounter = 0;
+
+    /**
+     * Object id.
+     */
+    private int id;
+
+    /**
      * List of the {@link Point}, which form a quadrangle.
      */
     private List<Point> points;
@@ -52,6 +62,7 @@ public class Quadrangle implements Geometry, Observable {
      */
     public Quadrangle(final List<Point> pointsFromFile) throws
             IncorrectQuadrangleDataException {
+        id = idCounter++;
         final int numberOfElements = 4;
         if (pointsFromFile.size() == numberOfElements) {
             this.points = pointsFromFile;
@@ -60,6 +71,15 @@ public class Quadrangle implements Geometry, Observable {
             throw new IncorrectQuadrangleDataException("Incorrect amount "
                     + " of points");
         }
+    }
+
+    /**
+     * Get method for id field.
+     *
+     * @return id
+     */
+    public int getId() {
+        return id;
     }
 
     /**
