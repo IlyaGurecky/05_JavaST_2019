@@ -10,3 +10,5 @@ mathematical formulas(Gauss Square Formula for example).
 Code written with plugins "CheckStyle" and "SonarLint".
 
 Using technologies: TestNG, Log4j2, Java stream API.
+
+Variant 2

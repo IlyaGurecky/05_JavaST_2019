@@ -28,14 +28,6 @@ public class Quadrangle implements Geometry {
     private List<Point> points;
 
     /**
-     * Private constructor without parameters.
-     *
-     * @see Quadrangle#Quadrangle(List)
-     */
-    private Quadrangle() {
-    }
-
-    /**
      * Constructor - to create new object with special parameter.
      *
      * @param pointsFromFile list of the {@link Point}
