@@ -13,10 +13,6 @@ public class QuadrangleRecorder implements Observer {
      */
     private int id;
     /**
-     * This static variable helps to calculate objects ID.
-     */
-    private static int idCount = 0;
-    /**
      * Square of the {@link Quadrangle}.
      */
     private double square;
@@ -26,18 +22,12 @@ public class QuadrangleRecorder implements Observer {
     private double perimeter;
 
     /**
-     * Public constructor without parameters.
-     */
-    public QuadrangleRecorder() {
-        id = idCount++;
-    }
-
-    /**
      * This method registers {@link Quadrangle}.
      *
      * @param quadrangle Quadrangle
      */
     public void register(final Quadrangle quadrangle) {
+        id = quadrangle.getId();
         calculate(quadrangle);
     }
 
@@ -80,14 +70,7 @@ public class QuadrangleRecorder implements Observer {
     }
 
     /**
-     * The method nullifies id counter. Used only when cleaning the repository.
-     */
-    public static void resetIdCounter() {
-        idCount = 0;
-    }
-
-    /**
-     * {@inheritDoc}
+     * {@inheritDoc}.
      */
     @Override
     public void update(final Object obj) {
