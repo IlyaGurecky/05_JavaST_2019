@@ -1,12 +1,12 @@
 package by.guretsky.task01_objects_b.repository.specification;
 
-import by.guretsky.task01_objects_b.registrator.QuadrangleRecorder;
+import by.guretsky.task01_objects_b.entity.Quadrangle;
 
 /**
  * Specification class. Used to fined quadrangles by id range.
  */
 public class FindByIdQuadrangleSpecification implements
-        QuadrangleSpecification {
+        FindQuadrangleSpecification {
     /**
      * Lower border field.
      */
@@ -31,12 +31,12 @@ public class FindByIdQuadrangleSpecification implements
     /**
      * This method check id of the quadrangles in specified range.
      *
-     * @param recorder recorder, which you neew to check
+     * @param obj figure we need to check
      * @return true if id in right range
      */
-    public boolean specified(final QuadrangleRecorder recorder) {
+    public boolean specified(final Object obj) {
 
-        return recorder.getId() >= lowerBorder
-                && recorder.getId() <= upperBorder;
+        return ((Quadrangle) obj).getId() >= lowerBorder
+                && ((Quadrangle) obj).getId() <= upperBorder;
     }
 }

@@ -1,13 +1,12 @@
 package by.guretsky.task01_objects_b.repository.specification;
 
-import by.guretsky.task01_objects_b.action.Calculator;
-import by.guretsky.task01_objects_b.entity.Quadrangle;
+import by.guretsky.task01_objects_b.registrator.QuadrangleRecorder;
 
 /**
  * Specification class. Used to fined quadrangles by perimeter range.
  */
 public class FindByPerimeterQuadrangleSpecification implements
-        FindQuadrangleSpecification {
+        FindByQuadrangleCharacteristics {
     /**
      * Lower border field.
      */
@@ -31,12 +30,12 @@ public class FindByPerimeterQuadrangleSpecification implements
 
     /**
      * {@inheritDoc}
+     *
+     * @param obj figure recorder
      */
     @Override
-    public boolean specified(final Quadrangle quadrangle) {
-        Calculator calculator = new Calculator();
-        Double perimeter = calculator.perimeter(quadrangle);
-
-        return perimeter >= lowerBorder && perimeter <= upperBorder;
+    public boolean specified(final Object obj) {
+        return ((QuadrangleRecorder) obj).getPerimeter() >= lowerBorder
+                && ((QuadrangleRecorder) obj).getPerimeter() <= upperBorder;
     }
 }

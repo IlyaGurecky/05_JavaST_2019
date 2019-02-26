@@ -7,8 +7,7 @@ import java.util.Comparator;
 /**
  * Interface for classes with sorted rules.
  */
-public interface SortQuadrangleSpecification extends QuadrangleSpecification,
-        Comparator<Object> {
+public interface SortQuadrangleSpecification extends QuadrangleSpecification {
     /**
      * This method is used to define sorting rules.
      *

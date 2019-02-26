@@ -30,10 +30,12 @@ public class FindByThirdPointXQuadrangleSpecification implements
 
     /**
      * {@inheritDoc}
+     *
+     * @param obj
      */
     @Override
-    public boolean specified(final Quadrangle quadrangle) {
-        return quadrangle.getPoint(2).getX() >= lowerBorder
-                && quadrangle.getPoint(2).getX() <= upperBorder;
+    public boolean specified(final Object obj) {
+        return ((Quadrangle) obj).getPoint(2).getX() >= lowerBorder
+                && ((Quadrangle) obj).getPoint(2).getX() <= upperBorder;
     }
 }
