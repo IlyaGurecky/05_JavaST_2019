@@ -217,6 +217,25 @@ public final class QuadrangleRepositorySingleton implements Observer {
     }
 
     /**
+     * This private method helps query method to find quadrangle by
+     * characteristics(square, perimeter).
+     *
+     * @param s              find specification
+     * @param quadrangleList list of quadrangles we need
+     */
+    private void findByCharacteristics(final QuadrangleSpecification s,
+                                       final List<Quadrangle> quadrangleList) {
+        for (QuadrangleRecorder recorder : recorders) {
+            if (((FindByQuadrangleCharacteristics) s)
+                    .specified(recorder)) {
+                Optional<Quadrangle> quadrangle =
+                        findQuadrangleById(recorder.getId());
+                quadrangle.ifPresent(quadrangleList::add);
+            }
+        }
+    }
+
+    /**
      * The method allows you to get the quadrangles you need.
      *
      * @param specification specification, which you need
@@ -233,14 +252,7 @@ public final class QuadrangleRepositorySingleton implements Observer {
         } else if (specification instanceof FindQuadrangleSpecification) {
             quadrangleList = new ArrayList<>();
             if (specification instanceof FindByQuadrangleCharacteristics) {
-                for (QuadrangleRecorder recorder : recorders) {
-                    if (((FindByQuadrangleCharacteristics) specification)
-                            .specified(recorder)) {
-                        Optional<Quadrangle> quadrangle =
-                                findQuadrangleById(recorder.getId());
-                        quadrangle.ifPresent(quadrangleList::add);
-                    }
-                }
+                findByCharacteristics(specification, quadrangleList);
                 return quadrangleList;
             } else {
                 for (Quadrangle quadrangle : quadrangles) {

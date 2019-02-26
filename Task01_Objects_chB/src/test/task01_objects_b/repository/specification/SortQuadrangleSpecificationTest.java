@@ -5,13 +5,18 @@ import by.guretsky.task01_objects_b.entity.Quadrangle;
 import by.guretsky.task01_objects_b.exception.IncorrectArgumentException;
 import by.guretsky.task01_objects_b.exception.IncorrectQuadrangleDataException;
 import by.guretsky.task01_objects_b.repository.QuadrangleRepositorySingleton;
-import by.guretsky.task01_objects_b.repository.specification.SortBySecondPointXQuadrangleSpecification;
-import by.guretsky.task01_objects_b.repository.specification.SortBySquareQuadrangleSpecification;
-import by.guretsky.task01_objects_b.repository.specification.SortBySecondPointYQuadrangleSpecification;
+
 import by.guretsky.task01_objects_b.repository.specification.SortByFirstPointXQuadrangleSpecification;
 import by.guretsky.task01_objects_b.repository.specification.SortByFirstPointYQuadrangleSpecification;
+import by.guretsky.task01_objects_b.repository.specification.SortByFirstXAndYQuadrangleSpecification;
 import by.guretsky.task01_objects_b.repository.specification.SortByIdQuadrangleSpecification;
 import by.guretsky.task01_objects_b.repository.specification.SortByPerimeterQuadrangleSpecification;
+import by.guretsky.task01_objects_b.repository.specification.SortBySecondPointXQuadrangleSpecification;
+import by.guretsky.task01_objects_b.repository.specification.SortBySecondPointYQuadrangleSpecification;
+import by.guretsky.task01_objects_b.repository.specification.SortBySquareAndIdQuadrangleSpecification;
+import by.guretsky.task01_objects_b.repository.specification.SortBySquareQuadrangleSpecification;
+import by.guretsky.task01_objects_b.repository.specification.SortByThirdPointXAndIDQuadrangleSpecification;
+import by.guretsky.task01_objects_b.repository.specification.SortByThirdPointXQuadrangleSpecification;
 import by.guretsky.task01_objects_b.repository.specification.SortQuadrangleSpecification;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -62,9 +67,8 @@ public class SortQuadrangleSpecificationTest {
         List<Point> points1 = new ArrayList<>(Arrays
                 .asList(new Point(-2.0, 2.0),
                         new Point(2.0, 2.0),
-                        new Point(2.0, -2.0),
+                        new Point(3.0, -2.0),
                         new Point(-2.0, -2.0)));
-        quadrangle1 = new Quadrangle(points1);
         List<Point> points2 = new ArrayList<>(Arrays
                 .asList(new Point(-3.0, 3.0),
                         new Point(3.0, 3.0),
@@ -85,6 +89,7 @@ public class SortQuadrangleSpecificationTest {
                         new Point(8.0, -8.0),
                         new Point(-8.0, -8.0)));
         quadrangle4 = new Quadrangle(points4);
+        quadrangle1 = new Quadrangle(points1);
         repository.addFigure(quadrangle4);
         repository.addFigure(quadrangle1);
     }
@@ -105,8 +110,8 @@ public class SortQuadrangleSpecificationTest {
                         Arrays.asList(quadrangle1, quadrangle2,
                                 quadrangle3, quadrangle4)},
                 {new SortByIdQuadrangleSpecification(),
-                        Arrays.asList(quadrangle1, quadrangle2,
-                                quadrangle3, quadrangle4)},
+                        Arrays.asList(quadrangle2, quadrangle3,
+                                quadrangle4, quadrangle1)},
                 {new SortByPerimeterQuadrangleSpecification(),
                         Arrays.asList(quadrangle1, quadrangle2,
                                 quadrangle3, quadrangle4)},
@@ -119,6 +124,18 @@ public class SortQuadrangleSpecificationTest {
                 {new SortBySquareQuadrangleSpecification(),
                         Arrays.asList(quadrangle1, quadrangle2,
                                 quadrangle3, quadrangle4)},
+                {new SortByFirstXAndYQuadrangleSpecification(),
+                        Arrays.asList(quadrangle4, quadrangle3,
+                                quadrangle2, quadrangle1)},
+                {new SortByThirdPointXQuadrangleSpecification(),
+                        Arrays.asList(quadrangle2, quadrangle1,
+                                quadrangle3, quadrangle4)},
+                {new SortByThirdPointXAndIDQuadrangleSpecification(),
+                        Arrays.asList(quadrangle2, quadrangle1,
+                                quadrangle3, quadrangle4)},
+                {new SortBySquareAndIdQuadrangleSpecification(),
+                        Arrays.asList(quadrangle1, quadrangle2,
+                                quadrangle3, quadrangle4)}
         };
     }
 
@@ -130,7 +147,7 @@ public class SortQuadrangleSpecificationTest {
      */
     @Test(description = "Positive test method for sort specification",
             dataProvider = "data_for_sort_specifications")
-    public void testFindSpecification(final SortQuadrangleSpecification
+    public void testSortSpecification(final SortQuadrangleSpecification
                                               specification,
                                       final List<Quadrangle> expectedList) {
         List<Quadrangle> actualList = repository.query(specification);
