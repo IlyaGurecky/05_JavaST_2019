@@ -13,11 +13,12 @@ public class EmptyFileException extends Exception {
     }
 
     /**
-     * Constructs a new by.guretsky.task2_threads.exception with the specified detail message.
+     * Constructs a new by.guretsky.task2_threads.exception with the specified
+     * detail message.
      *
      * @param message detail message
      */
-    public EmptyFileException(String message) {
+    public EmptyFileException(final String message) {
         super(message);
     }
 }

@@ -5,9 +5,9 @@ package by.guretsky.task2_threads.validator;
  */
 public class TrainValidator {
 
-    public boolean validateInfo(Integer trainInfo) {
-        final int firstDirection = -1;
-        final int secondDirection = 1;
+    public boolean validateInfo(final Integer trainInfo) {
+        final int firstDirection = 1;
+        final int secondDirection = 2;
 
         return trainInfo.equals(firstDirection)
                 || trainInfo.equals(secondDirection);

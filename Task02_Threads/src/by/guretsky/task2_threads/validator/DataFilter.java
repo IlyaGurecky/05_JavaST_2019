@@ -17,7 +17,7 @@ public class DataFilter {
     /**
      * Regular expression, which used to filter data.
      */
-    private static final String DIGITS_PATTERN = "-?\\d+";
+    private static final String DIGITS_PATTERN = "\\d+";
     /**
      * Regular expression, which used to split string.
      */

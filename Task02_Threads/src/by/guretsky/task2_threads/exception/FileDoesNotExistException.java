@@ -12,7 +12,8 @@ public class FileDoesNotExistException extends Exception {
     }
 
     /**
-     * Constructs a new by.guretsky.task2_threads.exception with the specified detail message.
+     * Constructs a new by.guretsky.task2_threads.exception with the specified
+     * detail message.
      *
      * @param message detail message
      */
