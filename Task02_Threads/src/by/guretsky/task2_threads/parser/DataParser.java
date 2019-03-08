@@ -16,12 +16,12 @@ public class DataParser {
      */
     public List<Integer> parseInt(final List<String>
                                           filteredList) {
-        List<Integer> parsedDataMap = new ArrayList<>();
+        List<Integer> parsedData = new ArrayList<>();
         int lineCounter = 0;
         for (String number : filteredList) {
-            parsedDataMap.add(lineCounter++, Integer.parseInt(number));
+            parsedData.add(lineCounter++, Integer.parseInt(number));
         }
-        return parsedDataMap;
+        return parsedData;
     }
 }
 

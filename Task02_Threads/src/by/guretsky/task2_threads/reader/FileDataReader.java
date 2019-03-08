@@ -34,14 +34,6 @@ public class FileDataReader {
     private List<String> stringList = new ArrayList<>();
 
     /**
-     * Private constructor.
-     *
-     * @see FileDataReader#FileDataReader(String)
-     */
-    private FileDataReader() {
-    }
-
-    /**
      * Constructor - to create object with parameters.
      *
      * @param filePath path to the file
