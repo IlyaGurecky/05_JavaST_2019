@@ -6,14 +6,14 @@ package by.guretsky.task2_threads.exception;
 public class EmptyFileException extends Exception {
 
     /**
-     * Constructs a new by.guretsky.task2_threads.exception.
+     * Constructs a new {@link EmptyFileException}.
      */
     public EmptyFileException() {
         super();
     }
 
     /**
-     * Constructs a new by.guretsky.task2_threads.exception with the specified
+     * Constructs a new {@link EmptyFileException} with the specified
      * detail message.
      *
      * @param message detail message

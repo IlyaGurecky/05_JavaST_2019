@@ -5,14 +5,14 @@ package by.guretsky.task2_threads.exception;
  */
 public class FileDoesNotExistException extends Exception {
     /**
-     * Constructs a new by.guretsky.task2_threads.exception.
+     * Constructs a new {@link FileDoesNotExistException}.
      */
     public FileDoesNotExistException() {
         super();
     }
 
     /**
-     * Constructs a new by.guretsky.task2_threads.exception with the specified
+     * Constructs a new {@link FileDoesNotExistException} with the specified
      * detail message.
      *
      * @param message detail message
