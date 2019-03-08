@@ -1,6 +1,7 @@
 package by.guretsky.task2_threads.creator;
 
 import by.guretsky.task2_threads.entity.Train;
+import by.guretsky.task2_threads.exception.IncorrectArgumentException;
 import by.guretsky.task2_threads.validator.TrainValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +18,11 @@ public class TrainCreator {
         TrainValidator validator = new TrainValidator();
         directions.forEach(direction -> {
             if (validator.validateInfo(direction)) {
-                trains.add(new Train(direction));
+                try {
+                    trains.add(new Train(direction));
+                } catch (IncorrectArgumentException e) {
+                    LOGGER.error("Incorrect argument to create an object");
+                }
             } else {
                 LOGGER.info("Direction: " + direction + " is incorrect");
             }
