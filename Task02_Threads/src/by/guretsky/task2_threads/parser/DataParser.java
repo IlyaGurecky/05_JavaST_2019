@@ -8,14 +8,13 @@ import java.util.List;
  */
 public class DataParser {
     /**
-     * The method parse list of the string numbers into int and add in Map.
+     * The method parse list of the string numbers into int and add in List.
      *
      * @param filteredList list of the string numbers, which we want to parse
      *                     to int
-     * @return Map, which include the int numbers.
+     * @return List, which include the int numbers.
      */
-    public List<Integer> parseInt(final List<String>
-                                          filteredList) {
+    public List<Integer> parseInt(final List<String> filteredList) {
         List<Integer> parsedData = new ArrayList<>();
         int lineCounter = 0;
         for (String number : filteredList) {
