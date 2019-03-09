@@ -1,5 +1,6 @@
 package by.guretsky.task2_threads.runner;
 
+import by.guretsky.task2_threads.common_resource.RailwaySingleton;
 import by.guretsky.task2_threads.creator.TrainCreator;
 import by.guretsky.task2_threads.entity.Train;
 import by.guretsky.task2_threads.exception.FileDoesNotExistException;
@@ -15,14 +16,31 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Runner class.
+ */
 public final class Runner {
+    /**
+     * Logger, used for log events.
+     */
     private static final Logger LOGGER = LogManager.getLogger(Runner.class);
+    /**
+     * Info file path.
+     */
     private static final String FILE_PATH = "data" + File.separator
             + "info.txt";
 
+    /**
+     * Private constructor without parameters.
+     */
     private Runner() {
     }
 
+    /**
+     * Main method, which run application.
+     *
+     * @param args arguments from command line.
+     */
     public static void main(final String[] args) {
         FileDataReader reader;
         List<Integer> trainInfo = new ArrayList<>();
@@ -40,12 +58,12 @@ public final class Runner {
 
         TrainCreator creator = new TrainCreator();
         List<Train> trains = creator.createTrainsList(trainInfo);
-
-        ExecutorService service = Executors.newFixedThreadPool(trains.size());
+        int railwayCapacity = RailwaySingleton.getRailwayCapacity();
+        ExecutorService service = Executors.newFixedThreadPool(railwayCapacity);
         try {
             service.invokeAll(trains);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error("Invoke error");
         } finally {
             service.shutdown();
         }
