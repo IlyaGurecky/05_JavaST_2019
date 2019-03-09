@@ -1,98 +1,127 @@
 package by.guretsky.task2_threads.common_resource;
 
-import by.guretsky.task2_threads.controller.TunnelChooser;
+import by.guretsky.task2_threads.controller.TunnelController;
 import by.guretsky.task2_threads.entity.Tunnel;
 import by.guretsky.task2_threads.entity.Train;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
 
+/**
+ * Railway singleton class that consists of the two tunnels, tunnel controller,
+ * two intersection queues.
+ */
 public final class RailwaySingleton {
-    private static final int TIME_IN_TUNNEL = 1000;
+    /**
+     * Number of trains that can ride at the same time.
+     */
+    private static final int RAILWAY_CAPACITY = 20;
+    /**
+     * Singleton class object.
+     */
     private static final RailwaySingleton INSTANCE
             = new RailwaySingleton();
-    private final TunnelChooser chooser = new TunnelChooser();
-    private final Tunnel firstTunnel = new Tunnel("First");
-    private final Tunnel secondTunnel = new Tunnel("Second");
+    /**
+     * The {@link TunnelController} object that selects the tunnel for the train
+     * and controls it in tunnel.
+     */
+    private TunnelController controller = new TunnelController();
+    /**
+     * {@link Tunnel} object.
+     */
+    private Tunnel firstTunnel = new Tunnel();
+    /**
+     * {@link Tunnel} object.
+     */
+    private Tunnel secondTunnel = new Tunnel();
+    /**
+     * Queue at the first intersection.
+     */
     private Queue<Train> firstQueue = new ConcurrentLinkedQueue<>();
+    /**
+     * Queue at the second intersection.
+     */
     private Queue<Train> secondQueue = new ConcurrentLinkedQueue<>();
 
+    /**
+     * Private constructor without parameters.
+     */
     private RailwaySingleton() {
     }
 
+    /**
+     * The method get {@link RailwaySingleton} object.
+     *
+     * @return {@link RailwaySingleton} object
+     */
     public static RailwaySingleton getInstance() {
         return INSTANCE;
     }
-    public String getFirstRailwayName() {
-        return firstTunnel.getName();
+
+    /**
+     * {@link RailwaySingleton#RAILWAY_CAPACITY} getter.
+     *
+     * @return {@link RailwaySingleton#RAILWAY_CAPACITY}
+     */
+    public static int getRailwayCapacity() {
+        return RAILWAY_CAPACITY;
     }
 
-    public String getSecondRailwayName() {
-        return secondTunnel.getName();
+    /**
+     * {@link RailwaySingleton#firstTunnel} getter.
+     *
+     * @return {@link RailwaySingleton#firstTunnel}
+     */
+    public Tunnel getFirstTunnel() {
+        return firstTunnel;
     }
 
-    public void getInFirstQueue(Train train) {
-        firstQueue.add(train);
+    /**
+     * {@link RailwaySingleton#secondTunnel} getter.
+     *
+     * @return {@link RailwaySingleton#secondTunnel}
+     */
+    public Tunnel getSecondTunnel() {
+        return secondTunnel;
     }
 
-    public void getInSecondQueue(Train train) {
-        secondQueue.add(train);
+    /**
+     * The method puts the train in intersection queue.
+     *
+     * @param train {@link Train}
+     */
+    public void putInQueue(final Train train) {
+        if (train.getDirection() == 1) {
+            firstQueue.add(train);
+        } else {
+            secondQueue.add(train);
+        }
     }
 
-    public void getInFirstTunnel(Train train) throws InterruptedException {
-        firstTunnel.setEmpty(false);
-        firstTunnel.getInQueue(train);
-        TimeUnit.MILLISECONDS.sleep(TIME_IN_TUNNEL);
-    }
-
-    public void getInSecondTunnel(Train train) throws InterruptedException {
-        secondTunnel.setEmpty(false);
-        secondTunnel.getInQueue(train);
-        TimeUnit.MILLISECONDS.sleep(TIME_IN_TUNNEL);
-    }
-
-    public void freeFirstTunnel() {
-        firstTunnel.setEmpty(true);
-    }
-
-    public void freeSecondTunnel() {
-        secondTunnel.setEmpty(true);
-    }
-
+    /**
+     * Takes {@link Train} object from the first intersection queue.
+     *
+     * @return {@link Train} object
+     */
     public Train takeTrainFromFirstQueue() {
         return firstQueue.poll();
     }
 
-    public Train peekTrainFromFirstQueue() {
-        return firstQueue.peek();
-    }
-
+    /**
+     * Takes {@link Train} object from the second intersection queue.
+     *
+     * @return {@link Train} object
+     */
     public Train takeTrainFromSecondQueue() {
         return secondQueue.poll();
     }
 
-    public Train peekTrainFromSecondQueue() {
-        return secondQueue.peek();
-    }
-
-    public void leaveFirstTunnel() {
-        firstTunnel.leaveQueue();
-    }
-
-    public void leaveSecondTunnel() {
-        secondTunnel.leaveQueue();
-    }
-
-    public boolean firstQueueIsEmpty() {
-        return firstQueue.isEmpty();
-    }
-
-    public boolean secondQueueIsEmpty() {
-        return secondQueue.isEmpty();
-    }
-
-    public String chooseTunnel(Train train) throws InterruptedException {
-        return chooser.chooseTunnel(train);
+    /**
+     * The method signals tunnel controller that train is waiting.
+     *
+     * @param train waiting train
+     */
+    public void signalToTunnelController(final Train train) {
+        controller.chooseTunnel(train);
     }
 }
