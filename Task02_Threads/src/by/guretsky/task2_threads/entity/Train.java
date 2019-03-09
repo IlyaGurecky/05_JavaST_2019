@@ -7,47 +7,83 @@ import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Class of the trains with properties direction, id, delay time.
+ */
 public class Train implements Callable<Integer> {
+    /**
+     * Train direction(1 or 2).
+     */
     private int direction;
+    /**
+     * Object id.
+     */
     private int id;
+    /**
+     * This variable helps to calc object id.
+     */
     private static int idCounter = 0;
+    /**
+     * Train start delay.
+     */
     private int delayTime;
 
+    /**
+     * Constructor with special parameters.
+     *
+     * @param trainDirection train direction
+     * @throws IncorrectArgumentException if direction is incorrect
+     */
     public Train(final int trainDirection) throws IncorrectArgumentException {
         if (trainDirection != 1 && trainDirection != 2) {
             throw new IncorrectArgumentException("Argument is incorrect");
         }
         id = idCounter++;
         direction = trainDirection;
-        delayTime = new Random().nextInt(4000);
+        final int delayTimeRange = 4000;
+        delayTime = new Random().nextInt(delayTimeRange);
     }
 
+    /**
+     * Direction field getter.
+     *
+     * @return direction
+     */
     public int getDirection() {
         return direction;
     }
 
+    /**
+     * Id field getter.
+     *
+     * @return id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * {@inheritDoc}.
+     *
+     * @return train id
+     * @throws InterruptedException if interrupted while sleeping
+     */
     @Override
     public Integer call() throws InterruptedException {
         TimeUnit.MILLISECONDS.sleep(delayTime);
-        if (direction == 1) {
-            System.out.println("Train number " + id + " going to the "
-                    + RailwaySingleton.getInstance().getFirstRailwayName()
-                    + " tunnel");
-            TimeUnit.MILLISECONDS.sleep(300);
-            RailwaySingleton.getInstance().getInFirstQueue(this);
-            System.out.println("Train number " + id + " in the first queue");
-        } else {
-            System.out.println("Train number " + id + " going to the "
-                    + RailwaySingleton.getInstance().getSecondRailwayName()
-                    + " tunnel");
-            TimeUnit.MILLISECONDS.sleep(200);
-            RailwaySingleton.getInstance().getInSecondQueue(this);
-            System.out.println("Train number " + id + " in the second queue");
-        }
-        String selectedTunnelName
-                = RailwaySingleton.getInstance().chooseTunnel(this);
+        final long timeToIntersection = 300;
+        System.out.println("Train number " + id + " going in the "
+                + getDirection() + " direction");
+        TimeUnit.MILLISECONDS.sleep(timeToIntersection);
 
+        RailwaySingleton.getInstance().putInQueue(this);
+        System.out.println("Train number " + id + " at the " + getDirection()
+                + " intersection");
 
+        TimeUnit.MILLISECONDS.sleep(500);
+        RailwaySingleton.getInstance().signalToTunnelController(this);
+
+        System.out.println("Train " + id + " gone away");
         return id;
     }
 }
