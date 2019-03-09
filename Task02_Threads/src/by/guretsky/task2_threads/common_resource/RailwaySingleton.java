@@ -19,8 +19,7 @@ public final class RailwaySingleton {
     /**
      * Singleton class object.
      */
-    private static final RailwaySingleton INSTANCE
-            = new RailwaySingleton();
+    private static RailwaySingleton instance;
     /**
      * The {@link TunnelController} object that selects the tunnel for the train
      * and controls it in tunnel.
@@ -55,7 +54,10 @@ public final class RailwaySingleton {
      * @return {@link RailwaySingleton} object
      */
     public static RailwaySingleton getInstance() {
-        return INSTANCE;
+        if (instance == null) {
+            instance = new RailwaySingleton();
+        }
+        return instance;
     }
 
     /**
