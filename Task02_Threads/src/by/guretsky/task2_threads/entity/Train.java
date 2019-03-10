@@ -75,12 +75,9 @@ public class Train implements Callable<Integer> {
         System.out.println("Train number " + id + " going in the "
                 + getDirection() + " direction");
         TimeUnit.MILLISECONDS.sleep(timeToIntersection);
-
-        RailwaySingleton.getInstance().putInQueue(this);
         System.out.println("Train number " + id + " at the " + getDirection()
                 + " intersection");
 
-        TimeUnit.MILLISECONDS.sleep(500);
         RailwaySingleton.getInstance().signalToTunnelController(this);
 
         System.out.println("Train " + id + " gone away");

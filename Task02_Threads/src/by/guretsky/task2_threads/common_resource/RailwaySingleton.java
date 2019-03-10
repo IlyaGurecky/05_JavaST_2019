@@ -3,6 +3,8 @@ package by.guretsky.task2_threads.common_resource;
 import by.guretsky.task2_threads.controller.TunnelController;
 import by.guretsky.task2_threads.entity.Tunnel;
 import by.guretsky.task2_threads.entity.Train;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -13,18 +15,14 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public final class RailwaySingleton {
     /**
+     * Logger, which used to log events.
+     */
+    private static final Logger LOGGER
+            = LogManager.getLogger(RailwaySingleton.class);
+    /**
      * Number of trains that can ride at the same time.
      */
-    private static final int RAILWAY_CAPACITY = 20;
-    /**
-     * Singleton class object.
-     */
-    private static RailwaySingleton instance;
-    /**
-     * The {@link TunnelController} object that selects the tunnel for the train
-     * and controls it in tunnel.
-     */
-    private TunnelController controller = new TunnelController();
+    private static final int RAILWAY_CAPACITY = 25;
     /**
      * {@link Tunnel} object.
      */
@@ -33,14 +31,13 @@ public final class RailwaySingleton {
      * {@link Tunnel} object.
      */
     private Tunnel secondTunnel = new Tunnel();
+
     /**
-     * Queue at the first intersection.
+     * The {@link TunnelController} object that selects the tunnel for the train
+     * and controls it in tunnel.
      */
-    private Queue<Train> firstQueue = new ConcurrentLinkedQueue<>();
-    /**
-     * Queue at the second intersection.
-     */
-    private Queue<Train> secondQueue = new ConcurrentLinkedQueue<>();
+    private TunnelController controller
+            = new TunnelController(firstTunnel, secondTunnel);
 
     /**
      * Private constructor without parameters.
@@ -49,15 +46,22 @@ public final class RailwaySingleton {
     }
 
     /**
+     * Inner static class for thread-safe singleton.
+     */
+    private static class InstanceHolder {
+        /**
+         * Singleton class object.
+         */
+        private static final RailwaySingleton INSTANCE = new RailwaySingleton();
+    }
+
+    /**
      * The method get {@link RailwaySingleton} object.
      *
      * @return {@link RailwaySingleton} object
      */
     public static RailwaySingleton getInstance() {
-        if (instance == null) {
-            instance = new RailwaySingleton();
-        }
-        return instance;
+        return InstanceHolder.INSTANCE;
     }
 
     /**
@@ -70,60 +74,15 @@ public final class RailwaySingleton {
     }
 
     /**
-     * {@link RailwaySingleton#firstTunnel} getter.
-     *
-     * @return {@link RailwaySingleton#firstTunnel}
-     */
-    public Tunnel getFirstTunnel() {
-        return firstTunnel;
-    }
-
-    /**
-     * {@link RailwaySingleton#secondTunnel} getter.
-     *
-     * @return {@link RailwaySingleton#secondTunnel}
-     */
-    public Tunnel getSecondTunnel() {
-        return secondTunnel;
-    }
-
-    /**
-     * The method puts the train in intersection queue.
-     *
-     * @param train {@link Train}
-     */
-    public void putInQueue(final Train train) {
-        if (train.getDirection() == 1) {
-            firstQueue.add(train);
-        } else {
-            secondQueue.add(train);
-        }
-    }
-
-    /**
-     * Takes {@link Train} object from the first intersection queue.
-     *
-     * @return {@link Train} object
-     */
-    public Train takeTrainFromFirstQueue() {
-        return firstQueue.poll();
-    }
-
-    /**
-     * Takes {@link Train} object from the second intersection queue.
-     *
-     * @return {@link Train} object
-     */
-    public Train takeTrainFromSecondQueue() {
-        return secondQueue.poll();
-    }
-
-    /**
      * The method signals tunnel controller that train is waiting.
      *
      * @param train waiting train
      */
-    public void signalToTunnelController(final Train train) {
-        controller.chooseTunnel(train);
+    public void signalToTunnelController(Train train) {
+        try {
+            controller.chooseTunnel(train);
+        } catch (InterruptedException e) {
+            LOGGER.error("Interrupted Exception", e);
+        }
     }
 }

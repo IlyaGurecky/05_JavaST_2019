@@ -1,6 +1,7 @@
 package by.guretsky.task2_threads.entity;
 
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * The class is used to store information about tunnel.
@@ -13,7 +14,7 @@ public class Tunnel {
     /**
      * Amount of one direction trains that can pass through the tunnel.
      */
-    private static final int ONE_DIRECTION_TRAINS_LIMIT = 10;
+    private static final int ONE_DIRECTION_TRAINS_LIMIT = 5;
     /**
      * Tunnel capacity.
      */
@@ -25,12 +26,20 @@ public class Tunnel {
             new Semaphore(TRAINS_IN_TUNNEL_LIMIT, true);
     /**
      * Direction of the passed trains.
+     * (1-first direction, 2-second direction, 0-free).
      */
     private int trainsDirection;
+
+    /**
+     * Previous direction.
+     * (1-first direction, 2-second direction, 0-free).
+     */
+    private int previousTrainsDirection;
+
     /**
      * Counts number of one direction trains, which passed through the tunnel.
      */
-    private int oneDirectionCounter = 0;
+    private AtomicInteger oneDirectionCounter = new AtomicInteger(0);
 
     /**
      * {@link Tunnel#TIME_IN_TUNNEL} getter.
@@ -48,6 +57,24 @@ public class Tunnel {
      */
     public static int getOneDirectionTrainsLimit() {
         return ONE_DIRECTION_TRAINS_LIMIT;
+    }
+
+    /**
+     * {@link Tunnel#previousTrainsDirection} getter.
+     *
+     * @return {@link Tunnel#previousTrainsDirection}
+     */
+    public int getPreviousTrainsDirection() {
+        return previousTrainsDirection;
+    }
+
+    /**
+     * {@link Tunnel#previousTrainsDirection} setter.
+     *
+     * @param prevDirection previous direction
+     */
+    public void setPreviousTrainsDirection(final int prevDirection) {
+        this.previousTrainsDirection = prevDirection;
     }
 
     /**
@@ -74,7 +101,7 @@ public class Tunnel {
      * @return {@link Tunnel#oneDirectionCounter}
      */
     public int getOneDirectionCounter() {
-        return oneDirectionCounter;
+        return oneDirectionCounter.get();
     }
 
     /**
@@ -90,6 +117,13 @@ public class Tunnel {
      * The method increments {@link Tunnel#oneDirectionCounter}.
      */
     public void incrementDirectionCounter() {
-        oneDirectionCounter++;
+        oneDirectionCounter.incrementAndGet();
+    }
+
+    /**
+     * This method reset {@link Tunnel#oneDirectionCounter} to 0.
+     */
+    public void resetOneDirectionCounter() {
+        oneDirectionCounter.set(0);
     }
 }
