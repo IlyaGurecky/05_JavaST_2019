@@ -1,22 +1,37 @@
 package by.guretsky.task2_threads.controller;
 
-import by.guretsky.task2_threads.common_resource.RailwaySingleton;
 import by.guretsky.task2_threads.entity.Train;
 import by.guretsky.task2_threads.entity.Tunnel;
 
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Class controller, which controls traffic in the tunnels.
+ */
 public class TunnelController {
+    /**
+     * First tunnel.
+     */
     private Tunnel tunnel1;
+    /**
+     * Second tunnel.
+     */
     private Tunnel tunnel2;
 
+    /**
+     * Public constructor with parameters.
+     *
+     * @param first  first tunnel
+     * @param second second tunnel
+     */
     public TunnelController(final Tunnel first, final Tunnel second) {
         tunnel1 = first;
         tunnel2 = second;
     }
 
-    public void chooseTunnel(Train train) throws InterruptedException {
+    public void chooseTunnel(final Train train) throws InterruptedException {
+        System.out.println("Train number " + train.getId() + " with direction "
+                + train.getDirection() + " choose tunnel...");
         while (true) {
             if (train.getDirection() == tunnel1.getTrainsDirection()
                     || tunnel1.getTrainsDirection() == 0) {
@@ -31,7 +46,6 @@ public class TunnelController {
                     break;
                 }
             } else {
-                TimeUnit.MILLISECONDS.sleep(100);
                 if (!tunnel1.getSemaphore().hasQueuedThreads()) {
                     clearTunnelConfig(tunnel1);
                 }
@@ -42,55 +56,12 @@ public class TunnelController {
         }
     }
 
-    private void goThroughFirstTunnel(final Train train) throws
-            InterruptedException {
-        tunnel1.incrementDirectionCounter();
-        tunnel1.setTrainsDirection(train.getDirection());
-        tunnel1.getSemaphore().acquire();
-        System.out.println("Train number " + train.getId()
-                + " in the FIRST tunnel");
-        TimeUnit.MILLISECONDS.sleep(Tunnel.getTimeInTunnel());
-        leaveTunnel(tunnel1);
-    }
-
-    private void goThroughSecondTunnel(final Train train) throws
-            InterruptedException {
-        tunnel2.incrementDirectionCounter();
-        tunnel2.setTrainsDirection(train.getDirection());
-        tunnel2.getSemaphore().acquire();
-        System.out.println("Train number " + train.getId()
-                + " in the SECOND tunnel");
-        TimeUnit.MILLISECONDS.sleep(Tunnel.getTimeInTunnel());
-        leaveTunnel(tunnel2);
-    }
-
-    private void leaveTunnel(final Tunnel tunnel) throws InterruptedException {
-        final long delay = 10;
-        TimeUnit.MILLISECONDS.sleep(delay);
-        tunnel.getSemaphore().release();
-    }
-
-    private void clearTunnelConfig(final Tunnel tunnel) throws
-            InterruptedException {
-        tunnel.setPreviousTrainsDirection(tunnel.getTrainsDirection());
-        tunnel.setTrainsDirection(0);
-
-        while (tunnel.getSemaphore().hasQueuedThreads()) {
-            TimeUnit.MILLISECONDS.sleep(100);
-        }
-        tunnel.resetOneDirectionCounter();
-    }
-
     private boolean checkTunnel(final Tunnel tunnel, final Train train) throws
             InterruptedException {
         if (tunnel.getTrainsDirection() == 0) {
             if (train.getDirection() == tunnel.getPreviousTrainsDirection()) {
                 TimeUnit.MILLISECONDS.sleep(500);
-                if (tunnel.getTrainsDirection() == 0) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return (tunnel.getTrainsDirection() == 0);
             } else {
                 return true;
             }
@@ -103,6 +74,71 @@ public class TunnelController {
                 return true;
             }
         }
+    }
 
+    /**
+     * This method pass train into the first tunnel.
+     *
+     * @param train train, which you need to pass
+     * @throws InterruptedException if interrupted while sleeping
+     */
+    private void goThroughFirstTunnel(final Train train) throws
+            InterruptedException {
+        tunnel1.incrementDirectionCounter();
+        tunnel1.setTrainsDirection(train.getDirection());
+        tunnel1.getSemaphore().acquire();
+        System.out.println("Train " + train.getId()
+                + " in the FIRST tunnel");
+        TimeUnit.MILLISECONDS.sleep(Tunnel.getTimeInTunnel());
+        leaveTunnel(tunnel1, train.getId());
+    }
+
+    /**
+     * This method pass train into the first tunnel.
+     *
+     * @param train train, which you need to pass
+     * @throws InterruptedException if interrupted while sleeping
+     */
+    private void goThroughSecondTunnel(final Train train) throws
+            InterruptedException {
+        tunnel2.incrementDirectionCounter();
+        tunnel2.setTrainsDirection(train.getDirection());
+        tunnel2.getSemaphore().acquire();
+        System.out.println("Train " + train.getId()
+                + " in the SECOND tunnel");
+        TimeUnit.MILLISECONDS.sleep(Tunnel.getTimeInTunnel());
+        leaveTunnel(tunnel2, train.getId());
+    }
+
+    /**
+     * This method allows the train to leave the tunnel.
+     *
+     * @param tunnel tunnel, which you need to leave
+     * @param id     train id
+     * @throws InterruptedException if interrupted while sleeping.
+     */
+    private void leaveTunnel(final Tunnel tunnel, final int id) throws
+            InterruptedException {
+        final long delay = 5;
+        TimeUnit.MILLISECONDS.sleep(delay);
+        System.out.println(id + " go away.");
+        tunnel.getSemaphore().release();
+    }
+
+    /**
+     * This method clear tunnel configuration.
+     *
+     * @param tunnel tunnel you want to clear
+     * @throws InterruptedException if interrupted while sleeping
+     */
+    private void clearTunnelConfig(final Tunnel tunnel) throws
+            InterruptedException {
+        final long delayTime = 5;
+        tunnel.setPreviousTrainsDirection(tunnel.getTrainsDirection());
+        tunnel.setTrainsDirection(0);
+        while (tunnel.getSemaphore().hasQueuedThreads()) {
+            TimeUnit.MILLISECONDS.sleep(delayTime);
+        }
+        tunnel.resetOneDirectionCounter();
     }
 }
