@@ -72,15 +72,8 @@ public class Train implements Callable<Integer> {
     public Integer call() throws InterruptedException {
         TimeUnit.MILLISECONDS.sleep(delayTime);
         final long timeToIntersection = 300;
-        System.out.println("Train number " + id + " going in the "
-                + getDirection() + " direction");
         TimeUnit.MILLISECONDS.sleep(timeToIntersection);
-        System.out.println("Train number " + id + " at the " + getDirection()
-                + " intersection");
-
         RailwaySingleton.getInstance().signalToTunnelController(this);
-
-        System.out.println("Train " + id + " gone away");
         return id;
     }
 }

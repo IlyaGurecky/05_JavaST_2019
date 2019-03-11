@@ -6,9 +6,6 @@ import by.guretsky.task2_threads.entity.Train;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 /**
  * Railway singleton class that consists of the two tunnels, tunnel controller,
  * two intersection queues.
@@ -78,7 +75,7 @@ public final class RailwaySingleton {
      *
      * @param train waiting train
      */
-    public void signalToTunnelController(Train train) {
+    public void signalToTunnelController(final Train train) {
         try {
             controller.chooseTunnel(train);
         } catch (InterruptedException e) {
