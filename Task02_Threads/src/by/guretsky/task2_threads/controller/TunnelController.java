@@ -32,20 +32,16 @@ public class TunnelController {
     public void chooseTunnel(final Train train) throws InterruptedException {
         System.out.println("Train number " + train.getId() + " with direction "
                 + train.getDirection() + " choose tunnel...");
-        while (true) {
+        boolean stopSearching = false;
+        while (!stopSearching) {
             if (train.getDirection() == tunnel1.getTrainsDirection()
                     || tunnel1.getTrainsDirection() == 0) {
-                if (checkTunnel(tunnel1, train)) {
-                    goThroughFirstTunnel(train);
-                    break;
-                }
+                stopSearching = tryTunnel(tunnel1, train, tunnel2);
             } else if (train.getDirection() == tunnel2.getTrainsDirection()
                     || tunnel2.getTrainsDirection() == 0) {
-                if (checkTunnel(tunnel2, train)) {
-                    goThroughSecondTunnel(train);
-                    break;
-                }
+                stopSearching = tryTunnel(tunnel2, train, tunnel1);
             } else {
+                TimeUnit.MILLISECONDS.sleep(100);
                 if (!tunnel1.getSemaphore().hasQueuedThreads()) {
                     clearTunnelConfig(tunnel1);
                 }
@@ -56,58 +52,60 @@ public class TunnelController {
         }
     }
 
-    private boolean checkTunnel(final Tunnel tunnel, final Train train) throws
+    private boolean tryTunnel(final Tunnel priorityTunnel, final Train train,
+                              final Tunnel backupTunnel) throws
             InterruptedException {
-        if (tunnel.getTrainsDirection() == 0) {
-            if (train.getDirection() == tunnel.getPreviousTrainsDirection()) {
-                TimeUnit.MILLISECONDS.sleep(500);
-                return (tunnel.getTrainsDirection() == 0);
+        if (priorityTunnel.getTrainsDirection() == 0) {
+            if (train.getDirection() == priorityTunnel.getPreviousDirection()) {
+                if (train.getDirection() != backupTunnel.getPreviousDirection()) {
+                    clearTunnelConfig(backupTunnel);
+                    goThroughTunnel(backupTunnel, train);
+                    return true;
+                } else {
+                    clearTunnelConfig(priorityTunnel);
+                    goThroughTunnel(priorityTunnel, train);
+                    return true;
+                }
             } else {
+                goThroughTunnel(priorityTunnel, train);
                 return true;
             }
         } else {
-            if (tunnel.getOneDirectionCounter()
-                    == Tunnel.getOneDirectionTrainsLimit()) {
-                clearTunnelConfig(tunnel);
-                return false;
+            if (priorityTunnel.getOneDirectionCounter() == Tunnel.getOneDirectionTrainsLimit()) {
+                if (backupTunnel.getOneDirectionCounter() == Tunnel.getOneDirectionTrainsLimit()) {
+                    clearTunnelConfig(priorityTunnel);
+                    clearTunnelConfig(backupTunnel);
+                    goThroughTunnel(priorityTunnel, train);
+                    return true;
+                } else {
+                    clearTunnelConfig(backupTunnel);
+                    goThroughTunnel(backupTunnel, train);
+                    return true;
+                }
             } else {
+                goThroughTunnel(priorityTunnel, train);
                 return true;
             }
         }
     }
 
     /**
-     * This method pass train into the first tunnel.
+     * This method pass train into the tunnel.
      *
-     * @param train train, which you need to pass
+     * @param tunnel tunnel in which you need to pass
+     * @param train  train, which you need to pass
      * @throws InterruptedException if interrupted while sleeping
      */
-    private void goThroughFirstTunnel(final Train train) throws
+    private void goThroughTunnel(final Tunnel tunnel, final Train train) throws
             InterruptedException {
-        tunnel1.incrementDirectionCounter();
-        tunnel1.setTrainsDirection(train.getDirection());
-        tunnel1.getSemaphore().acquire();
-        System.out.println("Train " + train.getId()
-                + " in the FIRST tunnel");
+        tunnel.incrementDirectionCounter();
+        tunnel.setTrainsDirection(train.getDirection());
+        tunnel.getSemaphore().acquire();
+        TimeUnit.MILLISECONDS.sleep(100);
+        System.out.println("Train " + train.getId() + " in the "
+                + tunnel.getName() + " tunnel");
         TimeUnit.MILLISECONDS.sleep(Tunnel.getTimeInTunnel());
-        leaveTunnel(tunnel1, train.getId());
-    }
-
-    /**
-     * This method pass train into the first tunnel.
-     *
-     * @param train train, which you need to pass
-     * @throws InterruptedException if interrupted while sleeping
-     */
-    private void goThroughSecondTunnel(final Train train) throws
-            InterruptedException {
-        tunnel2.incrementDirectionCounter();
-        tunnel2.setTrainsDirection(train.getDirection());
-        tunnel2.getSemaphore().acquire();
-        System.out.println("Train " + train.getId()
-                + " in the SECOND tunnel");
-        TimeUnit.MILLISECONDS.sleep(Tunnel.getTimeInTunnel());
-        leaveTunnel(tunnel2, train.getId());
+        leaveTunnel(tunnel, train.getId());
     }
 
     /**
@@ -119,8 +117,6 @@ public class TunnelController {
      */
     private void leaveTunnel(final Tunnel tunnel, final int id) throws
             InterruptedException {
-        final long delay = 5;
-        TimeUnit.MILLISECONDS.sleep(delay);
         System.out.println(id + " go away.");
         tunnel.getSemaphore().release();
     }
@@ -134,11 +130,11 @@ public class TunnelController {
     private void clearTunnelConfig(final Tunnel tunnel) throws
             InterruptedException {
         final long delayTime = 5;
-        tunnel.setPreviousTrainsDirection(tunnel.getTrainsDirection());
-        tunnel.setTrainsDirection(0);
         while (tunnel.getSemaphore().hasQueuedThreads()) {
             TimeUnit.MILLISECONDS.sleep(delayTime);
         }
+        tunnel.setPreviousDirection(tunnel.getTrainsDirection());
+        tunnel.setTrainsDirection(0);
         tunnel.resetOneDirectionCounter();
     }
 }
