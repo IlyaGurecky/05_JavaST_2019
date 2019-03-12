@@ -51,7 +51,6 @@ public final class Runner {
             List<String> filteredDataList = filter.filterFileData(fileDataList);
             DataParser parser = new DataParser();
             trainInfo.addAll(parser.parseInt(filteredDataList));
-            System.out.println(trainInfo);
         } catch (FileDoesNotExistException e) {
             LOGGER.error("File doesn't not exist");
         }
