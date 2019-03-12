@@ -40,7 +40,7 @@ public class Train implements Callable<Integer> {
         }
         id = idCounter++;
         direction = trainDirection;
-        final int delayTimeRange = 4000;
+        final int delayTimeRange = 6000;
         delayTime = new Random().nextInt(delayTimeRange);
     }
 

@@ -10,7 +10,7 @@ public class Tunnel {
     /**
      * Train time in tunnel.
      */
-    private static final int TIME_IN_TUNNEL = 1000;
+    private static final int TIME_IN_TUNNEL = 500;
     /**
      * Amount of one direction trains that can pass through the tunnel.
      */
@@ -28,18 +28,32 @@ public class Tunnel {
      * Direction of the passed trains.
      * (1-first direction, 2-second direction, 0-free).
      */
-    private int trainsDirection;
+    private AtomicInteger trainsDirection = new AtomicInteger(0);
 
     /**
-     * Previous direction.
+     * Tunnel name.
+     */
+    private String name;
+
+    /**
+     * Previous trains direction.
      * (1-first direction, 2-second direction, 0-free).
      */
-    private int previousTrainsDirection;
+    private int previousDirection;
 
     /**
      * Counts number of one direction trains, which passed through the tunnel.
      */
     private AtomicInteger oneDirectionCounter = new AtomicInteger(0);
+
+    /**
+     * Constructor with parameters.
+     *
+     * @param tunnelName name
+     */
+    public Tunnel(final String tunnelName) {
+        name = tunnelName;
+    }
 
     /**
      * {@link Tunnel#TIME_IN_TUNNEL} getter.
@@ -60,21 +74,30 @@ public class Tunnel {
     }
 
     /**
-     * {@link Tunnel#previousTrainsDirection} getter.
+     * Tunnel name getter.
      *
-     * @return {@link Tunnel#previousTrainsDirection}
+     * @return name
      */
-    public int getPreviousTrainsDirection() {
-        return previousTrainsDirection;
+    public String getName() {
+        return name;
     }
 
     /**
-     * {@link Tunnel#previousTrainsDirection} setter.
+     * {@link Tunnel#previousDirection} getter.
+     *
+     * @return {@link Tunnel#previousDirection}
+     */
+    public int getPreviousDirection() {
+        return previousDirection;
+    }
+
+    /**
+     * {@link Tunnel#previousDirection} setter.
      *
      * @param prevDirection previous direction
      */
-    public void setPreviousTrainsDirection(final int prevDirection) {
-        this.previousTrainsDirection = prevDirection;
+    public void setPreviousDirection(final int prevDirection) {
+        this.previousDirection = prevDirection;
     }
 
     /**
@@ -92,7 +115,7 @@ public class Tunnel {
      * @return {@link Tunnel#trainsDirection}
      */
     public int getTrainsDirection() {
-        return trainsDirection;
+        return trainsDirection.get();
     }
 
     /**
@@ -110,7 +133,7 @@ public class Tunnel {
      * @param direction train direction
      */
     public void setTrainsDirection(final int direction) {
-        this.trainsDirection = direction;
+        this.trainsDirection.set(direction);
     }
 
     /**
