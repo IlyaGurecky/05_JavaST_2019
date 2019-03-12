@@ -71,7 +71,7 @@ public class Train implements Callable<Integer> {
     @Override
     public Integer call() throws InterruptedException {
         TimeUnit.MILLISECONDS.sleep(delayTime);
-        final long timeToIntersection = 300;
+        final long timeToIntersection = 500;
         TimeUnit.MILLISECONDS.sleep(timeToIntersection);
         RailwaySingleton.getInstance().signalToTunnelController(this);
         return id;
