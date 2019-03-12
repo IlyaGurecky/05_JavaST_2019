@@ -23,11 +23,11 @@ public final class RailwaySingleton {
     /**
      * {@link Tunnel} object.
      */
-    private Tunnel firstTunnel = new Tunnel();
+    private Tunnel firstTunnel = new Tunnel("FIRST");
     /**
      * {@link Tunnel} object.
      */
-    private Tunnel secondTunnel = new Tunnel();
+    private Tunnel secondTunnel = new Tunnel("SECOND");
 
     /**
      * The {@link TunnelController} object that selects the tunnel for the train
