@@ -10,7 +10,7 @@ public class Tunnel {
     /**
      * Train time in tunnel.
      */
-    private static final int TIME_IN_TUNNEL = 1000;
+    private static final int TIME_IN_TUNNEL = 2000;
     /**
      * Amount of one direction trains that can pass through the tunnel.
      */
