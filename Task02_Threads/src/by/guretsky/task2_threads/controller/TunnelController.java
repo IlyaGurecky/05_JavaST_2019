@@ -29,6 +29,12 @@ public class TunnelController {
         tunnel2 = second;
     }
 
+    /**
+     * This method choose the tunnel for train.
+     *
+     * @param train train you need to launch through the tunnel
+     * @throws InterruptedException if interrupted while sleeping
+     */
     public void chooseTunnel(final Train train) throws InterruptedException {
         System.out.println("Train number " + train.getId() + " with direction "
                 + train.getDirection() + " choose tunnel...");
@@ -41,7 +47,8 @@ public class TunnelController {
                     || tunnel2.getTrainsDirection() == 0) {
                 stopSearching = tryTunnel(tunnel2, train, tunnel1);
             } else {
-                TimeUnit.MILLISECONDS.sleep(100);
+                final long delay = 100;
+                TimeUnit.MILLISECONDS.sleep(delay);
                 if (!tunnel1.getSemaphore().hasQueuedThreads()) {
                     clearTunnelConfig(tunnel1);
                 }
@@ -52,18 +59,29 @@ public class TunnelController {
         }
     }
 
+    /**
+     * This method helps {@link TunnelController#chooseTunnel(Train)} to
+     * choose tunnel.
+     *
+     * @param priorityTunnel tunnel with high priority
+     * @param train          train need to launch
+     * @param backupTunnel   tunnel with low priority
+     * @return true if train have launched
+     * @throws InterruptedException if interrupted while sleeping
+     */
     private boolean tryTunnel(final Tunnel priorityTunnel, final Train train,
                               final Tunnel backupTunnel) throws
             InterruptedException {
         if (priorityTunnel.getTrainsDirection() == 0) {
             if (train.getDirection() == priorityTunnel.getPreviousDirection()) {
-                if (train.getDirection() != backupTunnel.getPreviousDirection()) {
-                    clearTunnelConfig(backupTunnel);
-                    goThroughTunnel(backupTunnel, train);
-                    return true;
-                } else {
+                if (train.getDirection()
+                        == backupTunnel.getPreviousDirection()) {
                     clearTunnelConfig(priorityTunnel);
                     goThroughTunnel(priorityTunnel, train);
+                    return true;
+                } else {
+                    clearTunnelConfig(backupTunnel);
+                    goThroughTunnel(backupTunnel, train);
                     return true;
                 }
             } else {
@@ -71,8 +89,10 @@ public class TunnelController {
                 return true;
             }
         } else {
-            if (priorityTunnel.getOneDirectionCounter() == Tunnel.getOneDirectionTrainsLimit()) {
-                if (backupTunnel.getOneDirectionCounter() == Tunnel.getOneDirectionTrainsLimit()) {
+            if (priorityTunnel.getOneDirectionCounter()
+                    == Tunnel.getOneDirectionTrainsLimit()) {
+                if (backupTunnel.getOneDirectionCounter()
+                        == Tunnel.getOneDirectionTrainsLimit()) {
                     clearTunnelConfig(priorityTunnel);
                     clearTunnelConfig(backupTunnel);
                     goThroughTunnel(priorityTunnel, train);
@@ -101,7 +121,8 @@ public class TunnelController {
         tunnel.incrementDirectionCounter();
         tunnel.setTrainsDirection(train.getDirection());
         tunnel.getSemaphore().acquire();
-        TimeUnit.MILLISECONDS.sleep(100);
+        final long delay = 100;
+        TimeUnit.MILLISECONDS.sleep(delay);
         System.out.println("Train " + train.getId() + " in the "
                 + tunnel.getName() + " tunnel");
         TimeUnit.MILLISECONDS.sleep(Tunnel.getTimeInTunnel());
@@ -113,10 +134,8 @@ public class TunnelController {
      *
      * @param tunnel tunnel, which you need to leave
      * @param id     train id
-     * @throws InterruptedException if interrupted while sleeping.
      */
-    private void leaveTunnel(final Tunnel tunnel, final int id) throws
-            InterruptedException {
+    private void leaveTunnel(final Tunnel tunnel, final int id) {
         System.out.println(id + " go away.");
         tunnel.getSemaphore().release();
     }
