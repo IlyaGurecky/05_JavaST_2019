@@ -12,7 +12,9 @@ public class IncorrectArgumentException extends Exception {
     }
 
     /**
-     * Constructs a new exception with special message.
+     * Constructs a new exception with the specified detail message.
+     *
+     * @param message detail message
      */
     public IncorrectArgumentException(String message) {
         super(message);
