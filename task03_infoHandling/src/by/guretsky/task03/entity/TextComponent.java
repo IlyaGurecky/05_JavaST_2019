@@ -11,15 +11,21 @@ import java.util.List;
 public class TextComponent implements Component {
     private static final Logger LOGGER
             = LogManager.getLogger(TextComponent.class);
+    private int treeLevel;
     private String info;
     private List<Component> components = new ArrayList<>();
 
-    public TextComponent(String componentInfo) {
+    public TextComponent(final String componentInfo, final int level) {
         info = componentInfo;
+        treeLevel = level;
     }
 
     public String getInfo() {
         return info;
+    }
+
+    public int getTreeLevel() {
+        return treeLevel;
     }
 
     @Override
