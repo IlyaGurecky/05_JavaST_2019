@@ -22,22 +22,15 @@ public abstract class AbstractParser {
         }
     }
 
-    void parse(final String regex, final Component component) {
+    void parse(final String regex, final Component component, final int level) {
         String info = ((TextComponent) component).getInfo();
         List<String> splitInfo
                 = new ArrayList<>(Arrays.asList(info.split(regex)));
 
-        splitInfo.stream()
-                .map(String::trim)
-                .forEach(s -> {
-                    Component newComponent = new TextComponent(s);
-                    component.add(newComponent);
-                    startNext(newComponent);
-                });
-        /*for (String comp : splitInfo) {
-            Component newComponent = new TextComponent(comp.trim());
+        splitInfo.forEach(s -> {
+            Component newComponent = new TextComponent(s.trim(), level);
             component.add(newComponent);
             startNext(newComponent);
-        }*/
+        });
     }
 }
