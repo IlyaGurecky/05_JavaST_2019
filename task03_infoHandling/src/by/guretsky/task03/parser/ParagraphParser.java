@@ -7,7 +7,7 @@ public class ParagraphParser extends AbstractParser {
     private static final String SPLIT_TO_PARAGRAPH_REGEX = "(?m)(?=^\\s{4})";
 
     @Override
-    public void parse(Component wholeText) {
+    public void parse(final Component wholeText) {
         parse(SPLIT_TO_PARAGRAPH_REGEX, wholeText,
                 TreeLevel.PARAGRAPH.getLevel());
     }

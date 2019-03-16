@@ -29,27 +29,28 @@ public class TextComponent implements Component {
     }
 
     @Override
-    public void add(Component component) {
+    public void add(final Component component) {
         components.add(component);
     }
 
     @Override
-    public void remove(Component component) {
+    public void remove(final Component component) {
         components.remove(component);
     }
 
     @Override
-    public void add(Component... component) {
+    public void add(final Component... component) {
         components.addAll(Arrays.asList(component));
     }
 
     @Override
-    public void remove(Component... component) {
+    public void remove(final Component... component) {
         components.removeAll(Arrays.asList(component));
     }
 
     @Override
-    public TextComponent getChild(int index) throws IncorrectArgumentException {
+    public TextComponent getChild(final int index) throws
+            IncorrectArgumentException {
         if (index < 0 || index >= components.size()) {
             LOGGER.error("Incorrect argument");
             throw new IncorrectArgumentException("Out of bound");

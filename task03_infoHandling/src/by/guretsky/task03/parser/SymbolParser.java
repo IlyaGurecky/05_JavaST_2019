@@ -7,7 +7,7 @@ public class SymbolParser extends AbstractParser {
     private static final String SPLIT_TO_SYMBOLS_REGEX = "";
 
     @Override
-    public void parse(Component component) {
+    public void parse(final Component component) {
         parse(SPLIT_TO_SYMBOLS_REGEX, component, TreeLevel.SYMBOLS.getLevel());
     }
 }

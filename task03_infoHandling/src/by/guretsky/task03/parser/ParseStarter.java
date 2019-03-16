@@ -4,7 +4,7 @@ import by.guretsky.task03.entity.Component;
 
 public class ParseStarter extends AbstractParser {
     @Override
-    public void parse(Component wholeText) {
+    public void parse(final Component wholeText) {
         startNext(wholeText);
     }
 }

@@ -5,12 +5,12 @@ import by.guretsky.task03.entity.TextComponent;
 import by.guretsky.task03.entity.constant.TreeLevel;
 
 public class LexemeComponentParser extends AbstractParser {
-    private static final String WORD_REGEX = "^\\(?[A-Za-z-]+\\)?$";
+    private static final String WORD_REGEX = "^\\(?[A-Za-z-']+\\)?$";
     private static final String WORD_WITH_PUNCTUATION_REGEX
-            = "^[A-Za-z-']+[.,!?]$";
+            = "^[A-Za-z-']+[.,!?:]$";
 
     @Override
-    public void parse(Component component) {
+    public void parse(final Component component) {
         if (((TextComponent) component).getInfo().matches(WORD_REGEX)) {
             Component word =
                     new TextComponent(((TextComponent) component).getInfo(),

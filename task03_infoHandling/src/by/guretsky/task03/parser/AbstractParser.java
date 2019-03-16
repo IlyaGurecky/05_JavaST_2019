@@ -10,13 +10,13 @@ import java.util.List;
 public abstract class AbstractParser {
     private AbstractParser next;
 
-    public abstract void parse(Component component);
+    public abstract void parse(final Component component);
 
-    public void linkWith(AbstractParser nextParser) {
+    public void linkWith(final AbstractParser nextParser) {
         next = nextParser;
     }
 
-    void startNext(Component component) {
+    void startNext(final Component component) {
         if (next != null) {
             next.parse(component);
         }
