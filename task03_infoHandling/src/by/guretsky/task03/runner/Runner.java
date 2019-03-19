@@ -7,7 +7,6 @@ import by.guretsky.task03.parser.*;
 import by.guretsky.task03.reader.FileDataReader;
 
 import java.io.File;
-import java.util.Arrays;
 
 public class Runner {
     private static final String PATH = "data" + File.separator + "info.txt";
@@ -16,8 +15,7 @@ public class Runner {
         FileDataReader reader = new FileDataReader(PATH);
         String string = reader.readString();
 
-        TextComponent parsedText =
-                new TextComponent(string, TreeLevel.TEXT);
+        TextComponent parsedText = new TextComponent(string, TreeLevel.TEXT);
 
         AbstractParser parser = new ParseStarter();
         AbstractParser paragraphParser = new ParagraphParser();

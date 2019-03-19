@@ -8,7 +8,7 @@ import by.guretsky.task03.entity.constant.TreeLevel;
 public class LexemeComponentParser extends AbstractParser {
     private static final String WORD_REGEX = "^\\(?[A-Za-z-']+\\)?$";
     private static final String WORD_WITH_PUNCTUATION_REGEX
-            = "^[A-Za-z-']+[.,!?:]$";
+            = "^[A-Za-z-']+[.,!?:]+$";
 
     @Override
     public void parse(final Component component, String data) {
@@ -17,10 +17,10 @@ public class LexemeComponentParser extends AbstractParser {
             component.add(word);
             startNext(word, data);
         } else if (data.matches(WORD_WITH_PUNCTUATION_REGEX)) {
-
-            String word = data.substring(0, data.length() - 1);
-            String punctuation = data.substring(data.length() - 1);
-
+            String[] splitData = data.split("[A-Za-z']+");
+            String punctuation = splitData[splitData.length - 1];
+            String word
+                    = data.substring(0, data.length() - punctuation.length());
 
             Component wordComponent = new TextComponent(word, TreeLevel.WORD);
             Component punctuationComponent =
