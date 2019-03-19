@@ -1,31 +1,27 @@
 package by.guretsky.task03.entity;
 
+import by.guretsky.task03.entity.constant.TreeLevel;
 import by.guretsky.task03.exception.IncorrectArgumentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TextComponent implements Component {
     private static final Logger LOGGER
             = LogManager.getLogger(TextComponent.class);
-    private int treeLevel;
+    private TreeLevel level;
     private String info;
     private List<Component> components = new ArrayList<>();
 
-    public TextComponent(final String componentInfo, final int level) {
-        info = componentInfo;
-        treeLevel = level;
+    public TextComponent(String info, final TreeLevel treeLevel) {
+        this.info = info;
+        level = treeLevel;
     }
 
-    public String getInfo() {
-        return info;
-    }
-
-    public int getTreeLevel() {
-        return treeLevel;
+    public TreeLevel getLevel() {
+        return level;
     }
 
     @Override
@@ -39,16 +35,6 @@ public class TextComponent implements Component {
     }
 
     @Override
-    public void add(final Component... component) {
-        components.addAll(Arrays.asList(component));
-    }
-
-    @Override
-    public void remove(final Component... component) {
-        components.removeAll(Arrays.asList(component));
-    }
-
-    @Override
     public TextComponent getChild(final int index) throws
             IncorrectArgumentException {
         if (index < 0 || index >= components.size()) {
@@ -58,10 +44,24 @@ public class TextComponent implements Component {
         return (TextComponent) components.get(index);
     }
 
-    public void printComponent(final int level) throws
-            IncorrectArgumentException {
-        this.getChild(0).components.stream()
-                .map(component -> ((TextComponent) component).getInfo())
-                .forEach(System.out::println);
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        for (Component component : components) {
+            builder.append(component.toString());
+        }
+
+        switch (level) {
+            case LEXEME:
+                builder.append(" ");
+                break;
+            case PARAGRAPH:
+                builder.append("\n    ");
+                break;
+        }
+
+
+        return builder.toString();
     }
 }
