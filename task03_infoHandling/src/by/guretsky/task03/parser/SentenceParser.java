@@ -7,8 +7,7 @@ public class SentenceParser extends AbstractParser {
     private static final String SPLIT_TO_SENTENCE_REGEX = "(?<=[.!?]+)";
 
     @Override
-    public void parse(final Component component) {
-        parse(SPLIT_TO_SENTENCE_REGEX, component,
-                TreeLevel.SENTENCE.getLevel());
+    public void parse(final Component component, final String data) {
+        parse(SPLIT_TO_SENTENCE_REGEX, component, TreeLevel.SENTENCE, data);
     }
 }

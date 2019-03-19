@@ -7,7 +7,7 @@ public class LexemeParser extends AbstractParser {
     private static final String PARSE_TO_LEXEME_REGEX = "\\s";
 
     @Override
-    public void parse(final Component component) {
-        parse(PARSE_TO_LEXEME_REGEX, component, TreeLevel.LEXEME.getLevel());
+    public void parse(final Component component, final String data) {
+        parse(PARSE_TO_LEXEME_REGEX, component, TreeLevel.LEXEME, data);
     }
 }
