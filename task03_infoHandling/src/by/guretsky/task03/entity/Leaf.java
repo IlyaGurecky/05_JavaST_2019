@@ -1,12 +1,14 @@
 package by.guretsky.task03.entity;
 
 import by.guretsky.task03.entity.constant.TreeLevel;
+import by.guretsky.task03.exception.IllegalOperationException;
 
 public class Leaf implements Component {
-    private String info;
+    private static final String EXCEPTION_MESSAGE = "Unsupported operation";
+    private char info;
     private TreeLevel level;
 
-    public Leaf(final String leafInfo, TreeLevel treeLevel) {
+    public Leaf(final char leafInfo, final TreeLevel treeLevel) {
         level = treeLevel;
         info = leafInfo;
     }
@@ -17,25 +19,25 @@ public class Leaf implements Component {
 
     @Override
     public void add(Component component) throws
-            UnsupportedOperationException {
-        throw new UnsupportedOperationException();
+            IllegalOperationException {
+        throw new IllegalOperationException(EXCEPTION_MESSAGE);
     }
 
     @Override
     public void remove(Component component) throws
-            UnsupportedOperationException {
-        throw new UnsupportedOperationException();
+            IllegalOperationException {
+        throw new IllegalOperationException(EXCEPTION_MESSAGE);
 
     }
 
     @Override
     public Component getChild(int index) throws
-            UnsupportedOperationException {
-        throw new UnsupportedOperationException();
+            IllegalOperationException {
+        throw new IllegalOperationException(EXCEPTION_MESSAGE);
     }
 
     @Override
     public String toString() {
-        return info;
+        return String.valueOf(info);
     }
 }
