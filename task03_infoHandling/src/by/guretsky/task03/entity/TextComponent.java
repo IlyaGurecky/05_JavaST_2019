@@ -47,21 +47,21 @@ public class TextComponent implements Component {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
+        if (level.equals(TreeLevel.PARAGRAPH)) {
+            builder.append("    ");
+        }
+        for (Component component : components) {
+            builder.append(component.toString());
+        }
         switch (level) {
             case LEXEME:
                 builder.append(" ");
                 break;
             case PARAGRAPH:
-                builder.append("    ");
+                builder.append("\n");
                 break;
-        }
-
-        for (Component component : components) {
-            builder.append(component.toString());
-        }
-
-        if (level.equals(TreeLevel.PARAGRAPH)) {
-            builder.append("\n");
+            default:
+                break;
         }
 
         return builder.toString();
