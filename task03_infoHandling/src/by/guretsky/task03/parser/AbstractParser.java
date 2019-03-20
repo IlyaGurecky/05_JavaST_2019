@@ -30,8 +30,8 @@ public abstract class AbstractParser {
 
         splitInfo.forEach(s -> {
             Component newComponent = new TextComponent(s.trim(), level);
-            component.add(newComponent);
-            startNext(newComponent, s.trim());
+                component.add(newComponent);
+                startNext(newComponent, s.trim());
         });
     }
 }

@@ -16,9 +16,9 @@ public class SymbolParser extends AbstractParser {
         List<String> splitInfo = new ArrayList<>(Arrays.asList(
                 data.split(SPLIT_TO_SYMBOLS_REGEX)));
         splitInfo.forEach(s -> {
-            Component newComponent = new Leaf(s.trim(), TreeLevel.SYMBOLS);
+            Component newComponent = new Leaf(s.trim().charAt(0),
+                    TreeLevel.SYMBOLS);
             component.add(newComponent);
-            startNext(newComponent, s);
         });
     }
 }
