@@ -15,7 +15,7 @@ public class Runner {
         FileDataReader reader = new FileDataReader(PATH);
         String string = reader.readString();
 
-        TextComponent parsedText = new TextComponent(string, TreeLevel.TEXT);
+        TextComponent parsedText = new TextComponent(TreeLevel.TEXT);
 
         AbstractParser parser = new ParseStarter();
         AbstractParser paragraphParser = new ParagraphParser();
