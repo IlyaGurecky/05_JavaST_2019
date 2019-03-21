@@ -9,26 +9,25 @@ public class LexemeComponentParser extends AbstractParser {
     private static final String LEXEME_SEPARATOR = "[^.,?!;:]+";
 
     @Override
-    public void parse(final Component component, String data)  {
+    public void parse(final Component component, String data) {
         String[] strings = data.split(LEXEME_SEPARATOR);
         String punctuation = "";
         if (strings.length != 0) {
-            punctuation = strings[1];
+            punctuation = strings[strings.length - 1];
         }
         String word = data.substring(0, data.length() - punctuation.length());
         if (word.matches(EXPRESSION_REGEX)) {
-            Component expression =
-                    new TextComponent(word, TreeLevel.EXPRESSION);
+            Component expression = new TextComponent(TreeLevel.EXPRESSION);
             component.add(expression);
             startNext(expression, word);
         } else {
-            Component wordComponent = new TextComponent(word, TreeLevel.WORD);
+            Component wordComponent = new TextComponent(TreeLevel.WORD);
             component.add(wordComponent);
             startNext(wordComponent, word);
         }
         if (punctuation.length() != 0) {
             Component punctuationComponent =
-                    new TextComponent(punctuation, TreeLevel.PUNCTUATION);
+                    new TextComponent(TreeLevel.PUNCTUATION);
             component.add(punctuationComponent);
             startNext(punctuationComponent, punctuation);
         }

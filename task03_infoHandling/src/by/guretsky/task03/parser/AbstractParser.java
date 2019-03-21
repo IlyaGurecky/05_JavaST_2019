@@ -29,9 +29,9 @@ public abstract class AbstractParser {
                 = new ArrayList<>(Arrays.asList(componentData.split(regex)));
 
         splitInfo.forEach(s -> {
-            Component newComponent = new TextComponent(s.trim(), level);
-                component.add(newComponent);
-                startNext(newComponent, s.trim());
+            Component newComponent = new TextComponent(level);
+            component.add(newComponent);
+            startNext(newComponent, s.trim());
         });
     }
 }
