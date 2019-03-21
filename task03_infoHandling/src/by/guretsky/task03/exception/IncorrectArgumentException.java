@@ -16,7 +16,7 @@ public class IncorrectArgumentException extends Exception {
      *
      * @param message detail message
      */
-    public IncorrectArgumentException(String message) {
+    public IncorrectArgumentException(final String message) {
         super(message);
     }
 }

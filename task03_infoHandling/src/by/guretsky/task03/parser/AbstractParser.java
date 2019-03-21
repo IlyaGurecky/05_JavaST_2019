@@ -8,21 +8,54 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Abstract parser used to create hierarchy for chain of responsibility Pattern.
+ *
+ * @author ilyaguretsky
+ */
 public abstract class AbstractParser {
+    /**
+     * Next parser in the chain.
+     */
     private AbstractParser next;
 
-    public abstract void parse(final Component component, final String data);
+    /**
+     * Abstract method.
+     *
+     * @param component in which you need to parse
+     * @param data      date you need to parse
+     */
+    public abstract void parse(Component component, String data);
 
+    /**
+     * This method used to link parsers in the chain.
+     *
+     * @param nextParser next parser
+     */
     public void linkWith(final AbstractParser nextParser) {
         next = nextParser;
     }
 
+    /**
+     * This method start next parser in chain.
+     *
+     * @param component component in which you need to parse
+     * @param data      data you need to parse
+     */
     void startNext(final Component component, final String data) {
         if (next != null) {
             next.parse(component, data);
         }
     }
 
+    /**
+     * Inner parse method used to avoid code duplication.
+     *
+     * @param regex         regular expression
+     * @param component     component in which you need to parse
+     * @param level         component level
+     * @param componentData data you need to parse
+     */
     void parse(final String regex, final Component component,
                final TreeLevel level, final String componentData) {
         List<String> splitInfo

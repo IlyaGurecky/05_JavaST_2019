@@ -15,7 +15,7 @@ public class IllegalOperationException extends Exception {
      *
      * @param message detail message
      */
-    public IllegalOperationException(String message) {
+    public IllegalOperationException(final String message) {
         super(message);
     }
 }

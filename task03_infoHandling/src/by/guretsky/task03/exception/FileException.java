@@ -16,7 +16,7 @@ public class FileException extends Exception {
      *
      * @param message detail message
      */
-    public FileException(String message) {
+    public FileException(final String message) {
         super(message);
     }
 }
