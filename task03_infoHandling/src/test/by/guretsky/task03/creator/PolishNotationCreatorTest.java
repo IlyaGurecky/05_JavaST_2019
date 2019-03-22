@@ -65,8 +65,8 @@ public class PolishNotationCreatorTest {
     @DataProvider(name = "negative_data_for_polish_notation_creator")
     public Object[][] createIncorrectData() {
         return new Object[][]{
-                {null, Arrays.asList("", "")},
-                {"", Arrays.asList("", "")},
+                {null},
+                {""},
         };
     }
 
@@ -92,16 +92,14 @@ public class PolishNotationCreatorTest {
      * {@link PolishNotationCreator#createPolishNotation(String)}.
      *
      * @param expression       expression you need to parse to polish notation
-     * @param expectedNotation expected polish notation
      * @throws IncorrectArgumentException if expression is incorrect
      */
     @Test(description = "Negative exception for polish notation creator",
             dataProvider = "negative_data_for_polish_notation_creator",
             expectedExceptions = {IncorrectArgumentException.class})
-    public void testCreatePolishNotation2(final String expression,
-                                          final List<String> expectedNotation)
+    public void testCreatePolishNotation2(final String expression)
             throws IncorrectArgumentException {
         List<String> actualNotation = creator.createPolishNotation(expression);
-        Assert.assertEquals(actualNotation, expectedNotation);
+        Assert.assertEquals(actualNotation, Arrays.asList("", ""));
     }
 }
