@@ -1,7 +1,7 @@
 package by.guretsky.task03.creator;
 
 import by.guretsky.task03.exception.IncorrectArgumentException;
-import by.guretsky.task03.interpreter.operation.BinaryOperation;
+import by.guretsky.task03.creator.operation.BinaryOperation;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -28,11 +28,11 @@ public class PolishNotationCreator {
     /**
      * Final polish notation.
      */
-    private List<String> polishNotation = new ArrayList<>();
+    private List<String> polishNotation;
     /**
      * Operations dequeue.
      */
-    private Deque<BinaryOperation> operations = new ArrayDeque<>();
+    private Deque<BinaryOperation> operations;
 
     /**
      * Main method for create polish notation.
@@ -43,6 +43,8 @@ public class PolishNotationCreator {
      */
     public List<String> createPolishNotation(final String expression) throws
             IncorrectArgumentException {
+        polishNotation = new ArrayList<>();
+        operations = new ArrayDeque<>();
         if (expression == null || expression.isEmpty()) {
             throw new IncorrectArgumentException("Incorrect expression");
         }

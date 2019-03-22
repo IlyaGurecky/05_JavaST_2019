@@ -1,4 +1,4 @@
-package by.guretsky.task03.interpreter.operation;
+package by.guretsky.task03.creator.operation;
 
 /**
  * This class consists of binary operations constants.
