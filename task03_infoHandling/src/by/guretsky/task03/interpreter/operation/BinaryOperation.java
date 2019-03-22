@@ -1,28 +1,77 @@
 package by.guretsky.task03.interpreter.operation;
 
+/**
+ * This class consists of binary operations constants.
+ */
 public enum BinaryOperation {
-    RIGHT_BRACKET(")", 6),
-    LEFT_BRACKET("(", 6),
+    /**
+     * Binary not operation.
+     */
     NOT("~", 5),
+    /**
+     * Binary Left shift operation.
+     */
     LEFT_SHIFT("<<", 4),
+    /**
+     * Binary right shift operation.
+     */
     RIGHT_SHIFT(">>", 4),
+    /**
+     * Binary unsigned right shift operation.
+     */
     UNSIGNED_RIGHT_SHIFT(">>>", 4),
+    /**
+     * Binary and operation.
+     */
     AND("&", 3),
+    /**
+     * Binary xor operation.
+     */
     XOR("^", 2),
-    OR("|", 1);
+    /**
+     * Binary or operation.
+     */
+    OR("|", 1),
+    /**
+     * Right bracket.
+     */
+    RIGHT_BRACKET(")", 0),
+    /**
+     * Left bracket.
+     */
+    LEFT_BRACKET("(", 0);
 
-    private String operator;
+    /**
+     * String representation of a constant.
+     */
+    private String operation;
     private int priority;
 
-    BinaryOperation(final String binOperator, final int prior) {
-        operator = binOperator;
+    /**
+     * Constructs objects with special parameters.
+     *
+     * @param binOperation operation
+     * @param prior        operation priority
+     */
+    BinaryOperation(final String binOperation, final int prior) {
+        operation = binOperation;
         priority = prior;
     }
 
-    public String getOperator() {
-        return operator;
+    /**
+     * Operation field getter.
+     *
+     * @return operation
+     */
+    public String getOperation() {
+        return operation;
     }
 
+    /**
+     * Priority field getter.
+     *
+     * @return priority
+     */
     public int getPriority() {
         return priority;
     }
