@@ -44,7 +44,6 @@ public class Leaf implements Component {
      */
     @Override
     public void add(final Component component) {
-
     }
 
     /**
@@ -54,7 +53,6 @@ public class Leaf implements Component {
      */
     @Override
     public void remove(final Component component) {
-
     }
 
     /**
