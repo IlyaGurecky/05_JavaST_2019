@@ -45,6 +45,9 @@ public enum BinaryOperation {
      * String representation of a constant.
      */
     private String operation;
+    /**
+     * Operation priority.
+     */
     private int priority;
 
     /**

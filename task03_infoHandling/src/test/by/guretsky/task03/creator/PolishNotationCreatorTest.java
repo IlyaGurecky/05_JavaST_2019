@@ -10,9 +10,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Test class for {@link PolishNotationCreator}.
+ *
+ * @author ilyaguretsky
+ */
 public class PolishNotationCreatorTest {
+    /**
+     * {@link PolishNotationCreator} object.
+     */
     private final PolishNotationCreator creator = new PolishNotationCreator();
 
+    /**
+     * Data provider for the test.
+     *
+     * @return Object[][]
+     */
     @DataProvider(name = "data_for_polish_notation_creator")
     public Object[][] createCorrectData1() {
         final List<String> expectedNotation1 =
@@ -44,6 +57,11 @@ public class PolishNotationCreatorTest {
         };
     }
 
+    /**
+     * Data provider for the test.
+     *
+     * @return Object[][]
+     */
     @DataProvider(name = "negative_data_for_polish_notation_creator")
     public Object[][] createCorrectData2() {
         return new Object[][]{
@@ -52,6 +70,14 @@ public class PolishNotationCreatorTest {
         };
     }
 
+    /**
+     * Positive test for
+     * {@link PolishNotationCreator#createPolishNotation(String)}.
+     *
+     * @param expression       expression you need to parse to polish notation
+     * @param expectedNotation expected polish notation
+     * @throws IncorrectArgumentException if expression is incorrect
+     */
     @Test(description = "Positive exception for polish notation creator",
             dataProvider = "data_for_polish_notation_creator")
     public void testCreatePolishNotation(final String expression,
@@ -61,6 +87,14 @@ public class PolishNotationCreatorTest {
         Assert.assertEquals(actualNotation, expectedNotation);
     }
 
+    /**
+     * Negative test for
+     * {@link PolishNotationCreator#createPolishNotation(String)}.
+     *
+     * @param expression       expression you need to parse to polish notation
+     * @param expectedNotation expected polish notation
+     * @throws IncorrectArgumentException if expression is incorrect
+     */
     @Test(description = "Negative exception for polish notation creator",
             dataProvider = "negative_data_for_polish_notation_creator",
             expectedExceptions = {IncorrectArgumentException.class})
