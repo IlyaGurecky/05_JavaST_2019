@@ -85,7 +85,7 @@ public class PolishNotationCreator {
         } else if (")".equals(element)) {
             while (!operations.peekLast()
                     .equals(BinaryOperation.LEFT_BRACKET)) {
-                polishNotation.add(operations.pollLast().getOperator());
+                polishNotation.add(operations.pollLast().getOperation());
             }
             operations.pollLast();
             return true;
@@ -104,7 +104,7 @@ public class PolishNotationCreator {
                 operations.add(operation);
             } else if (operations.peekLast().getPriority()
                     >= operation.getPriority()) {
-                addElementToNotation(operations.pollLast().getOperator());
+                addElementToNotation(operations.pollLast().getOperation());
                 operations.add(operation);
             }
         }
@@ -112,7 +112,7 @@ public class PolishNotationCreator {
 
     private void addRemainingOperations() {
         while (!operations.isEmpty()) {
-            polishNotation.add(operations.pollLast().getOperator());
+            polishNotation.add(operations.pollLast().getOperation());
         }
     }
 }
