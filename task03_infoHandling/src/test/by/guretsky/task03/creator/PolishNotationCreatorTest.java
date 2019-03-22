@@ -27,7 +27,7 @@ public class PolishNotationCreatorTest {
      * @return Object[][]
      */
     @DataProvider(name = "data_for_polish_notation_creator")
-    public Object[][] createCorrectData1() {
+    public Object[][] createCorrectData() {
         final List<String> expectedNotation1 =
                 new ArrayList<>(Arrays.asList("30", "3", ">>>"));
         final List<String> expectedNotation2 =
@@ -63,7 +63,7 @@ public class PolishNotationCreatorTest {
      * @return Object[][]
      */
     @DataProvider(name = "negative_data_for_polish_notation_creator")
-    public Object[][] createCorrectData2() {
+    public Object[][] createIncorrectData() {
         return new Object[][]{
                 {null, Arrays.asList("", "")},
                 {"", Arrays.asList("", "")},
