@@ -1,6 +1,7 @@
 package by.guretsky.task03.entity;
 
 import by.guretsky.task03.entity.constant.TreeLevel;
+import by.guretsky.task03.exception.IllegalOperationException;
 
 /**
  * Terminal class of text components.
@@ -38,31 +39,30 @@ public class Leaf implements Component {
     }
 
     /**
-     * {@inheritDoc}.
-     *
-     * @param component component
+     * @throws IllegalOperationException unsupported operation
      */
     @Override
-    public void add(final Component component) {
+    public void add(final Component component) throws
+            IllegalOperationException {
+        throw new IllegalOperationException("Unsupported operation");
     }
 
     /**
-     * {@inheritDoc}.
-     *
-     * @param component component
+     * @throws IllegalOperationException unsupported operation
      */
     @Override
-    public void remove(final Component component) {
+    public void remove(final Component component) throws
+            IllegalOperationException {
+        throw new IllegalOperationException("Unsupported operation");
     }
 
     /**
-     * {@inheritDoc}.
-     *
-     * @param index index
+     * @throws IllegalOperationException unsupported operations
      */
     @Override
-    public Component getChild(final int index) {
-        return null;
+    public Component getChild(final int index) throws
+            IllegalOperationException {
+        throw new IllegalOperationException("Illegal operation");
     }
 
     /**
