@@ -3,6 +3,9 @@ package by.guretsky.task03.parser;
 import by.guretsky.task03.entity.Component;
 import by.guretsky.task03.entity.TextComponent;
 import by.guretsky.task03.entity.constant.TreeLevel;
+import by.guretsky.task03.exception.IllegalOperationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,6 +16,11 @@ import java.util.regex.Pattern;
  * @author ilyaguretsky
  */
 public class SentenceParser extends AbstractParser {
+    /**
+     * Logger, which used to log events.
+     */
+    private static final Logger LOGGER =
+            LogManager.getLogger(SentenceParser.class);
     /**
      * Regular expression to parse paragraphs into sentences.
      */
@@ -33,7 +41,11 @@ public class SentenceParser extends AbstractParser {
         while (matcher.find()) {
             String sentence = matcher.group(0);
             Component sentenceComponent = new TextComponent(TreeLevel.SENTENCE);
-            component.add(sentenceComponent);
+            try {
+                component.add(sentenceComponent);
+            } catch (IllegalOperationException e) {
+                LOGGER.error("Unsupported operation");
+            }
             startNext(sentenceComponent, sentence.trim());
         }
     }

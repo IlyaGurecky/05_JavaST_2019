@@ -3,6 +3,9 @@ package by.guretsky.task03.parser;
 import by.guretsky.task03.entity.Component;
 import by.guretsky.task03.entity.TextComponent;
 import by.guretsky.task03.entity.constant.TreeLevel;
+import by.guretsky.task03.exception.IllegalOperationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +17,11 @@ import java.util.List;
  * @author ilyaguretsky
  */
 public abstract class AbstractParser {
+    /**
+     * Logger, which used to log events.
+     */
+    private static final Logger LOGGER =
+            LogManager.getLogger(AbstractParser.class);
     /**
      * Next parser in the chain.
      */
@@ -63,7 +71,11 @@ public abstract class AbstractParser {
 
         splitInfo.forEach(s -> {
             Component newComponent = new TextComponent(level);
-            component.add(newComponent);
+            try {
+                component.add(newComponent);
+            } catch (IllegalOperationException e) {
+                LOGGER.error("Unsupported operation", e);
+            }
             startNext(newComponent, s.trim());
         });
     }

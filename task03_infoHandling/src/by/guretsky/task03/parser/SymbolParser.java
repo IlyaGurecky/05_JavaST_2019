@@ -3,6 +3,9 @@ package by.guretsky.task03.parser;
 import by.guretsky.task03.entity.Component;
 import by.guretsky.task03.entity.Leaf;
 import by.guretsky.task03.entity.constant.TreeLevel;
+import by.guretsky.task03.exception.IllegalOperationException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +18,11 @@ import java.util.List;
  * @author ilyaguretsky
  */
 public class SymbolParser extends AbstractParser {
+    /**
+     * Logger, which used to log events.
+     */
+    private static final Logger LOGGER =
+            LogManager.getLogger(SymbolParser.class);
     /**
      * Regular expression to parse components into symbols.
      */
@@ -33,7 +41,11 @@ public class SymbolParser extends AbstractParser {
         splitInfo.forEach(s -> {
             Component newComponent = new Leaf(s.trim().charAt(0),
                     TreeLevel.SYMBOLS);
-            component.add(newComponent);
+            try {
+                component.add(newComponent);
+            } catch (IllegalOperationException e) {
+                LOGGER.error("Unsupported operation", e);
+            }
         });
     }
 }
