@@ -1,7 +1,9 @@
 package by.guretsky.task03.entity;
 
+import by.guretsky.task03.creator.PolishNotationCreator;
 import by.guretsky.task03.entity.constant.TreeLevel;
 import by.guretsky.task03.exception.IncorrectArgumentException;
+import by.guretsky.task03.interpreter.PolishNotationCalculator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -48,13 +50,6 @@ public class TextComponent implements Component {
     }
 
     /**
-     * @return component child components amount
-     */
-    public int componentsAmount() {
-        return components.size();
-    }
-
-    /**
      * {@inheritDoc}.
      *
      * @param component component you need to add
@@ -93,6 +88,7 @@ public class TextComponent implements Component {
 
     /**
      * {@inheritDoc}.
+     * Collect the text.
      *
      * @return component info
      */
@@ -109,9 +105,24 @@ public class TextComponent implements Component {
             default:
                 break;
         }
+
         for (Component component : components) {
+            if (component.getLevel().equals(TreeLevel.EXPRESSION)) {
+                try {
+                    PolishNotationCreator creator = new PolishNotationCreator();
+                    List<String> polishNotation =
+                            creator.createPolishNotation(component.toString());
+                    PolishNotationCalculator calculator
+                            = new PolishNotationCalculator();
+                    builder.append(calculator.calculate(polishNotation));
+                } catch (IncorrectArgumentException e) {
+                    LOGGER.error("Incorrect expression", e);
+                }
+                continue;
+            }
             builder.append(component.toString());
         }
+
         if (level.equals(TreeLevel.PARAGRAPH)) {
             builder.append("\n");
         }
