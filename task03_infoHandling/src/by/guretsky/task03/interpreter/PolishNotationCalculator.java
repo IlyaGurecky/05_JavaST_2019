@@ -30,13 +30,25 @@ public class PolishNotationCalculator {
         for (String element : polishNotation) {
             switch (element) {
                 case "^":
-                    expressions.add(c -> c.push(c.poll() ^ c.poll()));
+                    expressions.add(c -> {
+                        final int firstNumber = c.poll();
+                        final int secondNumber = c.poll();
+                        c.push(firstNumber ^ secondNumber);
+                    });
                     break;
                 case "|":
-                    expressions.add(c -> c.push(c.poll() | c.poll()));
+                    expressions.add(c -> {
+                        final int firstNumber = c.poll();
+                        final int secondNumber = c.poll();
+                        c.push(firstNumber | secondNumber);
+                    });
                     break;
                 case "&":
-                    expressions.add(c -> c.push(c.poll() & c.poll()));
+                    expressions.add(c -> {
+                        final int firstNumber = c.poll();
+                        final int secondNumber = c.poll();
+                        c.push(firstNumber & secondNumber);
+                    });
                     break;
                 case "~":
                     expressions.add(c -> c.push(~c.poll()));
