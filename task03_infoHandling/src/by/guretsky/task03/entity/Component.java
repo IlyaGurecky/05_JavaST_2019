@@ -4,6 +4,8 @@ import by.guretsky.task03.entity.constant.TreeLevel;
 import by.guretsky.task03.exception.IllegalOperationException;
 import by.guretsky.task03.exception.IncorrectArgumentException;
 
+import java.util.List;
+
 /**
  * Interface for Composite Pattern.
  *
@@ -24,7 +26,7 @@ public interface Component {
      * @param component component you need to remove
      * @throws IllegalOperationException if operation is unsupported
      */
-    void remove(Component component) throws IllegalOperationException;
+    void remove(List<Component> component) throws IllegalOperationException;
 
     /**
      * Return component child.
@@ -43,4 +45,19 @@ public interface Component {
      * @return {@link TreeLevel} constant
      */
     TreeLevel getLevel();
+
+    /**
+     * Components field getter.
+     *
+     * @return new list of the components
+     */
+    List<Component> getComponents() throws IllegalOperationException;
+
+    /**
+     * Components field setter.
+     *
+     * @param componentList new components list
+     */
+    void addComponents(List<Component> componentList) throws
+            IllegalOperationException;
 }

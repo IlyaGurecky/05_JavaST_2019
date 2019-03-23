@@ -65,8 +65,8 @@ public class TextComponent implements Component {
      * @param component component you need to remove
      */
     @Override
-    public void remove(final Component component) {
-        components.remove(component);
+    public void remove(final List<Component> component) {
+        components.removeAll(component);
     }
 
     /**
@@ -84,6 +84,26 @@ public class TextComponent implements Component {
             throw new IncorrectArgumentException("Out of bound");
         }
         return (TextComponent) components.get(index);
+    }
+
+    /**
+     * {@inheritDoc}.
+     *
+     * @return the components list
+     */
+    @Override
+    public List<Component> getComponents() {
+        return new ArrayList<>(components);
+    }
+
+    /**
+     * Set new components.
+     *
+     * @param newComponents new components
+     */
+    @Override
+    public void addComponents(final List<Component> newComponents) {
+        components.addAll(newComponents);
     }
 
     /**

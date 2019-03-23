@@ -3,12 +3,18 @@ package by.guretsky.task03.entity;
 import by.guretsky.task03.entity.constant.TreeLevel;
 import by.guretsky.task03.exception.IllegalOperationException;
 
+import java.util.List;
+
 /**
  * Terminal class of text components.
  *
  * @author ilyaguretsky
  */
 public class Leaf implements Component {
+    /**
+     * Exceptions message.
+     */
+    private static final String EXCEPTION_MESSAGE = "Unsupported operation";
     /**
      * Symbol.
      */
@@ -44,16 +50,16 @@ public class Leaf implements Component {
     @Override
     public void add(final Component component) throws
             IllegalOperationException {
-        throw new IllegalOperationException("Unsupported operation");
+        throw new IllegalOperationException(EXCEPTION_MESSAGE);
     }
 
     /**
      * @throws IllegalOperationException unsupported operation
      */
     @Override
-    public void remove(final Component component) throws
+    public void remove(final List<Component> component) throws
             IllegalOperationException {
-        throw new IllegalOperationException("Unsupported operation");
+        throw new IllegalOperationException(EXCEPTION_MESSAGE);
     }
 
     /**
@@ -62,7 +68,18 @@ public class Leaf implements Component {
     @Override
     public Component getChild(final int index) throws
             IllegalOperationException {
-        throw new IllegalOperationException("Illegal operation");
+        throw new IllegalOperationException(EXCEPTION_MESSAGE);
+    }
+
+    @Override
+    public List<Component> getComponents() throws IllegalOperationException {
+        throw new IllegalOperationException(EXCEPTION_MESSAGE);
+    }
+
+    @Override
+    public void addComponents(final List<Component> components) throws
+            IllegalOperationException {
+        throw new IllegalOperationException(EXCEPTION_MESSAGE);
     }
 
     /**
