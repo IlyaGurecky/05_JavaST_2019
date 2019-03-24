@@ -18,6 +18,7 @@ public class LexemeSorter {
      * @param text   text you need to sort
      * @param symbol the character you want to sort by
      * @return list of the sorted lexemes
+     * @throws IllegalOperationException if component is a leaf
      */
     public List<Component> sort(final Component text, final char symbol) throws
             IllegalOperationException {

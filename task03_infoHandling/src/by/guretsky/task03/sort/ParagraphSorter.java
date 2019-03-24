@@ -13,6 +13,9 @@ import java.util.List;
  * of sentences.
  */
 public class ParagraphSorter {
+    /**
+     * Logger to log events.
+     */
     private static final Logger LOGGER =
             LogManager.getLogger(ParagraphSorter.class);
 
@@ -21,6 +24,7 @@ public class ParagraphSorter {
      *
      * @param component component you need to sort.
      * @return components list
+     * @throws IllegalOperationException if components is a leaf
      */
     public List<Component> sort(final Component component) throws
             IllegalOperationException {

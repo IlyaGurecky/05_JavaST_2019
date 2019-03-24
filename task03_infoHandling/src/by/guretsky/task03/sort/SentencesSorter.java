@@ -25,6 +25,7 @@ public class SentencesSorter {
      *
      * @param text text you need to sort
      * @return components list
+     * @throws IllegalOperationException if component is a leaf
      */
     public List<Component> sort(final Component text) throws
             IllegalOperationException {
