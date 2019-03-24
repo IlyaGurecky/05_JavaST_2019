@@ -3,7 +3,13 @@ package by.guretsky.task03.creator;
 import by.guretsky.task03.entity.Component;
 import by.guretsky.task03.entity.TextComponent;
 import by.guretsky.task03.entity.constant.TreeLevel;
-import by.guretsky.task03.parser.*;
+import by.guretsky.task03.parser.AbstractParser;
+import by.guretsky.task03.parser.LexemeComponentParser;
+import by.guretsky.task03.parser.LexemeParser;
+import by.guretsky.task03.parser.ParagraphParser;
+import by.guretsky.task03.parser.ParseStarter;
+import by.guretsky.task03.parser.SentenceParser;
+import by.guretsky.task03.parser.SymbolParser;
 
 /**
  * This class includes the method to create text components tree.
