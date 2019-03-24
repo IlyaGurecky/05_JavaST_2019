@@ -9,56 +9,33 @@ public enum TreeLevel {
     /**
      * Text level.
      */
-    TEXT(0),
+    TEXT,
     /**
      * Paragraph level.
      */
-    PARAGRAPH(1),
+    PARAGRAPH,
     /**
      * Sentence level.
      */
-    SENTENCE(2),
+    SENTENCE,
     /**
      * Lexeme level.
      */
-    LEXEME(3),
+    LEXEME,
     /**
      * Word level.
      */
-    WORD(4),
+    WORD,
     /**
      * Expression level.
      */
-    EXPRESSION(5),
+    EXPRESSION,
     /**
      * Punctuation mark level.
      */
-    PUNCTUATION(6),
+    PUNCTUATION,
     /**
      * Symbol level.
      */
-    SYMBOLS(7);
-
-    /**
-     * Constant value.
-     */
-    private int level;
-
-    /**
-     * Constructor - to create constant with parameters.
-     *
-     * @param componentLevel level
-     */
-    TreeLevel(final int componentLevel) {
-        level = componentLevel;
-    }
-
-    /**
-     * Level field getter.
-     *
-     * @return level
-     */
-    public int getLevel() {
-        return level;
-    }
+    SYMBOLS
 }
