@@ -50,6 +50,7 @@ public interface Component {
      * Components field getter.
      *
      * @return new list of the components
+     * @throws IllegalOperationException if component is a leaf
      */
     List<Component> getComponents() throws IllegalOperationException;
 
@@ -57,6 +58,7 @@ public interface Component {
      * Components field setter.
      *
      * @param componentList new components list
+     * @throws IllegalOperationException if component is a leaf
      */
     void addComponents(List<Component> componentList) throws
             IllegalOperationException;

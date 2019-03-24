@@ -71,11 +71,17 @@ public class Leaf implements Component {
         throw new IllegalOperationException(EXCEPTION_MESSAGE);
     }
 
+    /**
+     * @throws IllegalOperationException unsupported operation
+     */
     @Override
     public List<Component> getComponents() throws IllegalOperationException {
         throw new IllegalOperationException(EXCEPTION_MESSAGE);
     }
 
+    /**
+     * @throws IllegalOperationException unsupported operation
+     */
     @Override
     public void addComponents(final List<Component> components) throws
             IllegalOperationException {
