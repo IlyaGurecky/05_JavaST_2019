@@ -81,8 +81,12 @@ public abstract class Tariff {
      * {@link XMLGregorianCalendar }
      */
     public String getTariffDate() {
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        return format.format(tariffDate);
+        if (tariffDate == null) {
+            return "No information";
+        } else {
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            return format.format(tariffDate);
+        }
     }
 
     /**
@@ -102,8 +106,12 @@ public abstract class Tariff {
      * {@link XMLGregorianCalendar }
      */
     public String getEndDate() {
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        return format.format(endDate);
+        if (endDate == null) {
+            return "No information";
+        } else {
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            return format.format(endDate);
+        }
     }
 
     /**
