@@ -1,17 +1,16 @@
 package by.guretsky.task04.entity;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public abstract class Tariff {
     private String name;
     private String operator;
     private Double payroll;
-
-    //TODO: DATE
-    private String tariffDate;
-    private String endDate;
-
+    private Date tariffDate;
+    private Date endDate;
     private Parameters parameters;
     private String tariffId;
 
@@ -82,7 +81,8 @@ public abstract class Tariff {
      * {@link XMLGregorianCalendar }
      */
     public String getTariffDate() {
-        return tariffDate;
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        return format.format(tariffDate);
     }
 
     /**
@@ -91,8 +91,8 @@ public abstract class Tariff {
      * @param value allowed object is
      *              {@link XMLGregorianCalendar }
      */
-    public void setTariffDate(String value) {
-        this.tariffDate = value;
+    public void setTariffDate(Date value) {
+        tariffDate = value;
     }
 
     /**
@@ -102,7 +102,8 @@ public abstract class Tariff {
      * {@link XMLGregorianCalendar }
      */
     public String getEndDate() {
-        return endDate;
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        return format.format(endDate);
     }
 
     /**
@@ -111,8 +112,8 @@ public abstract class Tariff {
      * @param value allowed object is
      *              {@link XMLGregorianCalendar }
      */
-    public void setEndDate(String value) {
-        this.endDate = value;
+    public void setEndDate(Date value) {
+        endDate = value;
     }
 
     /**
