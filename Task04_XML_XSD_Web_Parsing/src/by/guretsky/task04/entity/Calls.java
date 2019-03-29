@@ -1,6 +1,7 @@
 package by.guretsky.task04.entity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Calls extends Tariff {
     private CallPrices callPrices;
@@ -54,11 +55,7 @@ public class Calls extends Tariff {
      * {@link String }
      */
     public String getTariffication() {
-        if (tariffication == null) {
-            return "minute";
-        } else {
-            return tariffication;
-        }
+        return Objects.requireNonNullElse(tariffication, "minute");
     }
 
     /**
@@ -69,5 +66,33 @@ public class Calls extends Tariff {
      */
     public void setTariffication(String value) {
         this.tariffication = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Calls calls = (Calls) o;
+        return Objects.equals(callPrices, calls.callPrices) &&
+                Objects.equals(smsPrice, calls.smsPrice) &&
+                Objects.equals(tariffication, calls.tariffication);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), callPrices,
+                smsPrice, tariffication);
+    }
+
+    @Override
+    public String toString() {
+        return "Calls tariff:\n\t" + "Name: " + getName() + "\n\tOperator: "
+                + getOperator() + "\n\tpayroll: " + getPayroll()
+                + "\n\tTariff date: " + getTariffDate() + "\n\tEnd date: "
+                + getEndDate() + "\n\tParameters: " + getParameters()
+                + "\n\tTariffID: " + getTariffId() + "\n\tCall prices: "
+                + callPrices + "\n\tSMS price: " + smsPrice
+                + "\n\tTariffication: " + getTariffication();
     }
 }

@@ -2,6 +2,7 @@ package by.guretsky.task04.entity;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Objects;
 
 public class CallsAndInternet extends Tariff {
     private CallPrices callPrices;
@@ -97,11 +98,7 @@ public class CallsAndInternet extends Tariff {
      * {@link String }
      */
     public String getTariffication() {
-        if (tariffication == null) {
-            return "minute";
-        } else {
-            return tariffication;
-        }
+        return Objects.requireNonNullElse(tariffication, "minute");
     }
 
     /**
@@ -112,5 +109,36 @@ public class CallsAndInternet extends Tariff {
      */
     public void setTariffication(String value) {
         this.tariffication = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        CallsAndInternet that = (CallsAndInternet) o;
+        return Objects.equals(callPrices, that.callPrices) &&
+                Objects.equals(smsPrice, that.smsPrice) &&
+                Objects.equals(freeMb, that.freeMb) &&
+                Objects.equals(speedLimit, that.speedLimit) &&
+                Objects.equals(tariffication, that.tariffication);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), callPrices, smsPrice,
+                freeMb, speedLimit, tariffication);
+    }
+
+    @Override
+    public String toString() {
+        return "Calls And Internet tariff:\n\t" + "Name: " + getName()
+                + "\n\tOperator: " + getOperator() + "\n\tPayroll: "
+                + getPayroll() + "\n\tTariff date: " + getTariffDate()
+                + "\n\tEnd date: " + getEndDate() + "\n\tParameters: "
+                + getParameters() + "\n\tTariffID: " + getTariffId()
+                + "\n\tCall prices: " + callPrices + "\n\tSMS price: "
+                + smsPrice + "\n\tTariffication: " + getTariffication()
+                + "\n\tFree MB: " + freeMb + "\n\tSpeed limit: " + speedLimit;
     }
 }

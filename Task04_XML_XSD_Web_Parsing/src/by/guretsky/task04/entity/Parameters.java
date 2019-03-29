@@ -1,6 +1,7 @@
 package by.guretsky.task04.entity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Parameters {
     private BigDecimal connectionPrice;
@@ -38,5 +39,25 @@ public class Parameters {
      */
     public void setBlockingWithDebt(boolean value) {
         this.blockingWithDebt = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Parameters that = (Parameters) o;
+        return blockingWithDebt == that.blockingWithDebt &&
+                Objects.equals(connectionPrice, that.connectionPrice);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(connectionPrice, blockingWithDebt);
+    }
+
+    @Override
+    public String toString() {
+        return "\n\t\tConnection price: " + connectionPrice
+                + "\n\t\tBlocking with debt: " + blockingWithDebt;
     }
 }

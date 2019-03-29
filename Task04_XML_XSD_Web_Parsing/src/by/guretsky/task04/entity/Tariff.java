@@ -2,6 +2,7 @@ package by.guretsky.task04.entity;
 
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public abstract class Tariff {
     private String name;
@@ -150,5 +151,25 @@ public abstract class Tariff {
      */
     public void setTariffId(String value) {
         this.tariffId = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tariff tariff = (Tariff) o;
+        return Objects.equals(name, tariff.name) &&
+                Objects.equals(operator, tariff.operator) &&
+                Objects.equals(payroll, tariff.payroll) &&
+                Objects.equals(tariffDate, tariff.tariffDate) &&
+                Objects.equals(endDate, tariff.endDate) &&
+                Objects.equals(parameters, tariff.parameters) &&
+                Objects.equals(tariffId, tariff.tariffId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, operator, payroll, tariffDate,
+                endDate, parameters, tariffId);
     }
 }

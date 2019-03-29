@@ -1,6 +1,7 @@
 package by.guretsky.task04.entity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class CallPrices {
     private BigDecimal inside;
@@ -65,5 +66,26 @@ public class CallPrices {
      */
     public void setLandLine(BigDecimal value) {
         this.landLine = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CallPrices that = (CallPrices) o;
+        return Objects.equals(inside, that.inside) &&
+                Objects.equals(outside, that.outside) &&
+                Objects.equals(landLine, that.landLine);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(inside, outside, landLine);
+    }
+
+    @Override
+    public String toString() {
+        return "\n\t\tInside: " + inside + "\n\t\tOutside: "
+                + outside + "\n\t\tLandline: " + landLine;
     }
 }
