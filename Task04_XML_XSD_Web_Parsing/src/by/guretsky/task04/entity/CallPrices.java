@@ -1,20 +1,19 @@
 package by.guretsky.task04.entity;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public class CallPrices {
-    private BigDecimal inside;
-    private BigDecimal outside;
-    private BigDecimal landLine;
+    private Double inside;
+    private Double outside;
+    private Double landLine;
 
     /**
      * Gets the value of the inside property.
      *
      * @return possible object is
-     * {@link BigDecimal }
+     * {@link Double }
      */
-    public BigDecimal getInside() {
+    public Double getInside() {
         return inside;
     }
 
@@ -22,9 +21,9 @@ public class CallPrices {
      * Sets the value of the inside property.
      *
      * @param value allowed object is
-     *              {@link BigDecimal }
+     *              {@link Double }
      */
-    public void setInside(BigDecimal value) {
+    public void setInside(Double value) {
         this.inside = value;
     }
 
@@ -32,9 +31,9 @@ public class CallPrices {
      * Gets the value of the outside property.
      *
      * @return possible object is
-     * {@link BigDecimal }
+     * {@link Double }
      */
-    public BigDecimal getOutside() {
+    public Double getOutside() {
         return outside;
     }
 
@@ -42,9 +41,9 @@ public class CallPrices {
      * Sets the value of the outside property.
      *
      * @param value allowed object is
-     *              {@link BigDecimal }
+     *              {@link Double }
      */
-    public void setOutside(BigDecimal value) {
+    public void setOutside(Double value) {
         this.outside = value;
     }
 
@@ -52,9 +51,9 @@ public class CallPrices {
      * Gets the value of the landLine property.
      *
      * @return possible object is
-     * {@link BigDecimal }
+     * {@link Double }
      */
-    public BigDecimal getLandLine() {
+    public Double getLandLine() {
         return landLine;
     }
 
@@ -62,9 +61,9 @@ public class CallPrices {
      * Sets the value of the landLine property.
      *
      * @param value allowed object is
-     *              {@link BigDecimal }
+     *              {@link Double }
      */
-    public void setLandLine(BigDecimal value) {
+    public void setLandLine(Double value) {
         this.landLine = value;
     }
 

@@ -1,19 +1,18 @@
 package by.guretsky.task04.entity;
 
-import java.math.BigInteger;
 import java.util.Objects;
 
 public class Internet extends Tariff {
-    private BigInteger freeMb;
-    private BigInteger speedLimit;
+    private Integer freeMb;
+    private Integer speedLimit;
 
     /**
      * Gets the value of the freeMb property.
      *
      * @return possible object is
-     * {@link BigInteger }
+     * {@link Integer }
      */
-    public BigInteger getFreeMb() {
+    public Integer getFreeMb() {
         return freeMb;
     }
 
@@ -21,9 +20,9 @@ public class Internet extends Tariff {
      * Sets the value of the freeMb property.
      *
      * @param value allowed object is
-     *              {@link BigInteger }
+     *              {@link Integer }
      */
-    public void setFreeMb(BigInteger value) {
+    public void setFreeMb(Integer value) {
         this.freeMb = value;
     }
 
@@ -31,9 +30,9 @@ public class Internet extends Tariff {
      * Gets the value of the speedLimit property.
      *
      * @return possible object is
-     * {@link BigInteger }
+     * {@link Integer }
      */
-    public BigInteger getSpeedLimit() {
+    public Integer getSpeedLimit() {
         return speedLimit;
     }
 
@@ -41,9 +40,9 @@ public class Internet extends Tariff {
      * Sets the value of the speedLimit property.
      *
      * @param value allowed object is
-     *              {@link BigInteger }
+     *              {@link Integer }
      */
-    public void setSpeedLimit(BigInteger value) {
+    public void setSpeedLimit(Integer value) {
         this.speedLimit = value;
     }
 
@@ -64,11 +63,7 @@ public class Internet extends Tariff {
 
     @Override
     public String toString() {
-        return "Internet tariff:\n\t" + "Name: " + getName() + "\n\tOperator: "
-                + getOperator() + "\n\tPayroll: " + getPayroll()
-                + "\n\tTariff date: " + getTariffDate() + "\n\tEnd date: "
-                + getEndDate() + "\n\tParameters: " + getParameters()
-                + "\n\tTariffID: " + getTariffId() + "\n\tFree MB: "
-                + freeMb + "\n\tSpeed limit: " + speedLimit;
+        return "Internet tariff:\n\t" + super.toString() + "\n\tFree MB: "
+                + freeMb + "\n\tSpeed limit: " + speedLimit + "\n\n";
     }
 }

@@ -1,19 +1,18 @@
 package by.guretsky.task04.entity;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Parameters {
-    private BigDecimal connectionPrice;
+    private Double connectionPrice;
     private boolean blockingWithDebt;
 
     /**
      * Gets the value of the connectionPrice property.
      *
      * @return possible object is
-     * {@link BigDecimal }
+     * {@link Double }
      */
-    public BigDecimal getConnectionPrice() {
+    public Double getConnectionPrice() {
         return connectionPrice;
     }
 
@@ -21,9 +20,9 @@ public class Parameters {
      * Sets the value of the connectionPrice property.
      *
      * @param value allowed object is
-     *              {@link BigDecimal }
+     *              {@link Double }
      */
-    public void setConnectionPrice(BigDecimal value) {
+    public void setConnectionPrice(Double value) {
         this.connectionPrice = value;
     }
 

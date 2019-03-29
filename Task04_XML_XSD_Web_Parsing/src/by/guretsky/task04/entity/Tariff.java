@@ -1,15 +1,17 @@
 package by.guretsky.task04.entity;
 
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public abstract class Tariff {
     private String name;
     private String operator;
-    private BigDecimal payroll;
-    private XMLGregorianCalendar tariffDate;
-    private XMLGregorianCalendar endDate;
+    private Double payroll;
+
+    //TODO: DATE
+    private String tariffDate;
+    private String endDate;
+
     private Parameters parameters;
     private String tariffId;
 
@@ -57,9 +59,9 @@ public abstract class Tariff {
      * Gets the value of the payroll property.
      *
      * @return possible object is
-     * {@link BigDecimal }
+     * {@link Double }
      */
-    public BigDecimal getPayroll() {
+    public Double getPayroll() {
         return payroll;
     }
 
@@ -67,9 +69,9 @@ public abstract class Tariff {
      * Sets the value of the payroll property.
      *
      * @param value allowed object is
-     *              {@link BigDecimal }
+     *              {@link Double }
      */
-    public void setPayroll(BigDecimal value) {
+    public void setPayroll(Double value) {
         this.payroll = value;
     }
 
@@ -79,7 +81,7 @@ public abstract class Tariff {
      * @return possible object is
      * {@link XMLGregorianCalendar }
      */
-    public XMLGregorianCalendar getTariffDate() {
+    public String getTariffDate() {
         return tariffDate;
     }
 
@@ -89,7 +91,7 @@ public abstract class Tariff {
      * @param value allowed object is
      *              {@link XMLGregorianCalendar }
      */
-    public void setTariffDate(XMLGregorianCalendar value) {
+    public void setTariffDate(String value) {
         this.tariffDate = value;
     }
 
@@ -99,7 +101,7 @@ public abstract class Tariff {
      * @return possible object is
      * {@link XMLGregorianCalendar }
      */
-    public XMLGregorianCalendar getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
@@ -109,7 +111,7 @@ public abstract class Tariff {
      * @param value allowed object is
      *              {@link XMLGregorianCalendar }
      */
-    public void setEndDate(XMLGregorianCalendar value) {
+    public void setEndDate(String value) {
         this.endDate = value;
     }
 
@@ -171,5 +173,14 @@ public abstract class Tariff {
     public int hashCode() {
         return Objects.hash(name, operator, payroll, tariffDate,
                 endDate, parameters, tariffId);
+    }
+
+    @Override
+    public String toString() {
+        return "TariffID: " + getTariffId() + "\n\tName: " + getName()
+                + "\n\tOperator: " + getOperator() + "\n\tPayroll: "
+                + getPayroll() + "\n\tTariff date: " + getTariffDate()
+                + "\n\tEnd date: " + getEndDate() + "\n\tParameters: "
+                + getParameters();
     }
 }

@@ -1,11 +1,10 @@
 package by.guretsky.task04.entity;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Calls extends Tariff {
     private CallPrices callPrices;
-    private BigDecimal smsPrice;
+    private Double smsPrice;
     private String tariffication;
 
     /**
@@ -32,9 +31,9 @@ public class Calls extends Tariff {
      * Gets the value of the smsPrice property.
      *
      * @return possible object is
-     * {@link BigDecimal }
+     * {@link Double }
      */
-    public BigDecimal getSMSPrice() {
+    public Double getSMSPrice() {
         return smsPrice;
     }
 
@@ -42,9 +41,9 @@ public class Calls extends Tariff {
      * Sets the value of the smsPrice property.
      *
      * @param value allowed object is
-     *              {@link BigDecimal }
+     *              {@link Double }
      */
-    public void setSMSPrice(BigDecimal value) {
+    public void setSMSPrice(Double value) {
         this.smsPrice = value;
     }
 
@@ -87,12 +86,8 @@ public class Calls extends Tariff {
 
     @Override
     public String toString() {
-        return "Calls tariff:\n\t" + "Name: " + getName() + "\n\tOperator: "
-                + getOperator() + "\n\tpayroll: " + getPayroll()
-                + "\n\tTariff date: " + getTariffDate() + "\n\tEnd date: "
-                + getEndDate() + "\n\tParameters: " + getParameters()
-                + "\n\tTariffID: " + getTariffId() + "\n\tCall prices: "
+        return "Calls tariff:\n\t" + super.toString() + "\n\tCall prices: "
                 + callPrices + "\n\tSMS price: " + smsPrice
-                + "\n\tTariffication: " + getTariffication();
+                + "\n\tTariffication: " + getTariffication() + "\n\n";
     }
 }
