@@ -15,7 +15,9 @@ public class Runner {
 
     public static void main(String[] args) {
         Director director = new Director();
+
         System.out.println(">---------------DOM-----------------<");
+
         List<Tariff> tariffs = director.createTariffs(XML_PATH,
                 new TariffsDOMBuilder());
         System.out.println(tariffs);
