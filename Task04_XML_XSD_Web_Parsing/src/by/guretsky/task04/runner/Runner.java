@@ -22,16 +22,16 @@ public class Runner {
                 new TariffsDOMBuilder());
         System.out.println(tariffs);
 
-        System.out.println(">---------------SAX-----------------<");
-
-        List<Tariff> tariffs1 = director.createTariffs(XML_PATH,
-                new TariffsSAXBuilder());
-        System.out.println(tariffs1);
-
         System.out.println(">---------------StAX----------------<");
 
         List<Tariff> tariffs2 = director.createTariffs(XML_PATH,
                 new TariffsStAXBuilder());
         System.out.println(tariffs2);
+
+        System.out.println(">---------------SAX-----------------<");
+
+        List<Tariff> tariffs1 = director.createTariffs(XML_PATH,
+                new TariffsSAXBuilder());
+        System.out.println(tariffs1);
     }
 }
