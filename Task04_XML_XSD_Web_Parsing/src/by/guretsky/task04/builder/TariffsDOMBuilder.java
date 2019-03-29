@@ -18,6 +18,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TariffsDOMBuilder extends ParseBuilder {
     private static final Logger LOGGER =
@@ -74,8 +77,19 @@ public class TariffsDOMBuilder extends ParseBuilder {
         tariff.setPayroll(payroll);
         tariff.setTariffId(tariffElement.getAttribute("tariff-id"));
         tariff.setParameters(buildParameters(tariffElement));
-        tariff.setTariffDate(getElementContext(tariffElement, "tariff-date"));
-        tariff.setEndDate(getElementContext(tariffElement, "end-date"));
+        Date tariffDate = null;
+        Date endDate = null;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            tariffDate = format.parse(getElementContext(tariffElement,
+                    "tariff-date"));
+            endDate = format.parse(getElementContext(tariffElement,
+                    "end-date"));
+        } catch (ParseException e) {
+            LOGGER.error("Date parse error", e);
+        }
+        tariff.setTariffDate(tariffDate);
+        tariff.setEndDate(endDate);
     }
 
     private Parameters buildParameters(Element tariffElem) {
