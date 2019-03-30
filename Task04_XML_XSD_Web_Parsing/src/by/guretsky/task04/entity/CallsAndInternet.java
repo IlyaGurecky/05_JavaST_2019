@@ -9,6 +9,10 @@ public class CallsAndInternet extends Tariff {
     private Integer speedLimit;
     private String tariffication;
 
+    public CallsAndInternet() {
+        callPrices = new CallPrices();
+    }
+
     /**
      * Gets the value of the callPrices property.
      *
@@ -96,7 +100,10 @@ public class CallsAndInternet extends Tariff {
      * {@link String }
      */
     public String getTariffication() {
-        return Objects.requireNonNullElse(tariffication, "minute");
+        if (tariffication == null || tariffication.isEmpty()) {
+            return "minute";
+        }
+        return tariffication;
     }
 
     /**

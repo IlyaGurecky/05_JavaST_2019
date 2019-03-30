@@ -7,6 +7,10 @@ public class Calls extends Tariff {
     private Double smsPrice;
     private String tariffication;
 
+    public Calls() {
+        callPrices = new CallPrices();
+    }
+
     /**
      * Gets the value of the callPrices property.
      *

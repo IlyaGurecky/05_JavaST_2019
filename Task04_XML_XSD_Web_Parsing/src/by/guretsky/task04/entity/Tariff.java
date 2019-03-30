@@ -14,6 +14,10 @@ public abstract class Tariff {
     private Parameters parameters;
     private String tariffId;
 
+    public Tariff() {
+        parameters = new Parameters();
+    }
+
     /**
      * Gets the value of the name property.
      *
