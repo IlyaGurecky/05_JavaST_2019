@@ -1,7 +1,12 @@
 package by.guretsky.task04.builder;
 
 import by.guretsky.task04.constant.TariffsEnum;
-import by.guretsky.task04.entity.*;
+import by.guretsky.task04.entity.CallPrices;
+import by.guretsky.task04.entity.Calls;
+import by.guretsky.task04.entity.CallsAndInternet;
+import by.guretsky.task04.entity.Internet;
+import by.guretsky.task04.entity.Parameters;
+import by.guretsky.task04.entity.Tariff;
 import by.guretsky.task04.exception.IllegalTagNameException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,15 +42,15 @@ public class TariffsStAXBuilder extends ParseBuilder {
                 int type = reader.next();
                 if (type == XMLStreamConstants.START_ELEMENT) {
                     name = reader.getLocalName();
-                    if (name.equals(TariffsEnum.CALLS.getValue())) {
+                    if (TariffsEnum.CALLS.getValue().equals(name)) {
                         Tariff tariff = buildCallsTariff(reader);
                         this.addTariff(tariff);
-                    } else if (name.equals(TariffsEnum
-                            .CALLS_AND_INTERNET.getValue())) {
+                    } else if (TariffsEnum
+                            .CALLS_AND_INTERNET.getValue().equals(name)) {
                         Tariff tariff =
                                 buildCallsAndInternetTariff(reader);
                         this.addTariff(tariff);
-                    } else if (name.equals(TariffsEnum.INTERNET.getValue())) {
+                    } else if (TariffsEnum.INTERNET.getValue().equals(name)) {
                         Tariff tariff = buildInternetTariff(reader);
                         this.addTariff(tariff);
                     }
@@ -75,39 +80,6 @@ public class TariffsStAXBuilder extends ParseBuilder {
             if (type == XMLStreamConstants.START_ELEMENT) {
                 name = reader.getLocalName();
                 switch (name) {
-                    case "name":
-                        tariff.setName(getXMLText(reader));
-                        break;
-                    case "operator":
-                        tariff.setOperator(getXMLText(reader));
-                        break;
-                    case "payroll":
-                        tariff.setPayroll(Double
-                                .parseDouble(getXMLText(reader)));
-                        break;
-                    case "tariff-date":
-                        SimpleDateFormat dateFormat =
-                                new SimpleDateFormat("yyyy-MM-dd");
-                        try {
-                            tariff.setTariffDate(dateFormat
-                                    .parse(getXMLText(reader)));
-                        } catch (ParseException e) {
-                            LOGGER.error("Incorrect date to parse", e);
-                        }
-                        break;
-                    case "end-date":
-                        SimpleDateFormat date =
-                                new SimpleDateFormat("yyyy-MM-dd");
-                        try {
-                            tariff.setEndDate(date
-                                    .parse(getXMLText(reader)));
-                        } catch (ParseException e) {
-                            LOGGER.error("Incorrect date to parse", e);
-                        }
-                        break;
-                    case "parameters":
-                        tariff.setParameters(getXMLParameters(reader));
-                        break;
                     case "call-prices":
                         tariff.setCallPrices(getXMLCallPrices(reader));
                         break;
@@ -116,7 +88,7 @@ public class TariffsStAXBuilder extends ParseBuilder {
                                 .parseDouble(getXMLText(reader)));
                         break;
                     default:
-                        throw new IllegalTagNameException("Unknown tag");
+                        defineCommonProperties(name, tariff, reader);
                 }
             } else if (type == XMLStreamConstants.END_ELEMENT) {
                 name = reader.getLocalName();
@@ -125,7 +97,7 @@ public class TariffsStAXBuilder extends ParseBuilder {
                 }
             }
         }
-        throw new IllegalTagNameException("Unknown element");
+        throw new IllegalTagNameException("Find tag error");
     }
 
     private Tariff buildInternetTariff(XMLStreamReader reader) throws
@@ -139,39 +111,6 @@ public class TariffsStAXBuilder extends ParseBuilder {
             if (type == XMLStreamConstants.START_ELEMENT) {
                 name = reader.getLocalName();
                 switch (name) {
-                    case "name":
-                        tariff.setName(getXMLText(reader));
-                        break;
-                    case "operator":
-                        tariff.setOperator(getXMLText(reader));
-                        break;
-                    case "payroll":
-                        tariff.setPayroll(Double
-                                .parseDouble(getXMLText(reader)));
-                        break;
-                    case "tariff-date":
-                        SimpleDateFormat dateFormat =
-                                new SimpleDateFormat("yyyy-MM-dd");
-                        try {
-                            tariff.setTariffDate(dateFormat
-                                    .parse(getXMLText(reader)));
-                        } catch (ParseException e) {
-                            LOGGER.error("Incorrect date", e);
-                        }
-                        break;
-                    case "end-date":
-                        SimpleDateFormat date =
-                                new SimpleDateFormat("yyyy-MM-dd");
-                        try {
-                            tariff.setEndDate(date
-                                    .parse(getXMLText(reader)));
-                        } catch (ParseException e) {
-                            LOGGER.error("Incorrect date", e);
-                        }
-                        break;
-                    case "parameters":
-                        tariff.setParameters(getXMLParameters(reader));
-                        break;
                     case "free-mb":
                         tariff.setFreeMb(Integer.parseInt(getXMLText(reader)));
                         break;
@@ -180,7 +119,7 @@ public class TariffsStAXBuilder extends ParseBuilder {
                                 .parseInt(getXMLText(reader)));
                         break;
                     default:
-                        throw new IllegalTagNameException("Unknown tag");
+                        defineCommonProperties(name, tariff, reader);
                 }
             } else if (type == XMLStreamConstants.END_ELEMENT) {
                 name = reader.getLocalName();
@@ -207,39 +146,6 @@ public class TariffsStAXBuilder extends ParseBuilder {
             if (type == XMLStreamConstants.START_ELEMENT) {
                 name = reader.getLocalName();
                 switch (name) {
-                    case "name":
-                        tariff.setName(getXMLText(reader));
-                        break;
-                    case "operator":
-                        tariff.setOperator(getXMLText(reader));
-                        break;
-                    case "payroll":
-                        tariff.setPayroll(Double
-                                .parseDouble(getXMLText(reader)));
-                        break;
-                    case "tariff-date":
-                        SimpleDateFormat dateFormat =
-                                new SimpleDateFormat("yyyy-MM-dd");
-                        try {
-                            tariff.setTariffDate(dateFormat
-                                    .parse(getXMLText(reader)));
-                        } catch (ParseException e) {
-                            LOGGER.error("Incorrect date", e);
-                        }
-                        break;
-                    case "end-date":
-                        SimpleDateFormat date =
-                                new SimpleDateFormat("yyyy-MM-dd");
-                        try {
-                            tariff.setEndDate(date
-                                    .parse(getXMLText(reader)));
-                        } catch (ParseException e) {
-                            LOGGER.error("Incorrect date", e);
-                        }
-                        break;
-                    case "parameters":
-                        tariff.setParameters(getXMLParameters(reader));
-                        break;
                     case "call-prices":
                         tariff.setCallPrices(getXMLCallPrices(reader));
                         break;
@@ -255,7 +161,7 @@ public class TariffsStAXBuilder extends ParseBuilder {
                                 .parseInt(getXMLText(reader)));
                         break;
                     default:
-                        throw new IllegalTagNameException("Unknown tag");
+                        defineCommonProperties(name, tariff, reader);
                 }
             } else if (type == XMLStreamConstants.END_ELEMENT) {
                 name = reader.getLocalName();
@@ -265,8 +171,48 @@ public class TariffsStAXBuilder extends ParseBuilder {
             }
         }
         throw new IllegalTagNameException("Unknown element");
+    }
 
-
+    private void defineCommonProperties(String name, Tariff tariff,
+                                        XMLStreamReader reader) throws
+            XMLStreamException, IllegalTagNameException {
+        switch (name) {
+            case "name":
+                tariff.setName(getXMLText(reader));
+                break;
+            case "operator":
+                tariff.setOperator(getXMLText(reader));
+                break;
+            case "payroll":
+                tariff.setPayroll(Double
+                        .parseDouble(getXMLText(reader)));
+                break;
+            case "tariff-date":
+                SimpleDateFormat dateFormat =
+                        new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    tariff.setTariffDate(dateFormat
+                            .parse(getXMLText(reader)));
+                } catch (ParseException e) {
+                    LOGGER.error("Incorrect date to parse", e);
+                }
+                break;
+            case "end-date":
+                SimpleDateFormat date =
+                        new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    tariff.setEndDate(date
+                            .parse(getXMLText(reader)));
+                } catch (ParseException e) {
+                    LOGGER.error("Incorrect date to parse", e);
+                }
+                break;
+            case "parameters":
+                tariff.setParameters(getXMLParameters(reader));
+                break;
+            default:
+                throw new IllegalTagNameException("Unknown operation");
+        }
     }
 
     private String getXMLText(XMLStreamReader reader) throws
@@ -345,5 +291,4 @@ public class TariffsStAXBuilder extends ParseBuilder {
         }
         throw new IllegalTagNameException("Unknown tag name");
     }
-
 }
