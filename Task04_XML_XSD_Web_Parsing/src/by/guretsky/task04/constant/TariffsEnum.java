@@ -12,16 +12,16 @@ public enum TariffsEnum {
     PAYROLL("payroll"),
     TARIFF_DATE("tariff-date"),
     END_DATE("end-date"),
-    PARAMETERS("parameters"),
     CONNECTION_PRICE("connection-price"),
     BLOCKING_WITH_DEBT("blocking-with-debt"),
     FREE_MB("free-mb"),
     SPEED_LIMIT("speed-limit"),
-    CALL_PRICES("call-prices"),
     INSIDE("inside"),
     OUTSIDE("outside"),
     LANDLINE("landline"),
-    SMS_PRICE("SMS-price");
+    SMS_PRICE("SMS-price"),
+    PARAMETERS("parameters"),
+    CALL_PRICES("call-prices");
 
     private String value;
 
@@ -29,7 +29,7 @@ public enum TariffsEnum {
         this.value = element;
     }
 
-    public String getValue() {
+    public final String getValue() {
         return value;
     }
 }
