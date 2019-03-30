@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tariffs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://www.example.com/tariffs"
-         xsi:schemaLocation="http://www.example.com/tariffs tariffs.xsd">
+         xmlns="http://www.epam.com/tariffs"
+         xsi:schemaLocation="http://www.epam.com/tariffs tariffs.xsd">
 
     <internet tariff-id="AB123">
         <name>Без границ</name>
