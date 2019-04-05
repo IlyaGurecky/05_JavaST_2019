@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tariffs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.epam.com/tariffs"
+         xsi:schemaLocation="http://www.epam.com/tariffs tariffs.xsd">
+
+<internet tariff-id="AB123">
+    <name>Без границ</name>
+    <operator>life:)</operator>
+    <payroll>10</payroll>
+    <tariff-date>2019-04-21</tariff-date>
+    <end-date>2024-10-10</end-date>
+    <parameters>
+        <connection-price>15</connection-price>
+        <blocking-with-debt>true</blocking-with-debt>
+    </parameters>
+    <free-mb>1000</free-mb>
+    <speed-limit>100</speed-limit>
+</internet>
+
+<calls tariff-id="VS124" tariffication="minute">
+<name>Смотри вперед</name>
+<operator>Йота</operator>
+<payroll>5</payroll>
+<tariff-date>2017-10-18</tariff-date>
+<end-date>2020-09-05</end-date>
+<parameters>
+    <connection-price>10</connection-price>
+    <blocking-with-debt>false</blocking-with-debt>
+</parameters>
+<call-prices>
+    <outside>0.03</outside>
+    <inside>0.01</inside>
+    <landline>0.1</landline>
+</call-prices>
+<SMS-price>0.05</SMS-price>
+</calls>
+
+</tariffs>

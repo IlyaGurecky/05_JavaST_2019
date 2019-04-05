@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tariffs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.epam.com/tariffs"
+         xsi:schemaLocation="http://www.epam.com/tariffs tariffs.xsd">
+
+    <internet tariff-id="AB123">
+        <name>Без границ</name>
+        <operator>life:)</operator>
+        <payroll>10</payroll>
+        <tariff-date>2019-04-21</tariff-date>
+        <end-date>2024-10-10</end-date>
+        <parameters>
+            <connection-price>15</connection-price>
+            <blocking-with-debt>true</blocking-with-debt>
+        </parameters>
+        <free-mb>1000</free-mb>
+        <speed-limit>100</speed-limit>
+    </internet>
+
+    <calls tariff-id="VS124" tariffication="minute">
+        <name>Смотри вперед</name>
+        <operator>Йота</operator>
+        <payroll>5</payroll>
+        <tariff-date>2017-10-18</tariff-date>
+        <end-date>2020-09-05</end-date>
+        <parameters>
+            <connection-price>10</connection-price>
+            <blocking-with-debt>false</blocking-with-debt>
+        </parameters>
+        <call-prices>
+            <outside>0.03</outside>
+            <inside>0.01</inside>
+            <landline>0.1</landline>
+        </call-prices>
+        <SMS-price>0.05</SMS-price>
+    </calls>
+
+    <calls tariff-id="OR643" tariffication="12second">
+        <name>Лайт</name>
+        <operator>T-Mobile</operator>
+        <payroll>7</payroll>
+        <tariff-date>2019-06-01</tariff-date>
+        <end-date>2023-07-11</end-date>
+        <parameters>
+            <connection-price>0</connection-price>
+            <blocking-with-debt>false</blocking-with-debt>
+        </parameters>
+        <call-prices>
+            <outside>0.2</outside>
+            <inside>0.05</inside>
+            <landline>0.3</landline>
+        </call-prices>
+        <SMS-price>0.1</SMS-price>
+    </calls>
+
+    <calls-internet tariff-id="LN092" tariffication="12second">
+        <name>Свободный</name>
+        <operator>Sprint</operator>
+        <payroll>20</payroll>
+        <tariff-date>2018-10-03</tariff-date>
+        <end-date>2025-10-02</end-date>
+        <parameters>
+            <connection-price>6.5</connection-price>
+            <blocking-with-debt>true</blocking-with-debt>
+        </parameters>
+        <call-prices>
+            <outside>0.3</outside>
+            <inside>0.01</inside>
+            <landline>0.6</landline>
+        </call-prices>
+        <SMS-price>0.05</SMS-price>
+        <free-mb>1500</free-mb>
+        <speed-limit>50</speed-limit>
+    </calls-internet>
+
+    <calls-internet tariff-id="BJ082" tariffication="minute">
+        <name>Безлимитище</name>
+        <operator>МТС</operator>
+        <payroll>15.8</payroll>
+        <tariff-date>2016-12-05</tariff-date>
+        <end-date>2021-06-19</end-date>
+        <parameters>
+            <connection-price>0</connection-price>
+            <blocking-with-debt>false</blocking-with-debt>
+        </parameters>
+        <call-prices>
+            <outside>0.4</outside>
+            <inside>0.2</inside>
+            <landline>0.6</landline>
+        </call-prices>
+        <SMS-price>0.02</SMS-price>
+        <free-mb>10000</free-mb>
+        <speed-limit>70</speed-limit>
+    </calls-internet>
+
+    <internet tariff-id="KL071">
+        <name>Надежный</name>
+        <operator>life:)</operator>
+        <payroll>20</payroll>
+        <tariff-date>2019-01-01</tariff-date>
+        <end-date>2023-01-01</end-date>
+        <parameters>
+            <connection-price>15</connection-price>
+            <blocking-with-debt>true</blocking-with-debt>
+        </parameters>
+        <free-mb>15000</free-mb>
+        <speed-limit>100</speed-limit>
+    </internet>
+
+    <calls tariff-id="KB124" tariffication="12second">
+        <name>Всегда с вами</name>
+        <operator>МТС</operator>
+        <payroll>10</payroll>
+        <tariff-date>2019-05-02</tariff-date>
+        <end-date>2021-05-02</end-date>
+        <parameters>
+            <connection-price>0</connection-price>
+            <blocking-with-debt>true</blocking-with-debt>
+        </parameters>
+        <call-prices>
+            <outside>0.02</outside>
+            <inside>0.01</inside>
+            <landline>0.4</landline>
+        </call-prices>
+        <SMS-price>0.1</SMS-price>
+    </calls>
+
+    <calls tariff-id="LN024" tariffication="minute">
+        <name>Комфорт S</name>
+        <operator>Velcom</operator>
+        <payroll>0</payroll>
+        <tariff-date>2017-02-23</tariff-date>
+        <end-date>2022-03-01</end-date>
+        <parameters>
+            <connection-price>0</connection-price>
+            <blocking-with-debt>false</blocking-with-debt>
+        </parameters>
+        <call-prices>
+            <outside>0.01</outside>
+            <inside>0.01</inside>
+            <landline>0.35</landline>
+        </call-prices>
+        <SMS-price>0.2</SMS-price>
+    </calls>
+
+    <internet tariff-id="KH148">
+        <name>Комфорт L</name>
+        <operator>Velcom</operator>
+        <payroll>10</payroll>
+        <tariff-date>2017-02-20</tariff-date>
+        <end-date>2022-03-10</end-date>
+        <parameters>
+            <connection-price>0</connection-price>
+            <blocking-with-debt>false</blocking-with-debt>
+        </parameters>
+        <free-mb>1000</free-mb>
+        <speed-limit>150</speed-limit>
+    </internet>
+
+    <calls-internet tariff-id="FJ109" tariffication="12second">
+        <name>Повседневный</name>
+        <operator>МТС</operator>
+        <payroll>10.5</payroll>
+        <tariff-date>2018-04-15</tariff-date>
+        <end-date>2023-08-09</end-date>
+        <parameters>
+            <connection-price>0</connection-price>
+            <blocking-with-debt>true</blocking-with-debt>
+        </parameters>
+        <call-prices>
+            <inside>0.03</inside>
+            <outside>0.5</outside>
+            <landline>0.7</landline>
+        </call-prices>
+        <SMS-price>0.04</SMS-price>
+        <free-mb>100</free-mb>
+        <speed-limit>40</speed-limit>
+    </calls-internet>
+
+    <calls tariff-id="GK259" tariffication="minute">
+        <name>Звони!</name>
+        <operator>Билайн</operator>
+        <payroll>7.5</payroll>
+        <tariff-date>2019-12-11</tariff-date>
+        <end-date>2022-12-11</end-date>
+        <parameters>
+            <connection-price>3.5</connection-price>
+            <blocking-with-debt>false</blocking-with-debt>
+        </parameters>
+        <call-prices>
+            <inside>0.01</inside>
+            <outside>0.02</outside>
+            <landline>0.1</landline>
+        </call-prices>
+        <SMS-price>0.05</SMS-price>
+    </calls>
+
+    <internet tariff-id="FL922">
+        <name>В сети</name>
+        <operator>life:)</operator>
+        <payroll>14.5</payroll>
+        <tariff-date>2017-11-05</tariff-date>
+        <end-date>2020-11-22</end-date>
+        <parameters>
+            <connection-price>0</connection-price>
+            <blocking-with-debt>true</blocking-with-debt>
+        </parameters>
+        <free-mb>100</free-mb>
+        <speed-limit>200</speed-limit>
+    </internet>
+
+    <calls-internet tariff-id="GJ205" tariffication="12second">
+        <name>Любимый</name>
+        <operator>Йота</operator>
+        <payroll>11.5</payroll>
+        <tariff-date>2019-02-21</tariff-date>
+        <end-date>2023-02-20</end-date>
+        <parameters>
+            <connection-price>10.5</connection-price>
+            <blocking-with-debt>false</blocking-with-debt>
+        </parameters>
+        <call-prices>
+            <inside>0.02</inside>
+            <outside>0.03</outside>
+            <landline>0.1</landline>
+        </call-prices>
+        <SMS-price>0.05</SMS-price>
+        <free-mb>50</free-mb>
+        <speed-limit>35</speed-limit>
+    </calls-internet>
+
+    <calls tariff-id="NI135" tariffication="minute">
+        <name>Всегда рядом</name>
+        <operator>Билайн</operator>
+        <payroll>0</payroll>
+        <tariff-date>2020-12-19</tariff-date>
+        <end-date>2022-12-19</end-date>
+        <parameters>
+            <connection-price>0</connection-price>
+            <blocking-with-debt>true</blocking-with-debt>
+        </parameters>
+        <call-prices>
+            <inside>0.02</inside>
+            <outside>0.1</outside>
+            <landline>0.4</landline>
+        </call-prices>
+        <SMS-price>0.01</SMS-price>
+    </calls>
+
+    <calls-internet tariff-id="KG253">
+        <name>Общение</name>
+        <operator>МТС</operator>
+        <payroll>10</payroll>
+        <tariff-date>2019-12-28</tariff-date>
+        <end-date>2025-12-30</end-date>
+        <parameters>
+            <connection-price>4.5</connection-price>
+            <blocking-with-debt>true</blocking-with-debt>
+        </parameters>
+        <call-prices>
+            <inside>0.03</inside>
+            <outside>0.05</outside>
+            <landline>0.5</landline>
+        </call-prices>
+        <SMS-price>0.3</SMS-price>
+        <free-mb>100</free-mb>
+        <speed-limit>50</speed-limit>
+    </calls-internet>
+
+    <internet tariff-id="KH252">
+        <name>Выгодный</name>
+        <operator>Билайн</operator>
+        <payroll>7.5</payroll>
+        <tariff-date>2020-06-25</tariff-date>
+        <end-date>2024-01-01</end-date>
+        <parameters>
+            <connection-price>0</connection-price>
+            <blocking-with-debt>false</blocking-with-debt>
+        </parameters>
+        <free-mb>1000</free-mb>
+        <speed-limit>150</speed-limit>
+    </internet>
+</tariffs>
