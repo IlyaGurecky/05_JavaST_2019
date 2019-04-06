@@ -9,12 +9,29 @@ import by.guretsky.webparsing.entity.Tariff;
 import java.io.File;
 import java.util.List;
 
-public class Runner {
+/**
+ * Runner class.
+ */
+public final class Runner {
+    /**
+     * XML file path.
+     */
     private static final String XML_PATH = "src"
             + File.separator + "main" + File.separator + "data"
             + File.separator + "tariffs.xml";
 
-    public static void main(String[] args) {
+    /**
+     * Private constructor.
+     */
+    private Runner() {
+    }
+
+    /**
+     * This method runs application.
+     *
+     * @param args arguments from command line
+     */
+    public static void main(final String[] args) {
         Director director = new Director();
 
         System.out.println(">---------------DOM-----------------<");

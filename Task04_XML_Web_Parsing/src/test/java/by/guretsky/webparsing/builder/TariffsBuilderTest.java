@@ -15,13 +15,32 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Test class for test xml parsers.
+ *
+ * @author ilyaguretsky
+ */
 public class TariffsBuilderTest {
+    /**
+     * XML file path.
+     */
     private static final String TEST_XML_PATH = "src"
             + File.separator + "main" + File.separator + "data"
             + File.separator + "test.xml";
+    /**
+     * {@link Internet} object.
+     */
     private Tariff internet = new Internet();
+    /**
+     * {@link Calls} object.
+     */
     private Tariff calls = new Calls();
 
+    /**
+     * Initialization method.
+     *
+     * @throws ParseException if date is incorrect
+     */
     @BeforeClass
     public void init() throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -57,6 +76,9 @@ public class TariffsBuilderTest {
         ((Calls) calls).setCallPrices(callPrices);
     }
 
+    /**
+     * Test method for DOM parser.
+     */
     @Test(description = "Positive test for DOM parser")
     public void testTariffsDOMBuilder() {
         List<Tariff> expectedTariffs = Arrays.asList(calls, internet);
@@ -65,6 +87,9 @@ public class TariffsBuilderTest {
         Assert.assertEquals(actualTariffs, expectedTariffs);
     }
 
+    /**
+     * Test method for SAX parser.
+     */
     @Test(description = "Positive test for SAX parser")
     public void testTariffsSAXBuilder() {
         List<Tariff> expectedTariffs = Arrays.asList(internet, calls);
@@ -73,6 +98,9 @@ public class TariffsBuilderTest {
         Assert.assertEquals(actualTariffs, expectedTariffs);
     }
 
+    /**
+     * Test method for StAX parser.
+     */
     @Test(description = "Positive test for StAX parser")
     public void testTariffsStAXBuilder() {
         List<Tariff> expectedTariffs = Arrays.asList(internet, calls);

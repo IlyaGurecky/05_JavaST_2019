@@ -1,6 +1,11 @@
 package by.guretsky.webparsing.builder;
 
-import by.guretsky.webparsing.entity.*;
+import by.guretsky.webparsing.entity.CallPrices;
+import by.guretsky.webparsing.entity.Calls;
+import by.guretsky.webparsing.entity.CallsAndInternet;
+import by.guretsky.webparsing.entity.Internet;
+import by.guretsky.webparsing.entity.Parameters;
+import by.guretsky.webparsing.entity.Tariff;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -17,11 +22,23 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Parser based on DOM model parsing.
+ */
 public class TariffsDOMBuilder extends ParseBuilder {
+    /**
+     * Logger.
+     */
     private static final Logger LOGGER =
             LogManager.getLogger(TariffsDOMBuilder.class);
+    /**
+     * API to obtain DOM Document instances.
+     */
     private DocumentBuilder builder;
 
+    /**
+     * Constructor - initializes document builder.
+     */
     public TariffsDOMBuilder() {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
@@ -31,8 +48,13 @@ public class TariffsDOMBuilder extends ParseBuilder {
         }
     }
 
+    /**
+     * Builds tariffs list.
+     *
+     * @param filePath XML file path
+     */
     @Override
-    public void buildTariffs(String filePath) {
+    public void buildTariffs(final String filePath) {
         Document document;
         try {
             document = builder.parse(filePath);
@@ -64,7 +86,13 @@ public class TariffsDOMBuilder extends ParseBuilder {
         }
     }
 
-    private void buildTariff(Tariff tariff, Element tariffElement) {
+    /**
+     * Build tariff with common parameters.
+     *
+     * @param tariff        tariff to build
+     * @param tariffElement element
+     */
+    private void buildTariff(final Tariff tariff, final Element tariffElement) {
         tariff.setName(getElementContext(tariffElement, "name"));
         tariff.setOperator(getElementContext(tariffElement, "operator"));
         Double payroll = Double
@@ -87,7 +115,13 @@ public class TariffsDOMBuilder extends ParseBuilder {
         tariff.setEndDate(endDate);
     }
 
-    private Parameters buildParameters(Element tariffElem) {
+    /**
+     * Build Parameters filed in Tariff.
+     *
+     * @param tariffElem info
+     * @return {@link Parameters}
+     */
+    private Parameters buildParameters(final Element tariffElem) {
         Parameters parameters = new Parameters();
         parameters.setBlockingWithDebt(Boolean
                 .parseBoolean(getElementContext(tariffElem,
@@ -98,7 +132,13 @@ public class TariffsDOMBuilder extends ParseBuilder {
         return parameters;
     }
 
-    private CallPrices buildCallPrices(Element tariffElem) {
+    /**
+     * Build call prices field of the Tariff.
+     *
+     * @param tariffElem info
+     * @return {@link CallPrices}
+     */
+    private CallPrices buildCallPrices(final Element tariffElem) {
         CallPrices prices = new CallPrices();
         prices.setInside(Double
                 .parseDouble(getElementContext(tariffElem, "inside")));
@@ -109,7 +149,13 @@ public class TariffsDOMBuilder extends ParseBuilder {
         return prices;
     }
 
-    private Tariff buildCallsTariff(Element tariffElement) {
+    /**
+     * Build Calls tariff.
+     *
+     * @param tariffElement current tariff
+     * @return tariff
+     */
+    private Tariff buildCallsTariff(final Element tariffElement) {
         Calls tariff = new Calls();
         buildTariff(tariff, tariffElement);
         tariff.setTariffication(tariffElement
@@ -120,7 +166,13 @@ public class TariffsDOMBuilder extends ParseBuilder {
         return tariff;
     }
 
-    private Tariff buildInternetTariff(Element tariffElement) {
+    /**
+     * Build Internet tariff.
+     *
+     * @param tariffElement current tariff
+     * @return tariff
+     */
+    private Tariff buildInternetTariff(final Element tariffElement) {
         Internet tariff = new Internet();
         buildTariff(tariff, tariffElement);
         tariff.setFreeMb(Integer.parseInt(getElementContext(tariffElement,
@@ -130,14 +182,20 @@ public class TariffsDOMBuilder extends ParseBuilder {
         return tariff;
     }
 
-    private Tariff buildCallsAndInternetTariff(Element tariffElement) {
+    /**
+     * Build calls and internet tariff.
+     *
+     * @param tariffElement current tariff
+     * @return tariff
+     */
+    private Tariff buildCallsAndInternetTariff(final Element tariffElement) {
         CallsAndInternet tariff = new CallsAndInternet();
         buildTariff(tariff, tariffElement);
         tariff.setFreeMb(Integer
                 .parseInt(getElementContext(tariffElement, "free-mb")));
         tariff.setSpeedLimit(Integer
                 .parseInt(getElementContext(tariffElement, "speed-limit")));
-        tariff.setSMSPrice(Double.parseDouble(getElementContext(tariffElement,
+        tariff.setSmsPrice(Double.parseDouble(getElementContext(tariffElement,
                 "SMS-price")));
         tariff.setTariffication(tariffElement
                 .getAttribute("tariffication"));
@@ -145,7 +203,13 @@ public class TariffsDOMBuilder extends ParseBuilder {
         return tariff;
     }
 
-    private static String getElementContext(Element elem, String name) {
+    /**
+     * @param elem current element
+     * @param name tag name
+     * @return tag content
+     */
+    private static String getElementContext(final Element elem,
+                                            final String name) {
         NodeList list = elem.getElementsByTagName(name);
         Node node = list.item(0);
         return node.getTextContent();

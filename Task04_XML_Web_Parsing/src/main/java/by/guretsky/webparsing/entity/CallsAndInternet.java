@@ -2,13 +2,34 @@ package by.guretsky.webparsing.entity;
 
 import java.util.Objects;
 
+/**
+ * Calls and internet tariff class.
+ */
 public class CallsAndInternet extends Tariff {
+    /**
+     * {@link CallPrices} object.
+     */
     private CallPrices callPrices;
+    /**
+     * SMS price.
+     */
     private Double smsPrice;
+    /**
+     * Free mb.
+     */
     private Integer freeMb;
+    /**
+     * Speed limit.
+     */
     private Integer speedLimit;
+    /**
+     * Tariff tariffication.
+     */
     private String tariffication;
 
+    /**
+     * Public constructor without parameters.
+     */
     public CallsAndInternet() {
         callPrices = new CallPrices();
     }
@@ -29,7 +50,7 @@ public class CallsAndInternet extends Tariff {
      * @param value allowed object is
      *              {@link CallPrices }
      */
-    public void setCallPrices(CallPrices value) {
+    public void setCallPrices(final CallPrices value) {
         this.callPrices = value;
     }
 
@@ -39,7 +60,7 @@ public class CallsAndInternet extends Tariff {
      * @return possible object is
      * {@link Double }
      */
-    public Double getSMSPrice() {
+    public Double getSmsPrice() {
         return smsPrice;
     }
 
@@ -49,7 +70,7 @@ public class CallsAndInternet extends Tariff {
      * @param value allowed object is
      *              {@link Double }
      */
-    public void setSMSPrice(Double value) {
+    public void setSmsPrice(final Double value) {
         this.smsPrice = value;
     }
 
@@ -69,7 +90,7 @@ public class CallsAndInternet extends Tariff {
      * @param value allowed object is
      *              {@link Integer }
      */
-    public void setFreeMb(Integer value) {
+    public void setFreeMb(final Integer value) {
         this.freeMb = value;
     }
 
@@ -89,7 +110,7 @@ public class CallsAndInternet extends Tariff {
      * @param value allowed object is
      *              {@link Integer }
      */
-    public void setSpeedLimit(Integer value) {
+    public void setSpeedLimit(final Integer value) {
         this.speedLimit = value;
     }
 
@@ -112,29 +133,44 @@ public class CallsAndInternet extends Tariff {
      * @param value allowed object is
      *              {@link String }
      */
-    public void setTariffication(String value) {
+    public void setTariffication(final String value) {
         this.tariffication = value;
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         CallsAndInternet that = (CallsAndInternet) o;
-        return Objects.equals(callPrices, that.callPrices) &&
-                Objects.equals(smsPrice, that.smsPrice) &&
-                Objects.equals(freeMb, that.freeMb) &&
-                Objects.equals(speedLimit, that.speedLimit) &&
-                Objects.equals(tariffication, that.tariffication);
+        return Objects.equals(callPrices, that.callPrices)
+                && Objects.equals(smsPrice, that.smsPrice)
+                && Objects.equals(freeMb, that.freeMb)
+                && Objects.equals(speedLimit, that.speedLimit)
+                && Objects.equals(tariffication, that.tariffication);
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), callPrices, smsPrice,
                 freeMb, speedLimit, tariffication);
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
     public String toString() {
         return "Calls And Internet tariff:\n\t" + super.toString()

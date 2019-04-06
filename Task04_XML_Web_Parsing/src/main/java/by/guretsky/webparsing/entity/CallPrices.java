@@ -2,9 +2,21 @@ package by.guretsky.webparsing.entity;
 
 import java.util.Objects;
 
+/**
+ * Call prices class.
+ */
 public class CallPrices {
+    /**
+     * Inside call price.
+     */
     private Double inside;
+    /**
+     * Outside call price.
+     */
     private Double outside;
+    /**
+     * Landline call price.
+     */
     private Double landLine;
 
     /**
@@ -23,7 +35,7 @@ public class CallPrices {
      * @param value allowed object is
      *              {@link Double }
      */
-    public void setInside(Double value) {
+    public void setInside(final Double value) {
         this.inside = value;
     }
 
@@ -43,7 +55,7 @@ public class CallPrices {
      * @param value allowed object is
      *              {@link Double }
      */
-    public void setOutside(Double value) {
+    public void setOutside(final Double value) {
         this.outside = value;
     }
 
@@ -63,25 +75,38 @@ public class CallPrices {
      * @param value allowed object is
      *              {@link Double }
      */
-    public void setLandLine(Double value) {
+    public void setLandLine(final Double value) {
         this.landLine = value;
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         CallPrices that = (CallPrices) o;
-        return Objects.equals(inside, that.inside) &&
-                Objects.equals(outside, that.outside) &&
-                Objects.equals(landLine, that.landLine);
+        return Objects.equals(inside, that.inside)
+                && Objects.equals(outside, that.outside)
+                && Objects.equals(landLine, that.landLine);
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(inside, outside, landLine);
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
     public String toString() {
         return "\n\t\tInside: " + inside + "\n\t\tOutside: "

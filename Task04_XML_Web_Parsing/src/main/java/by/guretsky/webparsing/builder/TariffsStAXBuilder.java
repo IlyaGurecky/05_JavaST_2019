@@ -1,7 +1,12 @@
 package by.guretsky.webparsing.builder;
 
-import by.guretsky.webparsing.constant.TariffsEnum;
-import by.guretsky.webparsing.entity.*;
+import by.guretsky.webparsing.constant.TariffsTagEnum;
+import by.guretsky.webparsing.entity.CallPrices;
+import by.guretsky.webparsing.entity.Calls;
+import by.guretsky.webparsing.entity.CallsAndInternet;
+import by.guretsky.webparsing.entity.Internet;
+import by.guretsky.webparsing.entity.Parameters;
+import by.guretsky.webparsing.entity.Tariff;
 import by.guretsky.webparsing.exception.IllegalTagNameException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,17 +22,34 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/**
+ * Parser based on StAX model parsing.
+ */
 public class TariffsStAXBuilder extends ParseBuilder {
+    /**
+     * Logger.
+     */
     private static final Logger LOGGER =
             LogManager.getLogger(TariffsStAXBuilder.class);
+    /**
+     * @see XMLInputFactory
+     */
     private XMLInputFactory inputFactory;
 
+    /**
+     * Constructor - initializes {@link XMLInputFactory}.
+     */
     public TariffsStAXBuilder() {
         inputFactory = XMLInputFactory.newInstance();
     }
 
+    /**
+     * Builds whole list of tariffs.
+     *
+     * @param filePath file path.
+     */
     @Override
-    public void buildTariffs(String filePath) {
+    public void buildTariffs(final String filePath) {
         XMLStreamReader reader;
         String name;
         try (FileInputStream inputStream =
@@ -37,15 +59,16 @@ public class TariffsStAXBuilder extends ParseBuilder {
                 int type = reader.next();
                 if (type == XMLStreamConstants.START_ELEMENT) {
                     name = reader.getLocalName();
-                    if (TariffsEnum.CALLS.getValue().equals(name)) {
+                    if (TariffsTagEnum.CALLS.getValue().equals(name)) {
                         Tariff tariff = buildCallsTariff(reader);
                         this.addTariff(tariff);
-                    } else if (TariffsEnum
+                    } else if (TariffsTagEnum
                             .CALLS_AND_INTERNET.getValue().equals(name)) {
                         Tariff tariff =
                                 buildCallsAndInternetTariff(reader);
                         this.addTariff(tariff);
-                    } else if (TariffsEnum.INTERNET.getValue().equals(name)) {
+                    } else if (TariffsTagEnum.INTERNET.getValue()
+                            .equals(name)) {
                         Tariff tariff = buildInternetTariff(reader);
                         this.addTariff(tariff);
                     }
@@ -62,13 +85,21 @@ public class TariffsStAXBuilder extends ParseBuilder {
         }
     }
 
-    private Tariff buildCallsTariff(XMLStreamReader reader) throws
+    /**
+     * Build Calls tariff.
+     *
+     * @param reader {@link XMLStreamReader} obj
+     * @return tariff
+     * @throws XMLStreamException      if tag name is incorrect
+     * @throws IllegalTagNameException if tag name is incorrect
+     */
+    private Tariff buildCallsTariff(final XMLStreamReader reader) throws
             XMLStreamException, IllegalTagNameException {
         Calls tariff = new Calls();
         tariff.setTariffId(reader.getAttributeValue(null,
-                TariffsEnum.TARIFF_ID.getValue()));
+                TariffsTagEnum.TARIFF_ID.getValue()));
         tariff.setTariffication(reader.getAttributeValue(null,
-                TariffsEnum.TARIFFICATION.getValue()));
+                TariffsTagEnum.TARIFFICATION.getValue()));
         String name;
         while (reader.hasNext()) {
             int type = reader.next();
@@ -87,7 +118,7 @@ public class TariffsStAXBuilder extends ParseBuilder {
                 }
             } else if (type == XMLStreamConstants.END_ELEMENT) {
                 name = reader.getLocalName();
-                if (name.equals(TariffsEnum.CALLS.getValue())) {
+                if (name.equals(TariffsTagEnum.CALLS.getValue())) {
                     return tariff;
                 }
             }
@@ -95,11 +126,19 @@ public class TariffsStAXBuilder extends ParseBuilder {
         throw new IllegalTagNameException("Find tag error");
     }
 
-    private Tariff buildInternetTariff(XMLStreamReader reader) throws
+    /**
+     * Build Internet tariff.
+     *
+     * @param reader {@link XMLStreamReader} obj
+     * @return tariff
+     * @throws XMLStreamException      if tag name is incorrect
+     * @throws IllegalTagNameException if tag name is incorrect
+     */
+    private Tariff buildInternetTariff(final XMLStreamReader reader) throws
             IllegalTagNameException, XMLStreamException {
         Internet tariff = new Internet();
         tariff.setTariffId(reader.getAttributeValue(null,
-                TariffsEnum.TARIFF_ID.getValue()));
+                TariffsTagEnum.TARIFF_ID.getValue()));
         String name;
         while (reader.hasNext()) {
             int type = reader.next();
@@ -118,7 +157,7 @@ public class TariffsStAXBuilder extends ParseBuilder {
                 }
             } else if (type == XMLStreamConstants.END_ELEMENT) {
                 name = reader.getLocalName();
-                if (name.equals(TariffsEnum.INTERNET.getValue())) {
+                if (name.equals(TariffsTagEnum.INTERNET.getValue())) {
                     return tariff;
                 }
             }
@@ -127,13 +166,21 @@ public class TariffsStAXBuilder extends ParseBuilder {
 
     }
 
-    private Tariff buildCallsAndInternetTariff(XMLStreamReader reader) throws
-            IllegalTagNameException, XMLStreamException {
+    /**
+     * Build Calls and Internet tariff.
+     *
+     * @param reader {@link XMLStreamReader} obj
+     * @return tariff
+     * @throws XMLStreamException      if tag name is incorrect
+     * @throws IllegalTagNameException if tag name is incorrect
+     */
+    private Tariff buildCallsAndInternetTariff(final XMLStreamReader reader)
+            throws IllegalTagNameException, XMLStreamException {
         CallsAndInternet tariff = new CallsAndInternet();
         tariff.setTariffId(reader.getAttributeValue(null,
-                TariffsEnum.TARIFF_ID.getValue()));
+                TariffsTagEnum.TARIFF_ID.getValue()));
         tariff.setTariffication(reader.getAttributeValue(null,
-                TariffsEnum.TARIFFICATION.getValue()));
+                TariffsTagEnum.TARIFFICATION.getValue()));
 
         String name;
         while (reader.hasNext()) {
@@ -145,7 +192,7 @@ public class TariffsStAXBuilder extends ParseBuilder {
                         tariff.setCallPrices(getXMLCallPrices(reader));
                         break;
                     case "SMS-price":
-                        tariff.setSMSPrice(Double
+                        tariff.setSmsPrice(Double
                                 .parseDouble(getXMLText(reader)));
                         break;
                     case "free-mb":
@@ -160,7 +207,7 @@ public class TariffsStAXBuilder extends ParseBuilder {
                 }
             } else if (type == XMLStreamConstants.END_ELEMENT) {
                 name = reader.getLocalName();
-                if (name.equals(TariffsEnum.CALLS_AND_INTERNET.getValue())) {
+                if (name.equals(TariffsTagEnum.CALLS_AND_INTERNET.getValue())) {
                     return tariff;
                 }
             }
@@ -168,8 +215,17 @@ public class TariffsStAXBuilder extends ParseBuilder {
         throw new IllegalTagNameException("Unknown element");
     }
 
-    private void defineCommonProperties(String name, Tariff tariff,
-                                        XMLStreamReader reader) throws
+    /**
+     * Initialize common tariffs properties.
+     *
+     * @param name   tag name
+     * @param tariff current tariff
+     * @param reader {@link XMLStreamReader} obj
+     * @throws XMLStreamException      if tag name is incorrect
+     * @throws IllegalTagNameException if tag name is incorrect
+     */
+    private void defineCommonProperties(final String name, final Tariff tariff,
+                                        final XMLStreamReader reader) throws
             XMLStreamException, IllegalTagNameException {
         switch (name) {
             case "name":
@@ -210,7 +266,12 @@ public class TariffsStAXBuilder extends ParseBuilder {
         }
     }
 
-    private String getXMLText(XMLStreamReader reader) throws
+    /**
+     * @param reader xml reader.
+     * @return text form current tag.
+     * @throws XMLStreamException when tag is invalid.
+     */
+    private String getXMLText(final XMLStreamReader reader) throws
             XMLStreamException {
         String text = null;
         if (reader.hasNext()) {
@@ -220,7 +281,15 @@ public class TariffsStAXBuilder extends ParseBuilder {
         return text;
     }
 
-    private Parameters getXMLParameters(XMLStreamReader reader) throws
+    /**
+     * Read and creates data from tag parameters.
+     *
+     * @param reader xml reader.
+     * @return created parameters.
+     * @throws XMLStreamException      when tag is invalid.
+     * @throws IllegalTagNameException when tag is invalid
+     */
+    private Parameters getXMLParameters(final XMLStreamReader reader) throws
             XMLStreamException, IllegalTagNameException {
         Parameters parameters = new Parameters();
         int type;
@@ -243,7 +312,7 @@ public class TariffsStAXBuilder extends ParseBuilder {
                 }
             } else if (type == XMLStreamConstants.END_ELEMENT) {
                 name = reader.getLocalName();
-                if (name.equals(TariffsEnum.PARAMETERS.getValue())) {
+                if (name.equals(TariffsTagEnum.PARAMETERS.getValue())) {
                     return parameters;
                 }
             }
@@ -252,7 +321,15 @@ public class TariffsStAXBuilder extends ParseBuilder {
     }
 
 
-    private CallPrices getXMLCallPrices(XMLStreamReader reader) throws
+    /**
+     * Read and creates data from tag call-prices.
+     *
+     * @param reader xml reader.
+     * @return created call prices.
+     * @throws XMLStreamException      when tag is invalid.
+     * @throws IllegalTagNameException when tag is invalid
+     */
+    private CallPrices getXMLCallPrices(final XMLStreamReader reader) throws
             IllegalTagNameException, XMLStreamException {
         CallPrices prices = new CallPrices();
         int type;
@@ -279,7 +356,7 @@ public class TariffsStAXBuilder extends ParseBuilder {
                 }
             } else if (type == XMLStreamConstants.END_ELEMENT) {
                 name = reader.getLocalName();
-                if (name.equals(TariffsEnum.CALL_PRICES.getValue())) {
+                if (name.equals(TariffsTagEnum.CALL_PRICES.getValue())) {
                     return prices;
                 }
             }

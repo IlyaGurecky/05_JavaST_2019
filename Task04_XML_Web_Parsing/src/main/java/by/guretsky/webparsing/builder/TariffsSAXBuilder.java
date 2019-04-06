@@ -1,5 +1,6 @@
 package by.guretsky.webparsing.builder;
 
+import by.guretsky.webparsing.builder.handler.TariffHandler;
 import by.guretsky.webparsing.entity.Tariff;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,12 +13,27 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Parser which based on SAX parser model.
+ */
 public class TariffsSAXBuilder extends ParseBuilder {
+    /**
+     * Logger.
+     */
     private static final Logger LOGGER =
             LogManager.getLogger(TariffsSAXBuilder.class);
+    /**
+     * XML reader object.
+     */
     private XMLReader reader;
+    /**
+     * Class helper for SAX parser.
+     */
     private TariffHandler handler;
 
+    /**
+     * Constructor - initialize tariffsHandler and creates SAX parser.
+     */
     public TariffsSAXBuilder() {
         handler = new TariffHandler();
         try {
@@ -32,12 +48,23 @@ public class TariffsSAXBuilder extends ParseBuilder {
         }
     }
 
-    private void addTariffs(List<Tariff> parsedTariffs) {
+    /**
+     * Add tariffs in tariffs list.
+     *
+     * @param parsedTariffs tariffs to add
+     */
+    private void addTariffs(final List<Tariff> parsedTariffs) {
         this.getTariffs().addAll(parsedTariffs);
     }
 
+    /**
+     * Creates whole tariffs list. Calls method parse in SAX parser, it involves
+     * tariffHandler.
+     *
+     * @param filePath file path.
+     */
     @Override
-    public void buildTariffs(String filePath) {
+    public void buildTariffs(final String filePath) {
         try {
             reader.parse(filePath);
         } catch (IOException e) {
