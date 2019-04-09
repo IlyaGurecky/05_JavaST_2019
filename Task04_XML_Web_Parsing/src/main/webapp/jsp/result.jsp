@@ -1,8 +1,12 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<fmt:setLocale value="ru_RU" scope="session"/>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:if test="${sessionScope.sessionLocale == null}">
+    <c:set var="sessionLocale" value="en_US" scope="session"/>
+</c:if>
+<fmt:setLocale value="${sessionScope.sessionLocale}"/>
 <fmt:setBundle basename="pagecontent"/>
+
 <html>
 <head>
     <title><fmt:message key="tittle"/></title>
@@ -11,8 +15,7 @@
           type="image/png">
 </head>
 <body>
-<a href="http://localhost:8080/Task04_XML_Web_Parsing"><fmt:message
-        key="backButton"/> </a>
+<button onclick="history.back()"><fmt:message key="back"/></button>
 <table border="3" width="100%" cellpadding="10">
     <tr align="center" bgcolor="#deb887">
         <th><fmt:message key="id"/></th>
