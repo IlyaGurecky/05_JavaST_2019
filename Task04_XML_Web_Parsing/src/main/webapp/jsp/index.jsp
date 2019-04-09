@@ -15,40 +15,36 @@
     <link rel="icon"
           href="http://localhost:8080/Task04_XML_Web_Parsing/img/xml-1.png"
           type="image/png">
+    <link rel="stylesheet" href="css/format.css" type="text/css"/>
 </head>
 
 <body>
 <p></p>
-<%--<div align="center">--%>
-    <h1><fmt:message key="chooseMessage"/></h1>
+<h1><fmt:message key="chooseMessage"/></h1>
 
-    <form method="post"
-          action="servlet"
-          enctype="multipart/form-data">
-        <label for="servlet">
-            <select name="parser" id="servlet">
-                <option value="dom" selected>DOM</option>
-                <option value="sax">SAX</option>
-                <option value="stax">StAX</option>
-            </select>
-            <p><input type="file" accept=".xml" name="file">
-        </label><br>
-        <input style="margin-top: 20px" type="submit"
-               value="<fmt:message key="choose"/>"/>
-    </form>
+<form method="post" action="servlet" enctype="multipart/form-data">
+    <label for="servlet">
+        <select name="parser" id="servlet" class="parserSelect">
+            <option value="dom" selected>DOM</option>
+            <option value="sax">SAX</option>
+            <option value="stax">StAX</option>
+        </select>
+        <p><input type="file" accept=".xml" name="file" class="fileChoice">
+    </label>
+    <p><input type="submit"
+              class="parseButton"
+              value="<fmt:message key="parse"/>"/>
+</form>
 
-    <p></p>
-
-    <form action="servlet" method="GET">
-        <label for="lang">
-            <select name="locale" id="lang">
-                <option value="en_US">ENG</option>
-                <option value="ru_RU">RUS</option>
-                <option value="be_BY">BEL</option>
-            </select>
-        </label>
-        <input type="submit" value="<fmt:message key="choose"/>"/>
-    </form>
-<%--</div>--%>
+<form action="servlet" method="GET" class="langChoice">
+    <label for="lang">
+        <select name="locale" id="lang">
+            <option value="en_US">ENG</option>
+            <option value="ru_RU">RUS</option>
+            <option value="be_BY">BEL</option>
+        </select>
+    </label>
+    <input type="submit" value="<fmt:message key="choose"/>"/>
+</form>
 </body>
 </html>

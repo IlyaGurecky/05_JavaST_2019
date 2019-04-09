@@ -15,7 +15,8 @@
           type="image/png">
 </head>
 <body>
-<button onclick="history.back()"><fmt:message key="back"/></button>
+<button onclick="history.back()"><fmt:message
+        key="back"/></button>
 <table border="3" width="100%" cellpadding="10">
     <tr align="center" bgcolor="#deb887">
         <th><fmt:message key="id"/></th>
