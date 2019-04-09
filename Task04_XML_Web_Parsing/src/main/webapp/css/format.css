@@ -1,0 +1,33 @@
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.langChoice {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    font-size: 50px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 30px;
+}
+
+
+.fileChoice {
+    text-align: center;
+    display: inline;
+    margin-top: 20px;
+    font-size: 15px;
+    width: 200px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.parserSelect {
+    font-size: 20px;
+}
+
+.parseButton {
+    font-size: 20px;
+    width: 100px;
+}
