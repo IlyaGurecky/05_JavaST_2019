@@ -1,0 +1,1 @@
+DROP DATABASE IF EXISTS `movie_service_db`;
