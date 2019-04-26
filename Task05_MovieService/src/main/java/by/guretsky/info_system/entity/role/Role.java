@@ -1,4 +1,4 @@
-package by.guretsky.info_system.entity;
+package by.guretsky.info_system.entity.role;
 
 public enum Role {
     ADMIN("admin"),

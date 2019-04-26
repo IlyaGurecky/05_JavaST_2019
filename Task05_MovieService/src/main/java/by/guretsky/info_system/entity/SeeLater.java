@@ -1,6 +1,7 @@
 package by.guretsky.info_system.entity;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class SeeLater extends Entity {
     private User user;
@@ -29,5 +30,27 @@ public class SeeLater extends Entity {
 
     public void setAddedDate(final Date addedDate) {
         this.addedDate = addedDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        SeeLater seeLater = (SeeLater) o;
+        return Objects.equals(user, seeLater.user)
+                && Objects.equals(film, seeLater.film)
+                && Objects.equals(addedDate, seeLater.addedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), user, film, addedDate);
     }
 }
