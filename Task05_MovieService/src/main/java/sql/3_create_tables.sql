@@ -23,13 +23,11 @@ CREATE TABLE `countries_catalog`
 
 CREATE TABLE `user_info`
 (
-  `id`         INTEGER NOT NULL AUTO_INCREMENT,
+  `user_id`    INTEGER NOT NULL UNIQUE,
   `email`      VARCHAR(50) UNIQUE,
   `sex`        CHAR(1) CHECK (`sex` IN ('м', 'ж')),
   `birth_date` DATE,
   `country_id` INTEGER,
-  `user_id`    INTEGER NOT NULL UNIQUE,
-  PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`)
     REFERENCES `users` (`id`)
     ON UPDATE CASCADE

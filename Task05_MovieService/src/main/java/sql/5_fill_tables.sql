@@ -1,9 +1,15 @@
 USE `movie_service_db`;
 
 INSERT INTO `users` (login, password, role)
-VALUES ('user1', 'password1', 2),
-       ('user2', 'password2', 2),
-       ('editor1', 'editorpass', 1);
+VALUES ('user1',
+        '$2a$10$dtg6L2dmLBzNEdHQyCIATu/PPUvpci1X1HrCSCrKSQrecPa8y/oi6', # BCrypt hash ("user1")
+        2),
+       ('user2',
+        '$2a$10$nIA71sgtHMIuLCxcWE6eZeY15bbKlXV3kJiRNjOdb38AuPKlbejDK', # BCrypt hash ("user2")
+        2),
+       ('editor1',
+        '$2a$10$nf2jShTR6ZkZecgxxdzzguDh.2e3Y5uFoLsEhrl62w9FV9Dl4oqf2', # BCrypt hash ("editor1")
+        1);
 
 INSERT INTO `categories_catalog` (name)
 VALUES ('Комедия'),

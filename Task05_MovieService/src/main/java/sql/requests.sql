@@ -8,7 +8,7 @@ SELECT `f`.id,
        `f`.description,
        `f`.image_path,
        `countries_catalog`.name  AS `country`,
-       `categories_catalog`.name AS `catogory`
+       `categories_catalog`.name AS `category`
 FROM `films` AS `f`
        LEFT OUTER JOIN categories_catalog
                        ON `f`.category_id = `categories_catalog`.id
