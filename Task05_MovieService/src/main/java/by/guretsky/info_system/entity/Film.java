@@ -6,11 +6,10 @@ import java.util.Objects;
 public class Film extends Entity {
     private String name;
     private Date premierDate;
-    private String country;
-    private String producer;
-    private String actors;
+    private Country country;
     private String imageName;
-    private String category;
+    private Category category;
+    private String description;
 
     public String getName() {
         return name;
@@ -28,28 +27,12 @@ public class Film extends Entity {
         this.premierDate = filmPremierDate;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(final String country) {
+    public void setCountry(final Country country) {
         this.country = country;
-    }
-
-    public String getProducer() {
-        return producer;
-    }
-
-    public void setProducer(final String producer) {
-        this.producer = producer;
-    }
-
-    public String getActors() {
-        return actors;
-    }
-
-    public void setActors(final String actors) {
-        this.actors = actors;
     }
 
     public String getImageName() {
@@ -60,12 +43,20 @@ public class Film extends Entity {
         this.imageName = imageName;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(final String category) {
+    public void setCategory(final Category category) {
         this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
     }
 
     @Override
@@ -83,15 +74,14 @@ public class Film extends Entity {
         return Objects.equals(name, film.name)
                 && Objects.equals(premierDate, film.premierDate)
                 && Objects.equals(country, film.country)
-                && Objects.equals(producer, film.producer)
-                && Objects.equals(actors, film.actors)
                 && Objects.equals(imageName, film.imageName)
-                && Objects.equals(category, film.category);
+                && Objects.equals(category, film.category)
+                && Objects.equals(description, film.description);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), name, premierDate, country,
-                producer, actors, imageName, category);
+                imageName, category, description);
     }
 }
