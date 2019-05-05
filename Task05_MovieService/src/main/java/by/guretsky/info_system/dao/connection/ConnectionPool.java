@@ -11,7 +11,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class ConnectionPool {
+public final class ConnectionPool {
     private static final Logger LOGGER =
             LogManager.getLogger(ConnectionPool.class);
     private BlockingQueue<PooledConnection> freeConnections =
@@ -27,6 +27,9 @@ public class ConnectionPool {
     private final ReentrantLock locker2 = new ReentrantLock();
     private final ReentrantLock locker3 = new ReentrantLock();
     private final ReentrantLock locker4 = new ReentrantLock();
+
+    private ConnectionPool() {
+    }
 
     private static class SingletonHolder {
         private static final ConnectionPool POOL = new ConnectionPool();
