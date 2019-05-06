@@ -6,9 +6,9 @@ import java.util.Objects;
 public class Film extends Entity {
     private String name;
     private Date premierDate;
-    private Country country;
+    private String country;
     private String imageName;
-    private Category category;
+    private String category;
     private String description;
 
     public String getName() {
@@ -27,11 +27,11 @@ public class Film extends Entity {
         this.premierDate = filmPremierDate;
     }
 
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(final Country country) {
+    public void setCountry(final String country) {
         this.country = country;
     }
 
@@ -43,11 +43,11 @@ public class Film extends Entity {
         this.imageName = imageName;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(final Category category) {
+    public void setCategory(final String category) {
         this.category = category;
     }
 

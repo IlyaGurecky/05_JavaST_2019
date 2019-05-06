@@ -12,7 +12,7 @@ public class User extends Entity {
     private String email;
     private String sex;
     private Date birthDate;
-    private Country country;
+    private String country;
 
     public String getEmail() {
         return email;
@@ -30,11 +30,11 @@ public class User extends Entity {
         this.sex = userSex;
     }
 
-    public Country getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(final Country userCountry) {
+    public void setCountry(final String userCountry) {
         this.country = userCountry;
     }
 
