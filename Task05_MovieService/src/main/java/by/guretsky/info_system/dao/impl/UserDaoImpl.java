@@ -27,6 +27,11 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             + "`countries_catalog`.name AS `country` FROM `users` LEFT OUTER JOIN user_info ON users.id"
             + " = user_info.user_id LEFT OUTER JOIN countries_catalog ON user_info.country_id = "
             + "countries_catalog.id WHERE `users`.login = ?";
+    private static final String SELECT_BY_EMAIL = "SELECT `users`.id, `users`.login, `users`.role, "
+            + "`user_info`.birth_date, `user_info`.sex, "
+            + "`countries_catalog`.name AS `country` FROM `users` LEFT OUTER JOIN user_info ON users.id"
+            + " = user_info.user_id LEFT OUTER JOIN countries_catalog ON user_info.country_id = "
+            + "countries_catalog.id WHERE `user_info`.email = ?";
     private static final String SELECT_BY_ID = "SELECT `users`.id, `users`.role, `users`.login, `users`.password,"
             + "`user_info`.birth_date, `user_info`.email, `user_info`.sex, "
             + "`countries_catalog`.name AS `country` FROM `users` LEFT OUTER JOIN user_info ON users.id"
@@ -88,6 +93,37 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 user.setBirthDate(resultSet.getDate("birth_date"));
                 user.setCountry(resultSet.getString("country"));
                 user.setEmail(resultSet.getString("email"));
+                user.setRole(Role.findById(resultSet.getInt("role")));
+                user.setSex(resultSet.getString("sex"));
+                user.setId(resultSet.getInt("id"));
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL error", e);
+        } finally {
+            try {
+                closeResources(statement, resultSet);
+            } catch (SQLException e) {
+                LOGGER.error("Resource closeResources error", e);
+            }
+        }
+        return user;
+    }
+
+    @Override
+    public User findByEmail(final String email) {
+        User user = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SELECT_BY_EMAIL);
+            statement.setString(1, email);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setEmail(email);
+                user.setBirthDate(resultSet.getDate("birth_date"));
+                user.setCountry(resultSet.getString("country"));
+                user.setLogin(resultSet.getString("login"));
                 user.setRole(Role.findById(resultSet.getInt("role")));
                 user.setSex(resultSet.getString("sex"));
                 user.setId(resultSet.getInt("id"));
