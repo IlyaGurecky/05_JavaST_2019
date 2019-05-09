@@ -1,14 +1,12 @@
 package by.guretsky.info_system.command.constant;
 
-import by.guretsky.info_system.command.ActionCommand;
-import by.guretsky.info_system.command.AuthorizationCommand;
-import by.guretsky.info_system.command.HomeCommand;
-import by.guretsky.info_system.command.SignUpCommand;
+import by.guretsky.info_system.command.*;
 
 public enum ActionEnum {
-    AUTHORIZATION(new AuthorizationCommand(), "/authorization"),
+    SIGN_IN(new SignInCommand(), "/signin"),
     SIGN_UP(new SignUpCommand(), "/signup"),
-    HOME(new HomeCommand(), "/home");
+    HOME(new HomeCommand(), "/home"),
+    LOGOUT(new LogoutCommand(), "/logout");
 
     private ActionCommand command;
     private String actionName;
