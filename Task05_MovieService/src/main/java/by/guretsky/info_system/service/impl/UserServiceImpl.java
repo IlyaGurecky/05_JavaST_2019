@@ -69,6 +69,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             user.setPassword(hashPassword);
             daoManager.setAutoCommit(false);
             Integer id = dao.create(user);
+            user.setId(id);
             if (id != 0 && dao.createUserInfo(user)) {
                 daoManager.commit();
             } else {
