@@ -101,7 +101,7 @@ public final class ConnectionPool {
                 throw new CustomException(e);
 
             } catch (SQLException e) {
-                LOGGER.error("TimeOut value is less than 0", e);
+                LOGGER.error("Sql error", e);
                 throw new CustomException(e);
             }
         }
