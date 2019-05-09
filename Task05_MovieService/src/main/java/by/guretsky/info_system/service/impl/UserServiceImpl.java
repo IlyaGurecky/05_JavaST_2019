@@ -1,8 +1,6 @@
 package by.guretsky.info_system.service.impl;
 
-import by.guretsky.info_system.dao.DaoManager;
 import by.guretsky.info_system.dao.UserDao;
-import by.guretsky.info_system.dao.impl.UserDaoImpl;
 import by.guretsky.info_system.entity.User;
 import by.guretsky.info_system.exception.CustomException;
 import by.guretsky.info_system.service.UserService;
@@ -75,6 +73,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
                 daoManager.commit();
             } else {
                 daoManager.rollback();
+                id = 0;
             }
             daoManager.setAutoCommit(true);
             return id;
@@ -98,6 +97,26 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             return isCorrect;
         } else {
             throw new CustomException("User obj is null");
+        }
+    }
+
+    @Override
+    public User findByLogin(String login) throws CustomException {
+        if (login != null && !login.isEmpty()) {
+            UserDao dao = daoManager.createAndGetDao(UserDao.class);
+            return dao.findByLogin(login);
+        } else {
+            throw new CustomException("Login is null");
+        }
+    }
+
+    @Override
+    public User findByEmail(String email) throws CustomException {
+        if (email != null && !email.isEmpty()) {
+            UserDao dao = daoManager.createAndGetDao(UserDao.class);
+            return dao.findByEmail(email);
+        } else {
+            throw new CustomException("Email is null");
         }
     }
 

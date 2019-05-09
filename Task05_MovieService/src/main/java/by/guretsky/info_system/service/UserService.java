@@ -18,4 +18,8 @@ public interface UserService extends Service {
     Integer create(final User user) throws CustomException;
 
     boolean update(final User user) throws CustomException;
+
+    User findByLogin(final String login) throws CustomException;
+
+    User findByEmail(final String email) throws CustomException;
 }
