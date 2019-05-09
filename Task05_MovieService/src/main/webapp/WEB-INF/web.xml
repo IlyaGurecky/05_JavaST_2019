@@ -8,14 +8,56 @@
     <display-name>Task05_Movie_Service</display-name>
 
     <welcome-file-list>
-        <welcome-file>/jsp/index.jsp</welcome-file>
+        <welcome-file>/jsp/home.jsp</welcome-file>
     </welcome-file-list>
 
-    <jsp-config>
-        <jsp-property-group>
-            <url-pattern>*.jsp</url-pattern>
-            <page-encoding>UTF-8</page-encoding>
-        </jsp-property-group>
-    </jsp-config>
+    <servlet>
+        <servlet-name>MainController</servlet-name>
+        <servlet-class>
+            by.guretsky.info_system.controller.MainController
+        </servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MainController</servlet-name>
+        <url-pattern>/signin</url-pattern>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>/signup</url-pattern>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
 
+    <filter>
+        <filter-name>EncodingFilter</filter-name>
+        <filter-class>
+            by.guretsky.info_system.controller.filter.EncodingFilter
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EncodingFilter</filter-name>
+        <url-pattern>/signin</url-pattern>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>/signup</url-pattern>
+        <url-pattern>/logout</url-pattern>
+
+    </filter-mapping>
+
+    <filter>
+        <filter-name>UriActionFilter</filter-name>
+        <filter-class>
+            by.guretsky.info_system.controller.filter.UriActionFilter
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UriActionFilter</filter-name>
+        <url-pattern>/signin</url-pattern>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>/signup</url-pattern>
+        <url-pattern>/logout</url-pattern>
+
+    </filter-mapping>
+
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/jsp/error.jsp</location>
+    </error-page>
 </web-app>
