@@ -40,9 +40,11 @@ public class UriActionFilter implements Filter {
         ActionFactory factory = new ActionFactory();
         ActionCommand action = factory.defineCommand(actionName);
         if (action != null) {
+            action.setName(actionName);
             request.setAttribute("action", action);
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
+            request.getServletContext().setAttribute("error", "Unknown " + uri + " page");
             request.getServletContext().getRequestDispatcher("/jsp/error.jsp")
                     .forward(servletRequest, servletResponse);
         }
