@@ -7,11 +7,7 @@ import by.guretsky.info_system.entity.role.Role;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -190,13 +186,19 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(CREATE);
+            statement = connection.prepareStatement(CREATE,
+                    Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, entity.getLogin());
             statement.setString(2, entity.getPassword());
             statement.setInt(3, entity.getRole().ordinal());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
-            return resultSet.getInt(1);
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            } else {
+                LOGGER.error("There isn't generated key "
+                        + "after add into table");
+            }
         } catch (SQLException e) {
             LOGGER.error("Prepare statement error", e);
         } finally {

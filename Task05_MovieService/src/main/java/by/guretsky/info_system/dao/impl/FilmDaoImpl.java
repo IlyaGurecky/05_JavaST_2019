@@ -3,6 +3,7 @@ package by.guretsky.info_system.dao.impl;
 import by.guretsky.info_system.dao.BaseDao;
 import by.guretsky.info_system.dao.FilmDao;
 import by.guretsky.info_system.entity.Film;
+import by.guretsky.info_system.exception.CustomException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -182,9 +183,11 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(CREATE_FILM);
+            statement = connection.prepareStatement(CREATE_FILM,
+                    Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, entity.getName());
-            statement.setDate(2, new Date(entity.getPremierDate().getTime()));
+            statement.setDate(2,
+                    new Date(entity.getPremierDate().getTime()));
             if (entity.getDescription() != null) {
                 statement.setString(6, entity.getDescription());
             } else {
@@ -208,7 +211,12 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
 //                statement.setNull(3, Types.INTEGER);
 //            }
             resultSet = statement.getGeneratedKeys();
-            return resultSet.getInt(1);
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            } else {
+                LOGGER.error("There isn't generated key "
+                        + "after add into table");
+            }
         } catch (SQLException e) {
             LOGGER.error("SQL exception", e);
         } finally {
@@ -218,7 +226,7 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
                 LOGGER.error("Resource closeResources error", e);
             }
         }
-        return null;
+        return 0;
     }
 
     @Override
