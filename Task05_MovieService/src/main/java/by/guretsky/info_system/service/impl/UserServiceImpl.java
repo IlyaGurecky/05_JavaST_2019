@@ -4,7 +4,7 @@ import by.guretsky.info_system.dao.UserDao;
 import by.guretsky.info_system.entity.User;
 import by.guretsky.info_system.exception.CustomException;
 import by.guretsky.info_system.service.UserService;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import by.guretsky.info_system.util.PasswordEncoder;
 
 import java.util.List;
 
@@ -24,7 +24,8 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             UserDao dao = daoManager.createAndGetDao(UserDao.class);
             User user = dao.findByLogin(login);
             if (user != null) {
-                return checkPassword(password, user.getPassword()) ? user : null;
+                return PasswordEncoder.checkPassword(password,
+                        user.getPassword()) ? user : null;
             } else {
                 return null;
             }
@@ -65,7 +66,8 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public Integer create(final User user) throws CustomException {
         if (user != null) {
             UserDao dao = daoManager.createAndGetDao(UserDao.class);
-            String hashPassword = bCrypt(user.getPassword());
+            String hashPassword = PasswordEncoder
+                    .hashPassword(user.getPassword());
             user.setPassword(hashPassword);
             daoManager.setAutoCommit(false);
             Integer id = dao.create(user);
@@ -119,14 +121,5 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         } else {
             throw new CustomException("Email is null");
         }
-    }
-
-    private boolean checkPassword(final String password, final String hash) {
-        return BCrypt.checkpw(password, hash);
-    }
-
-    private String bCrypt(final String password) {
-        String salt = BCrypt.gensalt();
-        return BCrypt.hashpw(password, salt);
     }
 }
