@@ -2,7 +2,7 @@ package by.guretsky.info_system.util;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
-public class PasswordEncoder {
+public final class PasswordEncoder {
 
     private PasswordEncoder() {
     }
