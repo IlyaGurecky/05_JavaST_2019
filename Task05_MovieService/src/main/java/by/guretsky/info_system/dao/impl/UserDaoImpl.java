@@ -254,9 +254,8 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             } else {
                 statement.setNull(3, Types.DATE);
             }
-//            if (entity.getCountry() != null
-//                    && entity.getCountry().getId() != null) {
-//                statement.setInt(8, entity.getCountry().getId());
+//            if (user.getCountry() != null) {
+//                statement.setInt(8, user.getCountry().getId());
 //            } else {
 //                statement.setNull(8, Types.INTEGER);
 //            }
