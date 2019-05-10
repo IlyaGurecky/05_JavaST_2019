@@ -40,6 +40,8 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     private static final String UPDATE = "UPDATE `users` SET login = ?, password = ?, role = ? WHERE id = ?";
     private static final String UPDATE_USER_INFO = " UPDATE `user_info` SET email = ?, sex = ?, "
             + "birth_date = ?, country_id = ? WHERE user_id = ?";
+    private static final String SELECT_COUNTRY_BY_NAME = "SELECT `countries_catalog`.id AS `country_id` "
+            + "FROM `countries_catalog` WHERE `countries_catalog`.name = ?";
 
     @Override
     public List<User> readAll() {
@@ -241,8 +243,21 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     @Override
     public boolean updateUserInfo(final User user) {
-        try (PreparedStatement statement =
-                     connection.prepareStatement(UPDATE_USER_INFO)) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            Integer countryId = null;
+            if (user.getCountry() != null) {
+                statement = connection.prepareStatement(SELECT_COUNTRY_BY_NAME);
+                statement.setString(1, user.getCountry());
+                resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    countryId = resultSet.getInt("id");
+                }
+                closeResources(statement, resultSet);
+            }
+
+            statement = connection.prepareStatement(UPDATE_USER_INFO);
             statement.setString(1, user.getEmail());
             if (user.getSex() != null) {
                 statement.setString(2, user.getSex());
@@ -254,16 +269,21 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             } else {
                 statement.setNull(3, Types.DATE);
             }
-//            if (user.getCountry() != null) {
-//                statement.setInt(8, user.getCountry().getId());
-//            } else {
-//                statement.setNull(8, Types.INTEGER);
-//            }
-            statement.setNull(4, Types.INTEGER);
+            if (countryId != null) {
+                statement.setInt(4, countryId);
+            } else {
+                statement.setNull(4, Types.INTEGER);
+            }
             statement.setInt(5, user.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             LOGGER.error("Pr statement error", e);
+        } finally {
+            try {
+                closeResources(statement, resultSet);
+            } catch (SQLException e) {
+                LOGGER.error("Prepared statement close error", e);
+            }
         }
         return false;
     }
