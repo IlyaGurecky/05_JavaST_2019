@@ -253,6 +253,8 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 resultSet = statement.executeQuery();
                 if (resultSet.next()) {
                     countryId = resultSet.getInt("id");
+                } else {
+                    return false;
                 }
                 closeResources(statement, resultSet);
             }

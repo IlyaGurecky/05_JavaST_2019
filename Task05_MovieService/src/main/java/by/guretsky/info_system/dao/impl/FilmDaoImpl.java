@@ -6,7 +6,11 @@ import by.guretsky.info_system.entity.Film;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -192,6 +196,8 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
                 resultSet = statement.executeQuery();
                 if (resultSet.next()) {
                     categoryId = resultSet.getInt("category_id");
+                } else {
+                    return 0;
                 }
                 closeResources(statement, resultSet);
             }
@@ -203,6 +209,8 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
                 resultSet = statement.executeQuery();
                 if (resultSet.next()) {
                     countryId = resultSet.getInt("country_id");
+                } else {
+                    return 0;
                 }
                 closeResources(statement, resultSet);
             }
@@ -262,6 +270,8 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
                 resultSet = statement.executeQuery();
                 if (resultSet.next()) {
                     categoryId = resultSet.getInt("category_id");
+                } else {
+                    return false;
                 }
                 closeResources(statement, resultSet);
             }
@@ -273,6 +283,8 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
                 resultSet = statement.executeQuery();
                 if (resultSet.next()) {
                     countryId = resultSet.getInt("country_id");
+                } else {
+                    return false;
                 }
                 closeResources(statement, resultSet);
             }
