@@ -24,7 +24,7 @@ CREATE TABLE `countries_catalog`
 CREATE TABLE `user_info`
 (
   `user_id`    INTEGER NOT NULL UNIQUE,
-  `email`      VARCHAR(50) UNIQUE,
+  `email`      VARCHAR(254) UNIQUE,
   `sex`        CHAR(1) CHECK (`sex` IN ('м', 'ж')),
   `birth_date` DATE,
   `country_id` INTEGER,
@@ -52,7 +52,7 @@ CREATE TABLE `films`
   `premier_date` DATE         NOT NULL,
   `country_id`   INTEGER,
   `category_id`  INTEGER,
-  `image_path`   VARCHAR(100),
+  `image_path`   VARCHAR(255),
   `description`  TEXT,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`category_id`)
