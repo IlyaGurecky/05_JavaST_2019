@@ -219,3 +219,17 @@ a:hover, a:focus {
     padding-top: 5px;
     text-transform: capitalize;
 }
+
+.reset-btn {
+    width: 40px;
+    background: none;
+    border: none;
+    font-size: 10px;
+    color: rgba(46,255,234,0.54);
+    text-transform: uppercase;
+    margin-left: 330px;
+}
+
+.reset-btn:focus {
+    outline: none;
+}

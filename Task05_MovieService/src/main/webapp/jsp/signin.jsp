@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="${context}/css/auth.css" type="text/css">
+    <link rel="stylesheet" href="${context}/css/authorization.css" type="text/css">
     <title>SignIn</title>
     <link rel="icon"
           href="https://img.icons8.com/metro/26/000000/gender-neutral-user.png"
@@ -37,7 +37,6 @@
                     <div role="tabpanel" class="tab-pane fade in active"
                          id="Section1">
                         <form class="form-horizontal" action="${signin}" method="post">
-                            <input type="hidden" name="command" value="signin"/>
                             <div class="form-group">
                                 <label for="login">login</label>
                                 <input type="text" class="form-control"
@@ -48,8 +47,9 @@
                                 <input type="password" class="form-control"
                                        id="password" name="password" required>
                             </div>
+                            <button type="reset" class="reset-btn" >Reset</button>
+                            <br>
                             <div class="text">${error}</div>
-                            <br/>
                             <br/>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-default">

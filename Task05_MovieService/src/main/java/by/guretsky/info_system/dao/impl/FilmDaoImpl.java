@@ -3,7 +3,6 @@ package by.guretsky.info_system.dao.impl;
 import by.guretsky.info_system.dao.BaseDao;
 import by.guretsky.info_system.dao.FilmDao;
 import by.guretsky.info_system.entity.Film;
-import by.guretsky.info_system.exception.CustomException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,11 +34,14 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
             + "categories_catalog ON `f`.category_id = `categories_catalog`.id LEFT OUTER JOIN "
             + "countries_catalog ON f.country_id = countries_catalog.id WHERE `f`.id = ?";
     private static final String DELETE_BY_ID = "DELETE FROM `films` WHERE id = ?";
-
     private static final String CREATE_FILM = "INSERT INTO `films` (name, premier_date,"
             + " country_id, category_id, image_path, description) VALUES (?, ?, ?, ?, ?, ?);";
     private static final String UPDATE = "UPDATE `films` SET name = ?, premier_date = ?, "
             + "description = ?, image_path = ?, country_id = ?, category_id = ? WHERE id = ?;";
+    private static final String SELECT_CATEGORY_BY_NAME = "SELECT `categories_catalog`.id AS `category_id` "
+            + "FROM `categories_catalog` WHERE `categories_catalog`.name = ?";
+    private static final String SELECT_COUNTRY_BY_NAME = "SELECT `countries_catalog`.id AS `country_id` "
+            + "FROM `countries_catalog` WHERE `countries_catalog`.name = ?";
 
     @Override
     public List<Film> readAll() {
@@ -183,11 +185,37 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(CREATE_FILM,
-                    Statement.RETURN_GENERATED_KEYS);
+            Integer categoryId = null;
+            if(entity.getCategory() != null) {
+                statement = connection.prepareStatement(SELECT_CATEGORY_BY_NAME);
+                statement.setString(1, entity.getCategory());
+                resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    categoryId = resultSet.getInt("category_id");
+                }
+                closeResources(statement, resultSet);
+            }
+
+            Integer countryId = null;
+            if(entity.getCountry() != null) {
+                statement = connection.prepareStatement(SELECT_COUNTRY_BY_NAME);
+                statement.setString(1, entity.getCountry());
+                resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    countryId = resultSet.getInt("country_id");
+                }
+                closeResources(statement, resultSet);
+            }
+
+            statement = connection.prepareStatement(CREATE_FILM);
             statement.setString(1, entity.getName());
             statement.setDate(2,
                     new Date(entity.getPremierDate().getTime()));
+            if (categoryId != null) {
+                statement.setInt(4, categoryId);
+            } else {
+                statement.setNull(4, Types.INTEGER);
+            }
             if (entity.getDescription() != null) {
                 statement.setString(6, entity.getDescription());
             } else {
@@ -198,24 +226,17 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
             } else {
                 statement.setNull(5, Types.VARCHAR);
             }
-//            if (entity.getCategory() != null
-//                    && entity.getCategory().getId() != null) {
-//                statement.setInt(4, entity.getCategory().getId());
-//            } else {
-//                statement.setNull(4, Types.INTEGER);
-//            }
-//            if (entity.getCountry() != null
-//                    && entity.getCountry().getId() != null) {
-//                statement.setInt(3, entity.getCountry().getId());
-//            } else {
-//                statement.setNull(3, Types.INTEGER);
-//            }
+            if (countryId != null) {
+                statement.setInt(3, countryId);
+            } else {
+                statement.setNull(3, Types.INTEGER);
+            }
+            statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
                 return resultSet.getInt(1);
             } else {
-                LOGGER.error("There isn't generated key "
-                        + "after add into table");
+                LOGGER.error("Key generated error");
             }
         } catch (SQLException e) {
             LOGGER.error("SQL exception", e);
@@ -231,36 +252,64 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
 
     @Override
     public boolean update(final Film entity) {
-        try (PreparedStatement statement =
-                     connection.prepareStatement(UPDATE)) {
-            statement.setString(1, entity.getName());
-            statement.setDate(2, new Date(entity.getPremierDate().getTime()));
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            Integer categoryId = null;
+            if (entity.getCategory() != null) {
+                statement = connection.prepareStatement(SELECT_CATEGORY_BY_NAME);
+                statement.setString(1, entity.getCategory());
+                resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    categoryId = resultSet.getInt("category_id");
+                }
+                closeResources(statement, resultSet);
+            }
+
+            Integer countryId = null;
+            if (entity.getCountry() != null) {
+                statement = connection.prepareStatement(SELECT_COUNTRY_BY_NAME);
+                statement.setString(1, entity.getCountry());
+                resultSet = statement.executeQuery();
+                if (resultSet.next()) {
+                    countryId = resultSet.getInt("country_id");
+                }
+                closeResources(statement, resultSet);
+            }
+
+            statement = connection.prepareStatement(UPDATE);
             if (entity.getDescription() != null) {
                 statement.setString(3, entity.getDescription());
             } else {
                 statement.setNull(3, Types.LONGNVARCHAR);
             }
+            statement.setString(1, entity.getName());
+            statement.setDate(2, new Date(entity.getPremierDate().getTime()));
             if (entity.getImageName() != null) {
                 statement.setString(4, entity.getImageName());
             } else {
                 statement.setNull(4, Types.VARCHAR);
             }
-//            if (entity.getCategory() != null
-//                    && entity.getCategory().getId() != null) {
-//                statement.setInt(6, entity.getCategory().getId());
-//            } else {
-//                statement.setNull(6, Types.INTEGER);
-//            }
-//            if (entity.getCountry() != null
-//                    && entity.getCountry().getId() != null) {
-//                statement.setInt(5, entity.getCountry().getId());
-//            } else {
-//                statement.setNull(5, Types.INTEGER);
-//            }
+            if (categoryId != null) {
+                statement.setInt(6, categoryId);
+            } else {
+                statement.setNull(6, Types.INTEGER);
+            }
+            if (countryId != null) {
+                statement.setInt(5, countryId);
+            } else {
+                statement.setNull(5, Types.INTEGER);
+            }
             statement.setInt(7, entity.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             LOGGER.error("Prepare statement error", e);
+        } finally {
+            try {
+                closeResources(statement, resultSet);
+            } catch (SQLException e) {
+                LOGGER.error("Resources close error");
+            }
         }
         return false;
     }

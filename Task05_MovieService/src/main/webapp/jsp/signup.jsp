@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="${context}/css/auth.css"
+    <link rel="stylesheet" href="${context}/css/authorization.css"
           type="text/css">
     <title>SignUp</title>
     <link rel="icon"
@@ -59,6 +59,8 @@
                                 <input type="password" class="form-control"
                                        id="password1" name="password" required>
                             </div>
+                            <button type="reset" class="reset-btn" >Reset</button>
+                            <br>
                             <div class="text">${signUpError}</div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-default">
