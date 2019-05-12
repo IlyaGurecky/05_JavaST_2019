@@ -6,15 +6,15 @@
        value="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}"/>
 <c:url var="signin" value="/signin"/>
 <c:url var="home" value="/home"/>
-<c:url var="logout" value="/logout"/>
 <c:url var="films" value="/films"/>
 <c:url var="category" value="/category"/>
+<c:url var="users" value="/users"/>
 
 <html>
 <head>
     <title>KinoMan</title>
     <link rel="stylesheet" type="text/css"
-          href="${context}/css/navigationBar.css"/>
+          href="${context}/css/navBar.css"/>
     <link rel="icon" href="${context}/img/mainTittleIcon.png" type="image/png"/>
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600"/>
 </head>
@@ -29,13 +29,36 @@
                     <div class="dropdown">
                         <a href="#">CATEGORIES</a>
                         <div align="center">
-                            <a href="${category}"> Action</a>
-                            <a href="#"> Fantasy</a>
-                            <a href="#"> Comedy</a>
-                            <a href="#"> Horror</a>
-                            <a href="#"> Family</a>
-                            <a href="#"> Detective</a>
-                            <a href="#"> Dramas</a>
+                            <%--<a href="${category}"> Action</a>--%>
+                            <%--<a href="#"> Fantasy</a>--%>
+                            <%--<a href="#"> Comedy</a>--%>
+                            <%--<a href="#"> Horror</a>--%>
+                            <%--<a href="#"> Family</a>--%>
+                            <%--<a href="#"> Detective</a>--%>
+                            <%--<a href="#"> Dramas</a>--%>
+                            <form action="${category}">
+                                <button type="submit" name="name"
+                                        value="Боевик"> Action
+                                </button>
+                                <button type="submit" name="name"
+                                        value="Фэнтези"> Fantasy
+                                </button>
+                                <button type="submit" name="name"
+                                        value="Комедия"> Comedy
+                                </button>
+                                <button type="submit" name="name" value="Ужасы">
+                                    Horror
+                                </button>
+                                <button type="submit" name="name"
+                                        value="Семейные"> Family
+                                </button>
+                                <button type="submit" name="name"
+                                        value="Детективы"> Detective
+                                </button>
+                                <button type="submit" name="name" value="Драмы">
+                                    Drama
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </li>
@@ -47,6 +70,9 @@
                         </li>
                     </c:when>
                     <c:otherwise>
+                        <c:if test="${user.role.value.equals('admin')}">
+                            <li><a href="${users}">USERS</a></li>
+                        </c:if>
                         <li>
                             <div class="dropdown">
                                 <a href="#">${user.login}</a>
@@ -65,15 +91,19 @@
                                             src="https://img.icons8.com/material-outlined/48/000000/settings.png"
                                             width="25px" align="center">
                                         Preferences</a>
-                                    <a href="${logout}"><img
-                                            src="https://img.icons8.com/material-outlined/48/000000/shutdown.png"
-                                            width="25px" align="center"> LogOut</a>
+
+
+                                    <form action="${home}" method="post">
+                                        <input type="hidden" name="command"
+                                               value="signout"/>
+                                        <img src="https://img.icons8.com/material-outlined/48/000000/shutdown.png"
+                                                width="25px" align="center" style="margin-left: 9px; margin-right: 0"/>
+                                        <input type="submit"
+                                               value="LogOut"></form>
+                                    </form>
                                 </div>
                             </div>
                         </li>
-                        <c:if test="${user.role.value.equals('admin')}">
-                            <li><a href="${films}">USERS LIST</a></li>
-                        </c:if>
                     </c:otherwise>
                 </c:choose>
             </ul>

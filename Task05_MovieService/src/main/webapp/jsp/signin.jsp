@@ -49,13 +49,15 @@
                             </div>
                             <button type="reset" class="reset-btn" >Reset</button>
                             <br>
-                            <div class="text">${error}</div>
+                            <div class="text">${signinError}</div>
                             <br/>
                             <div class="form-group">
+                                <input type="hidden" value="signin" name="command"/>
                                 <button type="submit" class="btn btn-default">
                                     Sign in
                                 </button>
                             </div>
+                            <a href="${home}" class="home">Go Home</a>
                         </form>
                     </div>
                 </div>

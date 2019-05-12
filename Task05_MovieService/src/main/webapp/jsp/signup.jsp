@@ -63,17 +63,18 @@
                             <br>
                             <div class="text">${signUpError}</div>
                             <div class="form-group">
+                                <input type="hidden" value="signup" name="command">
                                 <button type="submit" class="btn btn-default">
                                     Sign up
                                 </button>
                             </div>
+                            <a href="${home}" class="home">Go Home</a>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>
