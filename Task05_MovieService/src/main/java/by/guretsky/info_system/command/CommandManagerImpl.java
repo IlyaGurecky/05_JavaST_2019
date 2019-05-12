@@ -1,6 +1,7 @@
 package by.guretsky.info_system.command;
 
 import by.guretsky.info_system.exception.CustomException;
+import by.guretsky.info_system.page.JspPage;
 import by.guretsky.info_system.service.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,7 @@ public class CommandManagerImpl implements CommandManager {
     }
 
     @Override
-    public String execute(ActionCommand action, HttpServletRequest request)
+    public JspPage execute(Command action, HttpServletRequest request)
             throws CustomException {
         action.setFactory(factory);
         return action.execute(request);

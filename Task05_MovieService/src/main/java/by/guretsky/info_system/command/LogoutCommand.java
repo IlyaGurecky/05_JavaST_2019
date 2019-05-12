@@ -1,13 +1,15 @@
 package by.guretsky.info_system.command;
 
+import by.guretsky.info_system.page.JspPage;
+import by.guretsky.info_system.page.PageEnum;
+import by.guretsky.info_system.page.PageManager;
+
 import javax.servlet.http.HttpServletRequest;
 
-public class LogoutCommand extends ActionCommand {
-    private static final String FORWARD = "/home";
-
+public class LogoutCommand extends Command {
     @Override
-    String execute(HttpServletRequest request) {
+    public JspPage execute(HttpServletRequest request) {
         request.getSession(false).invalidate();
-        return FORWARD;
+        return PageManager.createPage(PageEnum.HOME);
     }
 }
