@@ -30,7 +30,7 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
             + "`f`.description, `f`.image_path, `countries_catalog`.name  AS `country`, "
             + "`categories_catalog`.name AS `category` FROM `films` AS `f` LEFT OUTER JOIN "
             + "categories_catalog ON `f`.category_id = `categories_catalog`.id LEFT OUTER JOIN "
-            + "countries_catalog ON f.country_id = countries_catalog.id WHERE `countries_catalog`.name = ?"
+            + "countries_catalog ON f.country_id = countries_catalog.id WHERE `categories_catalog`.name = ?"
             + "ORDER BY `f`.id DESC";
     private static final String SELECT_BY_ID = "SELECT `f`.name, `f`.premier_date, "
             + "`f`.description, `f`.image_path, `countries_catalog`.name  AS `country`, "
