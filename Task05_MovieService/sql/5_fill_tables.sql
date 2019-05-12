@@ -102,5 +102,7 @@ VALUES (2, 1, '2019-04-12'),
        (2, 2, '2019-04-07');
 
 INSERT INTO `user_info` (email, sex, birth_date, country_id, user_id)
-VALUES (NULL, 'м', '1994-12-08', 10, 2),
-       ('lora11@gmail.com', 'ж', NULL, 3, 3);
+VALUES ('andrey13@mail.ru', 'м', '1994-12-08', 10, 2),
+       ('lora11@gmail.com', 'ж', NULL, 3, 3),
+       ('oracle@gmail.com', 'м', NULL, 3, 1),
+       ('gleb@gmail.com', 'м', '1992-03-18', 3, 4);
