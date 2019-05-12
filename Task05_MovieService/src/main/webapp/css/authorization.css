@@ -233,3 +233,19 @@ a:hover, a:focus {
 .reset-btn:focus {
     outline: none;
 }
+
+.home {
+    width: 40px;
+    background: none;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    margin-left: 156px;
+}
+
+.home:hover {
+    color: #ff1c00;
+    background: none;
+    outline: none;
+    text-decoration-line: none;
+}
