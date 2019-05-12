@@ -3,7 +3,8 @@ package by.guretsky.info_system.entity.role;
 public enum Role {
     ADMIN("admin"),
     EDITOR("editor"),
-    USER("user");
+    USER("user"),
+    UNAUTHORIZED("unauthorized");
 
     private String value;
 
