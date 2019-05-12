@@ -22,9 +22,11 @@
         <url-pattern>/signin</url-pattern>
         <url-pattern>/home</url-pattern>
         <url-pattern>/signup</url-pattern>
-        <url-pattern>/logout</url-pattern>
         <url-pattern>/films</url-pattern>
         <url-pattern>/category</url-pattern>
+        <url-pattern>/users</url-pattern>
+        <url-pattern>/user_add</url-pattern>
+
     </servlet-mapping>
 
     <filter>
@@ -35,12 +37,7 @@
     </filter>
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
-        <url-pattern>/signin</url-pattern>
-        <url-pattern>/home</url-pattern>
-        <url-pattern>/signup</url-pattern>
-        <url-pattern>/logout</url-pattern>
-        <url-pattern>/films</url-pattern>
-        <url-pattern>/category</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -54,11 +51,27 @@
         <url-pattern>/signin</url-pattern>
         <url-pattern>/home</url-pattern>
         <url-pattern>/signup</url-pattern>
-        <url-pattern>/logout</url-pattern>
         <url-pattern>/films</url-pattern>
         <url-pattern>/category</url-pattern>
+        <url-pattern>/users</url-pattern>
+        <url-pattern>/user_add</url-pattern>
     </filter-mapping>
 
+    <filter>
+        <filter-name>SecurityFilter</filter-name>
+        <filter-class>by.guretsky.info_system.controller.filter.SecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SecurityFilter</filter-name>
+        <url-pattern>/signin</url-pattern>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>/signup</url-pattern>
+        <url-pattern>/films</url-pattern>
+        <url-pattern>/category</url-pattern>
+        <url-pattern>/users</url-pattern>
+        <url-pattern>/user_add</url-pattern>
+
+    </filter-mapping>
 
     <error-page>
         <error-code>404</error-code>
