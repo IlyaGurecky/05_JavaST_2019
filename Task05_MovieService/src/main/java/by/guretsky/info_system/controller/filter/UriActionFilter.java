@@ -1,7 +1,7 @@
 package by.guretsky.info_system.controller.filter;
 
-import by.guretsky.info_system.command.ActionCommand;
-import by.guretsky.info_system.command.factory.ActionFactory;
+import by.guretsky.info_system.page.JspPage;
+import by.guretsky.info_system.page.PageManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,21 +31,28 @@ public class UriActionFilter implements Filter {
                          ServletResponse servletResponse,
                          FilterChain filterChain) throws
             IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        String contextPath = request.getContextPath();
-        String uri = request.getRequestURI();
-        LOGGER.debug("Processing uri", uri);
-        int beginAction = contextPath.length();
-        String actionName = uri.substring(beginAction);
-        ActionFactory factory = new ActionFactory();
-        ActionCommand action = factory.defineCommand(actionName);
-        if (action != null) {
-            action.setName(actionName);
-            request.setAttribute("action", action);
-            filterChain.doFilter(servletRequest, servletResponse);
+        if (servletRequest instanceof HttpServletRequest) {
+            HttpServletRequest request = (HttpServletRequest) servletRequest;
+            String contextPath = request.getContextPath();
+            String uri = request.getRequestURI();
+            LOGGER.debug("Processing uri", uri);
+            int beginAction = contextPath.length();
+            String pageUri = uri.substring(beginAction);
+            JspPage page = PageManager.defineAndGet(pageUri);
+            if (page != null) {
+                request.setAttribute("page", page);
+                filterChain.doFilter(servletRequest, servletResponse);
+            } else {
+                request.getServletContext()
+                        .setAttribute("error", "Unknown " + uri + " page");
+                request.getServletContext()
+                        .getRequestDispatcher("/jsp/error.jsp")
+                        .forward(servletRequest, servletResponse);
+            }
         } else {
-            request.getServletContext().setAttribute("error", "Unknown " + uri + " page");
-            request.getServletContext().getRequestDispatcher("/jsp/error.jsp")
+            LOGGER.error("It's impossible to use HTTP filter");
+            servletRequest.getServletContext()
+                    .getRequestDispatcher("/jsp/error.jsp")
                     .forward(servletRequest, servletResponse);
         }
     }
