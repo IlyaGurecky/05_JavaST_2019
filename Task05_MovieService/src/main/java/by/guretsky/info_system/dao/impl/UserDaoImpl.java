@@ -34,6 +34,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             + " = user_info.user_id LEFT OUTER JOIN countries_catalog ON user_info.country_id = "
             + "countries_catalog.id WHERE `users`.id = ?";
     private static final String DELETE = "DELETE FROM `users` WHERE id = ?";
+    private static final String DELETE_BY_LOGIN = "DELETE FROM `users` WHERE login = ?";
     private static final String CREATE = "INSERT INTO `users` (login, password, role) VALUES (?, ?, ?)";
 
     private static final String CREATE_USER_INFO = "INSERT INTO `user_info` (email, user_id) VALUES (?, ?)";
@@ -178,7 +179,19 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             statement.setInt(1, id);
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
-            LOGGER.error("Prepare statement error", e);
+            LOGGER.error("Delete error", e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteByLogin(final String login) {
+        try (PreparedStatement statement =
+                     connection.prepareStatement(DELETE_BY_LOGIN)) {
+            statement.setString(1, login);
+            return statement.executeUpdate() != 0;
+        } catch (SQLException e) {
+            LOGGER.error("Delete by login error", e);
         }
         return false;
     }

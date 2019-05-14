@@ -8,10 +8,7 @@ import by.guretsky.info_system.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -87,15 +84,29 @@ public class SeeLaterDaoImpl extends BaseDao implements SeeLaterDao {
 
     @Override
     public Integer create(final SeeLater entity) {
-        try (PreparedStatement statement = connection.prepareStatement(CREATE)) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(CREATE,
+                    Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, entity.getUser().getId());
             statement.setInt(2, entity.getFilm().getId());
             statement.setDate(3, Date.valueOf(LocalDate.now()));
             statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
         } catch (SQLException e) {
             LOGGER.error("Prepare statement error", e);
+        } finally {
+            try {
+                closeResources(statement, resultSet);
+            } catch (SQLException e) {
+                LOGGER.error("Closing error", e);
+            }
         }
-        return null;
+        return 0;
     }
 
     @Override
