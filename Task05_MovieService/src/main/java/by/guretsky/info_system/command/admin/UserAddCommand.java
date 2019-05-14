@@ -19,9 +19,9 @@ public class UserAddCommand extends Command {
 
     @Override
     public JspPage execute(HttpServletRequest request) throws CustomException {
-        String login = request.getParameter(LOGIN_FIELD);
-        String email = request.getParameter(EMAIL_FIELD);
-        String password = request.getParameter(PASSWORD_FIELD);
+        String login = request.getParameter(LOGIN_FIELD).trim();
+        String email = request.getParameter(EMAIL_FIELD).trim();
+        String password = request.getParameter(PASSWORD_FIELD).trim();
         Role role = Role.findById(Integer
                 .parseInt(request.getParameter(ROLE_FIELD)));
         UserService service = factory.createService(UserService.class);
@@ -32,7 +32,7 @@ public class UserAddCommand extends Command {
             user.setEmail(email);
             user.setPassword(password);
             user.setRole(role);
-
+            service.create(user);
             return PageManager.createPage(PageEnum.USERS);
         }
         return PageManager.createPage(PageEnum.USER_ADD);
