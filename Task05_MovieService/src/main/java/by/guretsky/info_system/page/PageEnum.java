@@ -11,9 +11,11 @@ public enum PageEnum {
     SIGN_IN("/signin", Role.UNAUTHORIZED),
     SIGN_UP("/signup", Role.UNAUTHORIZED),
     FILMS("/films"),
-    USERS("/users", Role.ADMIN),
-    USER_ADD("/user_add", Role.ADMIN),
-    CATEGORY("/category");
+    USERS("/admin/users", Role.ADMIN),
+    USER_ADD("/admin/user_add", Role.ADMIN),
+    ERROR("/error"),
+    CATEGORY("/category"),
+    FILM_ADD("/admin/film_add");
 
     private String pageUri;
     private Set<Role> allowRoles = new HashSet<>();
