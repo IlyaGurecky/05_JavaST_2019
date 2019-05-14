@@ -1,5 +1,6 @@
 package by.guretsky.info_system.service;
 
+import by.guretsky.info_system.entity.Film;
 import by.guretsky.info_system.entity.SeeLater;
 import by.guretsky.info_system.exception.CustomException;
 

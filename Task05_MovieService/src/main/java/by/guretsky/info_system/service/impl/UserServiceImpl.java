@@ -63,6 +63,24 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     }
 
     @Override
+    public boolean deleteByLogin(String login) throws CustomException {
+        if (login != null) {
+            UserDao dao = daoManager.createAndGetDao(UserDao.class);
+            daoManager.setAutoCommit(false);
+            boolean isCorrect = dao.deleteByLogin(login);
+            if (isCorrect) {
+                daoManager.commit();
+            } else {
+                daoManager.rollback();
+            }
+            daoManager.setAutoCommit(true);
+            return isCorrect;
+        } else {
+            throw new CustomException("login is null");
+        }
+    }
+
+    @Override
     public Integer create(final User user) throws CustomException {
         if (user != null) {
             UserDao dao = daoManager.createAndGetDao(UserDao.class);

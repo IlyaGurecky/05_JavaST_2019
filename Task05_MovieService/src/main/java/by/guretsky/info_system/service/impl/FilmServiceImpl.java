@@ -9,13 +9,14 @@ import java.util.List;
 
 public class FilmServiceImpl extends ServiceImpl implements FilmService {
     @Override
-    public List<Film> readAll() throws CustomException {
+    public List<Film> readAll(final int page, final int amountPerPage)
+            throws CustomException {
         FilmDao dao = daoManager.createAndGetDao(FilmDao.class);
-        return dao.readAll();
+        return dao.readAll(page, amountPerPage);
     }
 
     @Override
-    public Film findByName(String name) throws CustomException {
+    public List<Film> findByName(final String name) throws CustomException {
         if (name != null && !name.isEmpty()) {
             FilmDao dao = daoManager.createAndGetDao(FilmDao.class);
             return dao.findByName(name);
@@ -25,7 +26,8 @@ public class FilmServiceImpl extends ServiceImpl implements FilmService {
     }
 
     @Override
-    public List<Film> findByCategory(String category) throws CustomException {
+    public List<Film> findByCategory(final String category)
+            throws CustomException {
         if (category != null && !category.isEmpty()) {
             FilmDao dao = daoManager.createAndGetDao(FilmDao.class);
             return dao.findByCategory(category);
@@ -35,7 +37,7 @@ public class FilmServiceImpl extends ServiceImpl implements FilmService {
     }
 
     @Override
-    public Film findById(Integer id) throws CustomException {
+    public Film findById(final Integer id) throws CustomException {
         if (id != null) {
             FilmDao dao = daoManager.createAndGetDao(FilmDao.class);
             return dao.findById(id);
@@ -45,7 +47,7 @@ public class FilmServiceImpl extends ServiceImpl implements FilmService {
     }
 
     @Override
-    public Integer create(Film film) throws CustomException {
+    public Integer create(final Film film) throws CustomException {
         if (film != null) {
             FilmDao dao = daoManager.createAndGetDao(FilmDao.class);
             daoManager.setAutoCommit(false);
@@ -63,7 +65,7 @@ public class FilmServiceImpl extends ServiceImpl implements FilmService {
     }
 
     @Override
-    public boolean update(Film film) throws CustomException {
+    public boolean update(final Film film) throws CustomException {
         if (film != null) {
             FilmDao dao = daoManager.createAndGetDao(FilmDao.class);
             daoManager.setAutoCommit(false);
@@ -81,7 +83,7 @@ public class FilmServiceImpl extends ServiceImpl implements FilmService {
     }
 
     @Override
-    public boolean delete(Integer id) throws CustomException {
+    public boolean delete(final Integer id) throws CustomException {
         if (id != null) {
             FilmDao dao = daoManager.createAndGetDao(FilmDao.class);
             boolean isCorrect = false;
@@ -97,5 +99,11 @@ public class FilmServiceImpl extends ServiceImpl implements FilmService {
         } else {
             throw new CustomException("ID is null");
         }
+    }
+
+    @Override
+    public Integer countFilms() throws CustomException {
+        FilmDao dao = daoManager.createAndGetDao(FilmDao.class);
+        return dao.countFilms();
     }
 }

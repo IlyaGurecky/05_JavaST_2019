@@ -6,9 +6,10 @@ import by.guretsky.info_system.exception.CustomException;
 import java.util.List;
 
 public interface FilmService extends Service {
-    List<Film> readAll() throws CustomException;
+    List<Film> readAll(final int page, final int amountPerPage)
+            throws CustomException;
 
-    Film findByName(final String name) throws CustomException;
+    List<Film> findByName(final String name) throws CustomException;
 
     List<Film> findByCategory(final String category) throws CustomException;
 
@@ -19,4 +20,6 @@ public interface FilmService extends Service {
     boolean update(final Film film) throws CustomException;
 
     boolean delete(final Integer id) throws CustomException;
+
+    Integer countFilms() throws CustomException;
 }

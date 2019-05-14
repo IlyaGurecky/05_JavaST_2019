@@ -15,6 +15,8 @@ public interface UserService extends Service {
 
     boolean delete(final Integer id) throws CustomException;
 
+    boolean deleteByLogin(final String login) throws CustomException;
+
     Integer create(final User user) throws CustomException;
 
     boolean update(final User user) throws CustomException;
