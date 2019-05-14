@@ -7,6 +7,7 @@ import by.guretsky.info_system.page.JspPage;
 import by.guretsky.info_system.page.PageEnum;
 import by.guretsky.info_system.page.PageManager;
 import by.guretsky.info_system.service.UserService;
+import by.guretsky.info_system.validator.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,9 +20,9 @@ public class SignUpCommand extends Command {
 
     @Override
     public JspPage execute(HttpServletRequest request) throws CustomException {
-        String pass = request.getParameter(PASSWORD_PARAM);
-        String login = request.getParameter(LOGIN_PARAM);
-        String email = request.getParameter(EMAIL);
+        String pass = request.getParameter(PASSWORD_PARAM).trim();
+        String login = request.getParameter(LOGIN_PARAM).trim();
+        String email = request.getParameter(EMAIL).trim();
         UserService service = factory.createService(UserService.class);
         if (service.findByLogin(login) == null) {
             if (service.findByEmail(email) == null) {
@@ -30,7 +31,8 @@ public class SignUpCommand extends Command {
                 user.setPassword(pass);
                 user.setEmail(email);
                 user.setRole(Role.USER);
-                if (service.create(user) != 0) {
+                UserValidator validator = new UserValidator();
+                if (validator.validate(user) && service.create(user) != 0) {
                     request.setAttribute("completeMessage",
                             "User created successfully!");
                     HttpSession session = request.getSession();

@@ -16,19 +16,17 @@ public class SignInCommand extends Command {
 
     @Override
     public JspPage execute(HttpServletRequest request) throws CustomException {
-        String login = request.getParameter(LOGIN_PARAM);
-        String password = request.getParameter(PASSWORD_PARAM);
-        if (login != null && password != null) {
-            UserService service = factory.createService(UserService.class);
-            User user = service.findByLoginAndPassword(login, password);
-            if (user != null) {
-                HttpSession session = request.getSession();
-                session.setAttribute("user", user);
-                return PageManager.createPage(PageEnum.HOME);
-            } else {
-                request.setAttribute("signinError",
-                        "Login or Password is incorrect");
-            }
+        String login = request.getParameter(LOGIN_PARAM).trim();
+        String password = request.getParameter(PASSWORD_PARAM).trim();
+        UserService service = factory.createService(UserService.class);
+        User user = service.findByLoginAndPassword(login, password);
+        if (user != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            return PageManager.createPage(PageEnum.HOME);
+        } else {
+            request.setAttribute("signinError",
+                    "Login or Password is incorrect");
         }
         return PageManager.createPage(PageEnum.SIGN_IN);
     }
