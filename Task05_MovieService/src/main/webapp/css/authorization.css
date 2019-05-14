@@ -1,7 +1,3 @@
-body {
-    background: url("http://localhost:8080/kinoman/img/background/background.jpg") no-repeat;
-    background-size: 100%;
-}
 
 a:hover, a:focus {
     outline: none;

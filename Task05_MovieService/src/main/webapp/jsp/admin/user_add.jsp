@@ -4,10 +4,10 @@
 <c:set var="url">${pageContext.request.requestURL}</c:set>
 <c:set var="context"
        value="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}"/>
-<c:url var="userslist" value="/users"/>
+<c:url var="userslist" value="/admin/users"/>
 <html>
 <head>
-    <title>Title</title>
+    <title>Add user</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -21,22 +21,23 @@
         <h1 align="center" style="margin-top: 10px">CREATE ACCOUNT</h1>
         <div class="form-group" style="padding: 10px 10px 0 10px">
             <label for="LoginArea">Login</label>
-            <input type="text" class="form-control" id="LoginArea"
-                   placeholder="Enter login" required>
+            <input type="text" name="login" class="form-control" id="LoginArea"
+                   placeholder="Enter login" required autocomplete="off">
         </div>
         <div class="form-group" style="padding: 10px 10px 0 10px">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1"
-                   aria-describedby="emailHelp" placeholder="Enter email" required>
+            <label for="email">Email address</label>
+            <input type="email" name="email" class="form-control" id="email"
+                   aria-describedby="emailHelp" placeholder="Enter email" required
+                   autocomplete="off">
         </div>
         <div class="form-group" style="padding: 10px 10px 0 10px">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control"
-                   id="exampleInputPassword1" placeholder="Password" required>
+            <label for="pass">Password</label>
+            <input type="password" name="password" class="form-control"
+                   id="pass" placeholder="Password" required>
         </div>
         <div class="form-group" style="padding: 10px 10px 0 10px">
-            <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1" name="role">
+            <label for="select">Role</label>
+            <select class="form-control" id="select" name="role">
                 <option value="0">Admin</option>
                 <option value="1">Editor</option>
                 <option value="2">User</option>

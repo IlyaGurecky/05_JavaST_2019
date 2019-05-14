@@ -24,8 +24,9 @@
         <url-pattern>/signup</url-pattern>
         <url-pattern>/films</url-pattern>
         <url-pattern>/category</url-pattern>
-        <url-pattern>/users</url-pattern>
-        <url-pattern>/user_add</url-pattern>
+        <url-pattern>/admin/users</url-pattern>
+        <url-pattern>/admin/user_add</url-pattern>
+        <url-pattern>/admin/film_add</url-pattern>
 
     </servlet-mapping>
 
@@ -53,8 +54,9 @@
         <url-pattern>/signup</url-pattern>
         <url-pattern>/films</url-pattern>
         <url-pattern>/category</url-pattern>
-        <url-pattern>/users</url-pattern>
-        <url-pattern>/user_add</url-pattern>
+        <url-pattern>/admin/users</url-pattern>
+        <url-pattern>/admin/user_add</url-pattern>
+        <url-pattern>/admin/film_add</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -68,8 +70,9 @@
         <url-pattern>/signup</url-pattern>
         <url-pattern>/films</url-pattern>
         <url-pattern>/category</url-pattern>
-        <url-pattern>/users</url-pattern>
-        <url-pattern>/user_add</url-pattern>
+        <url-pattern>/admin/users</url-pattern>
+        <url-pattern>/admin/user_add</url-pattern>
+        <url-pattern>/admin/film_add</url-pattern>
 
     </filter-mapping>
 

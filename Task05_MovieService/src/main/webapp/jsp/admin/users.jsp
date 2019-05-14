@@ -5,8 +5,8 @@
 <c:set var="context"
        value="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}"/>
 <c:url var="home" value="/home"/>
-<c:url var="userslist" value="/users"/>
-<c:url var="userAdd" value="/user_add"/>
+<c:url var="userslist" value="/admin/users"/>
+<c:url var="userAdd" value="/admin/user_add"/>
 <html>
 <head>
     <title>Users</title>
@@ -16,16 +16,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
+
+
 <body style="background: url(${context}/img/background/usersback2.jpg)">
 <h1 align="center" style="color: #030005"> Users list</h1>
 <br/>
 <br/>
 <div class="container">
+    <form action="${userslist}" method="post"
+          onsubmit="return confirm('Delete this user?')">
     <div>
         <a href="${home}" class="btn btn-info">Go Home</a>
-        <a href="" class="btn btn-success">Delete By Login</a>
         <a href="${userAdd}" class="btn btn-success">Add Account</a>
+
+            <input type="hidden" name="command" value="deleteUser">
+            <input type="text" placeholder="Login" name="login" required autocomplete="off"
+                   style="border-radius: 5px; border: none; padding: 5px; margin-left: 30px"/>
+            <button type="submit" class="btn btn btn-danger">Delete by login
+            </button>
     </div>
+    </form>
     <br/>
     <c:choose>
         <c:when test="${not empty users}">
@@ -55,7 +65,8 @@
                         <td width="50px">
                             <c:if test="${not user.role.value.equals('admin')}">
                                 <form action="${userslist}" method="post"
-                                      style="margin: 0" onsubmit="return confirm('Delete user?');" >
+                                      style="margin: 0"
+                                      onsubmit="return confirm('Delete user?');">
                                     <input type="hidden" name="command"
                                            value="deleteUser" id="delete">
                                     <input type="hidden" name="id"

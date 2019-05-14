@@ -1,0 +1,83 @@
+.col-1-3 {
+    width: 33.3333333333%;
+    padding: 15px;
+    float: left;
+}
+
+.col-2-3 {
+    padding: 7px;
+    width: 100%;
+    float: left;
+    font-size: 18px;
+}
+
+.container:after, .row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.row {
+    margin-bottom: 5px;
+}
+
+hr {
+    width: 70%;
+    border: none; /* Убираем границу */
+    background-color: #ffffff; /* Цвет линии */
+    color: #3bf8db; /* Цвет линии для IE6-7 */
+    height: 2px; /* Толщина линии */
+}
+
+input[type=submit]:hover {
+    color: #fff;
+}
+
+input {
+    width: 140px;
+    text-align: center;
+    background: #ff4a48;
+    border: none;
+    font-family: 'Play', sans-serif;
+    font-size: 16px;
+    padding: 10px 0;
+    transition: border 0.5s;
+    outline: none;
+    color: white;
+    border-radius: 10px;
+}
+
+.parent {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+.block h1 {
+    /*font-family: Marion, sans-serif;*/
+    /*color: white;*/
+    /*font-size: 150px;*/
+    font-family: 'Montserrat', sans-serif;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50% , -50%);
+    -ms-transform: translate(-50% , -50%);
+    transform: translate(-50% , -50%);
+    font-size: 100px;
+    font-weight: 900;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: -12px;
+    color: gold;
+    text-transform: uppercase;
+    text-shadow: -4px -3px 0px #8400ff, 1px 1px 0px #ff005a;
+    letter-spacing: 10px;
+}

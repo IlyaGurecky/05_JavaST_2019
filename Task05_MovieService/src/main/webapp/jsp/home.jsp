@@ -7,8 +7,8 @@
 <c:url var="signin" value="/signin"/>
 <c:url var="home" value="/home"/>
 <c:url var="films" value="/films"/>
-<c:url var="category" value="/category"/>
-<c:url var="users" value="/users"/>
+<c:url var="users" value="/admin/users"/>
+<c:url var="categories" value="/category"/>
 
 <html>
 <head>
@@ -21,47 +21,45 @@
 
 
 <body style="background: url(${context}/img/background/mainback2.jpg) no-repeat; background-size: 100%">
+
 <header>
     <div class="container">
         <nav>
             <ul>
-                <li>
-                    <div class="dropdown">
-                        <a href="#">CATEGORIES</a>
-                        <div align="center">
-                            <%--<a href="${category}"> Action</a>--%>
-                            <%--<a href="#"> Fantasy</a>--%>
-                            <%--<a href="#"> Comedy</a>--%>
-                            <%--<a href="#"> Horror</a>--%>
-                            <%--<a href="#"> Family</a>--%>
-                            <%--<a href="#"> Detective</a>--%>
-                            <%--<a href="#"> Dramas</a>--%>
-                            <form action="${category}">
-                                <button type="submit" name="name"
-                                        value="Боевик"> Action
-                                </button>
-                                <button type="submit" name="name"
-                                        value="Фэнтези"> Fantasy
-                                </button>
-                                <button type="submit" name="name"
-                                        value="Комедия"> Comedy
-                                </button>
-                                <button type="submit" name="name" value="Ужасы">
-                                    Horror
-                                </button>
-                                <button type="submit" name="name"
-                                        value="Семейные"> Family
-                                </button>
-                                <button type="submit" name="name"
-                                        value="Детективы"> Detective
-                                </button>
-                                <button type="submit" name="name" value="Драмы">
-                                    Drama
-                                </button>
-                            </form>
+                <c:if test="${not user.role.value.equals('admin')}">
+                    <li>
+                        <div class="dropdown">
+                            <a href="#">CATEGORIES</a>
+                            <div align="center">
+                                <form action="${categories}" method="GET">
+                                    <button type="submit" name="category"
+                                            value="Боевик"> Action
+                                    </button>
+                                    <button type="submit" name="category"
+                                            value="Фэнтези"> Fantasy
+                                    </button>
+                                    <button type="submit" name="category"
+                                            value="Комедия"> Comedy
+                                    </button>
+                                    <button type="submit" name="category"
+                                            value="Ужасы">
+                                        Horror
+                                    </button>
+                                    <button type="submit" name="category"
+                                            value="Семейные"> Family
+                                    </button>
+                                    <button type="submit" name="category"
+                                            value="Детективы"> Detective
+                                    </button>
+                                    <button type="submit" name="category"
+                                            value="Драмы">
+                                        Drama
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                </c:if>
                 <li><a href="${films}">FILMS</a></li>
                 <li><a href="#">ABOUT</a></li>
                 <c:choose>
@@ -71,12 +69,13 @@
                     </c:when>
                     <c:otherwise>
                         <c:if test="${user.role.value.equals('admin')}">
-                            <li><a href="${users}">USERS</a></li>
+                            <li><a href="${users}">USERS CONFIG</a></li>
                         </c:if>
                         <li>
                             <div class="dropdown">
                                 <a href="#">${user.login}</a>
                                 <div>
+                                    <c:if test="${not user.role.value.equals('admin')}">
                                     <a href="#"><img
                                             src="https://img.icons8.com/material-outlined/48/000000/visible.png"
                                             width="25px" align="center"> Watched
@@ -87,17 +86,18 @@
                                             width="25px" align="center"> See
                                         later</a>
                                     <hr>
+                                    </c:if>
                                     <a href="#"><img
                                             src="https://img.icons8.com/material-outlined/48/000000/settings.png"
                                             width="25px" align="center">
                                         Preferences</a>
 
-
                                     <form action="${home}" method="post">
                                         <input type="hidden" name="command"
                                                value="signout"/>
                                         <img src="https://img.icons8.com/material-outlined/48/000000/shutdown.png"
-                                                width="25px" align="center" style="margin-left: 9px; margin-right: 0"/>
+                                             width="25px" align="center"
+                                             style="margin-left: 9px; margin-right: 0"/>
                                         <input type="submit"
                                                value="LogOut"></form>
                                     </form>
