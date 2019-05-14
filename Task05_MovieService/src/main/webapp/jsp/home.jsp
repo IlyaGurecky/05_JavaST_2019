@@ -9,6 +9,7 @@
 <c:url var="films" value="/films"/>
 <c:url var="users" value="/admin/users"/>
 <c:url var="categories" value="/category"/>
+<c:url var="seeLater" value="/user/see_later"/>
 
 <html>
 <head>
@@ -81,7 +82,7 @@
                                             width="25px" align="center"> Watched
                                         films</a>
                                     <hr>
-                                    <a href="#"><img
+                                    <a href="${seeLater}"><img
                                             src="https://img.icons8.com/material-outlined/48/000000/clock.png"
                                             width="25px" align="center"> See
                                         later</a>

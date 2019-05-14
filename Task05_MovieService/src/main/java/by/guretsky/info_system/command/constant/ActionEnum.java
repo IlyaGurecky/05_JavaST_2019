@@ -4,6 +4,7 @@ import by.guretsky.info_system.command.Command;
 import by.guretsky.info_system.command.LogoutCommand;
 import by.guretsky.info_system.command.SignInCommand;
 import by.guretsky.info_system.command.SignUpCommand;
+import by.guretsky.info_system.command.admin.FilmDeleteCommand;
 import by.guretsky.info_system.command.admin.UserAddCommand;
 import by.guretsky.info_system.command.admin.UserDeleteCommand;
 import by.guretsky.info_system.command.user.AddToSeeLaterCommand;
@@ -14,7 +15,8 @@ public enum ActionEnum {
     LOGOUT(new LogoutCommand(), "signout"),
     DELETE_USER(new UserDeleteCommand(), "deleteUser"),
     ADD_USER(new UserAddCommand(), "addUser"),
-    ADD_TO_SEE_LATER(new AddToSeeLaterCommand(), "addToSeeLater");
+    ADD_TO_SEE_LATER(new AddToSeeLaterCommand(), "addToSeeLater"),
+    DELETE_FILM(new FilmDeleteCommand(), "deleteFilm");
 
     private Command command;
     private String actionName;

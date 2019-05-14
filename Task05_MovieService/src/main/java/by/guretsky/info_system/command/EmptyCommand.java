@@ -24,6 +24,12 @@ public class EmptyCommand extends Command {
     public JspPage execute(HttpServletRequest request) throws CustomException {
         JspPage jspPage = (JspPage) request.getAttribute("page");
 
+        //This block is used for load "See later" films
+        if (jspPage.getUri().equals(PageEnum.SEE_LATER.getPageUri())) {
+            List<SeeLater> seeLater = loadSeeLaterFilms(request);
+            request.setAttribute("seeLaterFilms", seeLater);
+        }
+
         //This block is used for load films by category
         if (jspPage.getUri().equals(PageEnum.CATEGORY.getPageUri())) {
             String category = request.getParameter("category");
@@ -31,19 +37,16 @@ public class EmptyCommand extends Command {
                 FilmService service = factory.createService(FilmService.class);
                 List<Film> films = service.findByCategory(category);
                 request.setAttribute("films", films);
-                return jspPage;
+            } else {
+                return PageManager.createPage(PageEnum.ERROR);
             }
-            return PageManager.createPage(PageEnum.ERROR);
         }
 
         //This block is used for load films, which in the user "See Later" list
-        if (jspPage.getUri().equals(PageEnum.FILMS.getPageUri())
+        if ((jspPage.getUri().equals(PageEnum.FILMS.getPageUri())
+                || jspPage.getUri().equals(PageEnum.CATEGORY.getPageUri()))
                 && isAuthorizedUser(request)) {
-            SeeLaterService service =
-                    factory.createService(SeeLaterService.class);
-            HttpSession session = request.getSession(false);
-            User user = (User) session.getAttribute("user");
-            List<SeeLater> seeLater = service.readAllByUserId(user.getId());
+            List<SeeLater> seeLater = loadSeeLaterFilms(request);
             List<Film> seeLaterFilms = new LinkedList<>();
             seeLater.stream().map(SeeLater::getFilm).forEach(seeLaterFilms::add);
             request.setAttribute("seeLater", seeLaterFilms);
@@ -87,12 +90,21 @@ public class EmptyCommand extends Command {
         return jspPage;
     }
 
-    public boolean isAuthorizedUser(HttpServletRequest request) {
+    private boolean isAuthorizedUser(final HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             User user = (User) session.getAttribute("user");
             return user != null && !user.getRole().equals(Role.UNAUTHORIZED);
         }
         return false;
+    }
+
+    private List<SeeLater> loadSeeLaterFilms(final HttpServletRequest request)
+            throws CustomException {
+        SeeLaterService service =
+                factory.createService(SeeLaterService.class);
+        HttpSession session = request.getSession(false);
+        User user = (User) session.getAttribute("user");
+        return service.readAllByUserId(user.getId());
     }
 }

@@ -6,6 +6,8 @@
        value="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}"/>
 <c:url var="home" value="/home"/>
 <c:url var="filmslist" value="/films"/>
+<c:url var="seeLaterList" value="/user/see_later"/>
+
 
 <html>
 <head>
@@ -47,7 +49,7 @@
                         <a class=" dropdown-item" href="${home}">Home</a>
                         <c:if test="${not user.role.value.equals('admin')
                         and not user.role.value.equals('editor')}">
-                            <a class="dropdown-item" href="#">See later</a>
+                            <a class="dropdown-item" href="${seeLaterList}">See later</a>
                             <a class="dropdown-item" href="#">Watched</a>
                         </c:if>
                         <a class="dropdown-item" href="#">Profile</a>
@@ -160,11 +162,15 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <form style="margin-left: 5px">
-                                                    <input type="button"
-                                                           class="btn btn-outline-success"
-                                                           value="In Your List"
-                                                           disabled>
-                                                    </input>
+                                                    <button type="button"
+                                                            class="btn btn-outline-success"
+                                                            value="In Your List"
+                                                            disabled><img
+                                                            src="${context}/img/seeLaterButtonIcon.png"
+                                                            width="22px"
+                                                            style="margin: 0 6px 1px 0">In
+                                                        Your List
+                                                    </button>
                                                 </form>
                                             </c:otherwise>
                                         </c:choose>

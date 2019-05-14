@@ -15,7 +15,8 @@ public enum PageEnum {
     USER_ADD("/admin/user_add", Role.ADMIN),
     ERROR("/error"),
     CATEGORY("/category"),
-    FILM_ADD("/admin/film_add");
+    FILM_ADD("/admin/film_add", Role.ADMIN),
+    SEE_LATER("/user/see_later", Role.USER);
 
     private String pageUri;
     private Set<Role> allowRoles = new HashSet<>();
