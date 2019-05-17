@@ -84,7 +84,7 @@
                   style="padding: 10px 10px 10px 0" action="${filmslist}"
                   method="get">
                 <input class="form-control mr-sm-1" type="search"
-                       placeholder="Film name" aria-label="Search" name="fn">
+                       placeholder="Film name" aria-label="Search" name="fn" required>
                 <button class="btn btn-primary"
                         style="background: rgba(13, 20, 35, 0.9)" type="submit">
                     Search

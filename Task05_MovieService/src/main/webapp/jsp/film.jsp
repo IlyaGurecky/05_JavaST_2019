@@ -20,6 +20,59 @@
 
 <body style="background: url(${context}/img/background/filmPageBack.jpg);
         background-size: 100%;">
+<nav class="navbar fixed-top navbar-dark">
+    <a class="navbar-brand btn btn-warning" href="${home}" style="background: gold;
+     padding: 10px; border-radius: 5px; color: black">KinoMan</a>
+    <div class="row">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button"
+                    id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"
+                    style="background: gold; color: black; padding: 13px;
+                    border-radius: 5px;
+                    margin-right: 10px">
+                <c:choose>
+                    <c:when test="${not empty user}">
+                        ${user.login}
+                    </c:when>
+                    <c:otherwise>
+                        Menu
+                    </c:otherwise>
+                </c:choose>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right"
+                 aria-labelledby="dropdownMenuButton">
+                <c:choose>
+                    <c:when test="${not empty user}">
+                        <a class=" dropdown-item" href="${home}">Home</a>
+                        <c:if test="${not user.role.value.equals('admin')
+                        and not user.role.value.equals('editor')}">
+                            <a class="dropdown-item" href="${seeLaterList}">See
+                                later</a>
+                            <a class="dropdown-item" href="#">Watched</a>
+                        </c:if>
+                        <a class="dropdown-item" href="${profile}">Profile</a>
+                        <form action="${home}" method="post"
+                              class="dropdown-item"
+                              style="padding: 0; margin: 0">
+                            <input type="hidden" name="command"
+                                   value="signout"/>
+                            <input type="submit"
+                                   value="LogOut" style="background: none;
+                           color: black; "></form>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <c:url var="signin" value="/signin"/>
+                        <a class=" dropdown-item" href="${home}">Home</a>
+                        <a class="dropdown-item" href="${signin}">SignIn</a>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+    </div>
+</nav>
+
 <div class="container" style="padding-top: 50px;
             padding-bottom: 50px;">
     <div class="row">
@@ -118,7 +171,8 @@
                                       action="${signin}" method="get">
                                     <button type="submit"
                                             class="btn btn-outline-warning">
-                                        Please sign in to watch this movie or add it to See Later
+                                        Please sign in to watch this movie or
+                                        add it to See Later
                                     </button>
                                 </form>
                             </c:if>
@@ -229,14 +283,6 @@
     </div>
 </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+
 </body>
 </html>

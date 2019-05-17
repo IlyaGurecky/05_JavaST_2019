@@ -19,6 +19,7 @@
           href="${context}/css/navBar.css"/>
     <link rel="icon" href="${context}/img/mainTittleIcon.png" type="image/png"/>
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600"/>
+
 </head>
 
 
@@ -78,16 +79,17 @@
                                 <a href="${profile}">${user.login}</a>
                                 <div>
                                     <c:if test="${not user.role.value.equals('admin')}">
-                                    <a href="#"><img
-                                            src="https://img.icons8.com/material-outlined/48/000000/visible.png"
-                                            width="25px" align="center"> Watched
-                                        films</a>
-                                    <hr>
-                                    <a href="${seeLater}"><img
-                                            src="https://img.icons8.com/material-outlined/48/000000/clock.png"
-                                            width="25px" align="center"> See
-                                        later</a>
-                                    <hr>
+                                        <a href="#"><img
+                                                src="https://img.icons8.com/material-outlined/48/000000/visible.png"
+                                                width="25px" align="center">
+                                            Watched
+                                            films</a>
+                                        <hr>
+                                        <a href="${seeLater}"><img
+                                                src="https://img.icons8.com/material-outlined/48/000000/clock.png"
+                                                width="25px" align="center"> See
+                                            later</a>
+                                        <hr>
                                     </c:if>
                                     <c:url value="/user/profile" var="profile"/>
                                     <a href="${profile}"><img

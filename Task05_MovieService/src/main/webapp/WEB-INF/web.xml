@@ -5,6 +5,10 @@
          version="4.0">
     <request-character-encoding>UTF-8</request-character-encoding>
 
+    <!--<session-config>-->
+        <!--<tracking-mode>COOKIE</tracking-mode>-->
+    <!--</session-config>-->
+
     <display-name>Task05_Movie_Service</display-name>
 
     <welcome-file-list>
@@ -30,7 +34,6 @@
         <url-pattern>/user/see_later</url-pattern>
         <url-pattern>/user/profile</url-pattern>
         <url-pattern>/film</url-pattern>
-
     </servlet-mapping>
 
     <filter>
