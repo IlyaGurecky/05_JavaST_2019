@@ -7,6 +7,9 @@
 <c:url var="home" value="/home"/>
 <c:url var="filmslist" value="/films"/>
 <c:url var="seeLaterList" value="/user/see_later"/>
+<c:url var="profile" value="/user/profile"/>
+<c:url var="filmPage" value="/film"/>
+
 
 
 <html>
@@ -49,10 +52,11 @@
                         <a class=" dropdown-item" href="${home}">Home</a>
                         <c:if test="${not user.role.value.equals('admin')
                         and not user.role.value.equals('editor')}">
-                            <a class="dropdown-item" href="${seeLaterList}">See later</a>
+                            <a class="dropdown-item" href="${seeLaterList}">See
+                                later</a>
                             <a class="dropdown-item" href="#">Watched</a>
                         </c:if>
-                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="${profile}">Profile</a>
                         <form action="${home}" method="post"
                               class="dropdown-item"
                               style="padding: 0; margin: 0">
@@ -105,17 +109,19 @@
                                 <td><h3><c:out
                                         value="${ film.name }"/></h3>
                                 </td>
-                                <br><br>
+                                <br/><br/>
                                 <td><c:out
                                         value="${ film.premierDate }"/></td>
-                                <br><br>
+                                <br/><br/>
                                 <td><c:out value="${ film.category }"/></td>
-                                <br><br>
+                                <br/><br/>
                                 <td><c:out value="${ film.country }"/></td>
-                                <br><br>
-                                <br><br>
+                                <br/><br/>
+                                <br/><br/>
                                 <div class="row" style="margin: 0;">
-                                    <form action="" method="post">
+                                    <form action="${filmPage}" method="get">
+                                        <input type="hidden" name="fId"
+                                               value="${film.id}">
                                         <td><input type="submit"
                                                    class="btn btn-success"
                                                    value="Open"

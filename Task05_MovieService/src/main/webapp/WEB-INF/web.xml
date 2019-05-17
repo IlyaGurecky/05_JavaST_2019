@@ -28,6 +28,8 @@
         <url-pattern>/admin/user_add</url-pattern>
         <url-pattern>/admin/film_add</url-pattern>
         <url-pattern>/user/see_later</url-pattern>
+        <url-pattern>/user/profile</url-pattern>
+        <url-pattern>/film</url-pattern>
 
     </servlet-mapping>
 
@@ -58,6 +60,9 @@
         <url-pattern>/admin/users</url-pattern>
         <url-pattern>/admin/user_add</url-pattern>
         <url-pattern>/user/see_later</url-pattern>
+        <url-pattern>/user/profile</url-pattern>
+        <url-pattern>/film</url-pattern>
+
     </filter-mapping>
 
     <filter>
@@ -74,6 +79,8 @@
         <url-pattern>/admin/users</url-pattern>
         <url-pattern>/admin/user_add</url-pattern>
         <url-pattern>/user/see_later</url-pattern>
+        <url-pattern>/user/profile</url-pattern>
+        <url-pattern>/film</url-pattern>
 
     </filter-mapping>
 

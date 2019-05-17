@@ -10,6 +10,7 @@
 <c:url var="users" value="/admin/users"/>
 <c:url var="categories" value="/category"/>
 <c:url var="seeLater" value="/user/see_later"/>
+<c:url var="profile" value="/user/profile"/>
 
 <html>
 <head>
@@ -33,26 +34,26 @@
                             <a href="#">CATEGORIES</a>
                             <div align="center">
                                 <form action="${categories}" method="GET">
-                                    <button type="submit" name="category"
+                                    <button type="submit" name="cName"
                                             value="Боевик"> Action
                                     </button>
-                                    <button type="submit" name="category"
+                                    <button type="submit" name="cName"
                                             value="Фэнтези"> Fantasy
                                     </button>
-                                    <button type="submit" name="category"
+                                    <button type="submit" name="cName"
                                             value="Комедия"> Comedy
                                     </button>
-                                    <button type="submit" name="category"
+                                    <button type="submit" name="cName"
                                             value="Ужасы">
                                         Horror
                                     </button>
-                                    <button type="submit" name="category"
+                                    <button type="submit" name="cName"
                                             value="Семейные"> Family
                                     </button>
-                                    <button type="submit" name="category"
+                                    <button type="submit" name="cName"
                                             value="Детективы"> Detective
                                     </button>
-                                    <button type="submit" name="category"
+                                    <button type="submit" name="cName"
                                             value="Драмы">
                                         Drama
                                     </button>
@@ -74,7 +75,7 @@
                         </c:if>
                         <li>
                             <div class="dropdown">
-                                <a href="#">${user.login}</a>
+                                <a href="${profile}">${user.login}</a>
                                 <div>
                                     <c:if test="${not user.role.value.equals('admin')}">
                                     <a href="#"><img
@@ -88,7 +89,8 @@
                                         later</a>
                                     <hr>
                                     </c:if>
-                                    <a href="#"><img
+                                    <c:url value="/user/profile" var="profile"/>
+                                    <a href="${profile}"><img
                                             src="https://img.icons8.com/material-outlined/48/000000/settings.png"
                                             width="25px" align="center">
                                         Preferences</a>

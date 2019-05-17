@@ -7,6 +7,7 @@
 <c:url var="home" value="/home"/>
 <c:url var="filmslist" value="/films"/>
 <c:url var="seeLaterList" value="/user/see_later"/>
+<c:url var="filmPage" value="/film"/>
 
 
 <html>
@@ -49,7 +50,8 @@
                         <a class=" dropdown-item" href="${home}">Home</a>
                         <c:if test="${not user.role.value.equals('admin')
                         and not user.role.value.equals('editor')}">
-                            <a class="dropdown-item" href="${seeLater}">See later</a>
+                            <a class="dropdown-item" href="${seeLater}">See
+                                later</a>
                             <a class="dropdown-item" href="#">Watched</a>
                         </c:if>
                         <a class="dropdown-item" href="#">Profile</a>
@@ -109,11 +111,13 @@
                                 <br><br>
                                 <br><br>
                                 <div class="row" style="margin: 0;">
-                                    <form action="" method="post">
+                                    <form action="" method="get">
+                                        <input type="hidden" name="fId"
+                                               value="${film.id}">
                                         <td><input type="submit"
                                                    class="btn btn-success"
                                                    value="Open"
-                                                   style="background: #efd69f; color: black">
+                                                   style="background: gold; color: black">
                                         </td>
                                     </form>
                                     <c:if test="${user.role.value.equals('admin')}">

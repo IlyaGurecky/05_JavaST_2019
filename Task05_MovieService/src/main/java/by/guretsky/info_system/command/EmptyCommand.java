@@ -24,6 +24,13 @@ public class EmptyCommand extends Command {
     public JspPage execute(HttpServletRequest request) throws CustomException {
         JspPage jspPage = (JspPage) request.getAttribute("page");
 
+        //This block is used for load film by id on film.jsp
+        if (jspPage.getUri().equals(PageEnum.FILM.getPageUri())
+                || (jspPage.getUri().equals(PageEnum.CATEGORY.getPageUri())
+                && request.getParameter("fId") != null)) {
+            return loadFilmPage(request);
+        }
+
         //This block is used for load "See later" films
         if (jspPage.getUri().equals(PageEnum.SEE_LATER.getPageUri())) {
             List<SeeLater> seeLater = loadSeeLaterFilms(request);
@@ -32,7 +39,7 @@ public class EmptyCommand extends Command {
 
         //This block is used for load films by category
         if (jspPage.getUri().equals(PageEnum.CATEGORY.getPageUri())) {
-            String category = request.getParameter("category");
+            String category = request.getParameter("cName");
             if (category != null && !category.isEmpty()) {
                 FilmService service = factory.createService(FilmService.class);
                 List<Film> films = service.findByCategory(category);
@@ -64,20 +71,7 @@ public class EmptyCommand extends Command {
 
         //This block is used for load all films considering pagination
         if (jspPage.getUri().equals(PageEnum.FILMS.getPageUri())) {
-            FilmService service = factory.createService(FilmService.class);
-            String currentPage = request.getParameter("page");
-            int pageNumber = 1;
-            if (currentPage != null && !currentPage.isEmpty()) {
-                pageNumber = Integer.parseInt(currentPage);
-            }
-            int amountOfPages = (int) Math.ceil(service.countFilms() * 1.0
-                    / ONE_PAGE_FILMS_LIMIT);
-            List<Film> films = service.readAll(pageNumber,
-                    ONE_PAGE_FILMS_LIMIT);
-            request.setAttribute("amount_of_pages", amountOfPages);
-            request.setAttribute("pageNumber", pageNumber);
-
-            request.setAttribute("films", films);
+            request.setAttribute("films", loadFilmsPage(request));
         }
 
         //This block is used for load users list
@@ -88,6 +82,33 @@ public class EmptyCommand extends Command {
             return jspPage;
         }
         return jspPage;
+    }
+
+    private JspPage loadFilmPage(final HttpServletRequest request)
+            throws CustomException {
+        String filmId = request.getParameter("fId");
+        if (filmId != null && !filmId.isEmpty()) {
+            FilmService service = factory.createService(FilmService.class);
+            Film film = service.findById(Integer.parseInt(filmId));
+            if (film == null) {
+                return PageManager.createPage(PageEnum.ERROR);
+            }
+            HttpSession session = request.getSession(false);
+            if (session != null && session.getAttribute("user") != null) {
+                List<SeeLater> seeLaterFilms = loadSeeLaterFilms(request);
+                boolean isInList =
+                        seeLaterFilms.stream().map(SeeLater::getFilm)
+                                .anyMatch(film1 -> film.getId()
+                                        .equals(film1.getId()));
+                request.setAttribute("isInList", isInList);
+            }
+            request.setAttribute("film", film);
+            return PageManager.createPage(PageEnum.FILM);
+        } else {
+            JspPage newPage = PageManager.createPage(PageEnum.FILMS);
+            newPage.setRedirect(true);
+            return newPage;
+        }
     }
 
     private boolean isAuthorizedUser(final HttpServletRequest request) {
@@ -106,5 +127,22 @@ public class EmptyCommand extends Command {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
         return service.readAllByUserId(user.getId());
+    }
+
+    private List<Film> loadFilmsPage(final HttpServletRequest request)
+            throws CustomException {
+        FilmService service = factory.createService(FilmService.class);
+        String currentPage = request.getParameter("page");
+        int pageNumber = 1;
+        if (currentPage != null && !currentPage.isEmpty()) {
+            pageNumber = Integer.parseInt(currentPage);
+        }
+        int amountOfPages = (int) Math.ceil(service.countFilms() * 1.0
+                / ONE_PAGE_FILMS_LIMIT);
+        List<Film> films = service.readAll(pageNumber,
+                ONE_PAGE_FILMS_LIMIT);
+        request.setAttribute("amount_of_pages", amountOfPages);
+        request.setAttribute("pageNumber", pageNumber);
+        return films;
     }
 }
