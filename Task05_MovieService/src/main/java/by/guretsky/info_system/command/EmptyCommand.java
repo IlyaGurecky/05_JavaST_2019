@@ -19,6 +19,7 @@ import java.util.List;
 
 public class EmptyCommand extends Command {
     private static final int ONE_PAGE_FILMS_LIMIT = 4;
+    private static final int ONE_PAGE_USERS_LIMIT = 5;
 
     @Override
     public JspPage execute(HttpServletRequest request) throws CustomException {
@@ -77,11 +78,39 @@ public class EmptyCommand extends Command {
         //This block is used for load users list
         if (jspPage.getUri().equals(PageEnum.USERS.getPageUri())) {
             UserService service = factory.createService(UserService.class);
-            List<User> users = service.readAll();
+            List<User> users = new LinkedList<>();
+            if (request.getParameter("u_login") != null
+                    && !request.getParameter("u_login").isEmpty()) {
+                String login = request.getParameter("u_login");
+                User user = service.findByLogin(login);
+                if (user != null) {
+                    users.add(user);
+                }
+                request.setAttribute("isAfterSearch", true);
+            } else {
+                users = loadUsersPage(request);
+            }
             request.setAttribute("users", users);
-            return jspPage;
         }
+
         return jspPage;
+    }
+
+    private List<User> loadUsersPage(final HttpServletRequest request)
+            throws CustomException {
+        UserService service = factory.createService(UserService.class);
+        int pageNumber = 1;
+        String currentPage = request.getParameter("page");
+        if (currentPage != null && !currentPage.isEmpty()) {
+            pageNumber = Integer.parseInt(currentPage);
+        }
+        int amountOfPages = (int) Math.ceil(service.countUsers() * 1.0
+                / ONE_PAGE_USERS_LIMIT);
+        List<User> users = service.readAll(pageNumber,
+                ONE_PAGE_USERS_LIMIT);
+        request.setAttribute("amount_of_pages", amountOfPages);
+        request.setAttribute("pageNumber", pageNumber);
+        return users;
     }
 
     private JspPage loadFilmPage(final HttpServletRequest request)
