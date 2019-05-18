@@ -1,6 +1,7 @@
 package by.guretsky.info_system.command.admin;
 
 import by.guretsky.info_system.command.Command;
+import by.guretsky.info_system.entity.User;
 import by.guretsky.info_system.entity.role.Role;
 import by.guretsky.info_system.exception.CustomException;
 import by.guretsky.info_system.page.JspPage;
@@ -16,13 +17,11 @@ public class UserDeleteCommand extends Command {
         UserService service = factory.createService(UserService.class);
         String id = request.getParameter("id");
         String login = request.getParameter("login");
-        if (login != null && !login.isEmpty()
-                && !service.findByLogin(login.trim()).getRole().equals(Role.ADMIN)) {
-
-            //TODO: Error message
-            service.deleteByLogin(login.trim());
-
-
+        if (login != null && !login.isEmpty()) {
+            User user = service.findByLogin(login);
+            if (user != null && !user.getRole().equals(Role.ADMIN)) {
+                service.deleteByLogin(login.trim());
+            }
             return PageManager.createPage(PageEnum.USERS);
         } else {
             Integer userId = Integer.parseInt(id);
