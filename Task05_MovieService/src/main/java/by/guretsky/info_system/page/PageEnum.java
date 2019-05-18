@@ -18,7 +18,9 @@ public enum PageEnum {
     FILM_ADD("/admin/film_add", Role.ADMIN),
     SEE_LATER("/user/see_later", Role.USER),
     PROFILE("/user/profile", Role.USER, Role.ADMIN, Role.EDITOR),
-    FILM("/film");
+    FILM("/film"),
+    WATCHED("/user/watched", Role.USER),
+    ABOUT("/about");
 
     private String pageUri;
     private Set<Role> allowRoles = new HashSet<>();

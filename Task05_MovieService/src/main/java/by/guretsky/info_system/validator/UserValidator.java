@@ -10,4 +10,8 @@ public class UserValidator implements Validator<User> {
     public boolean validate(final User user) {
         return user.getEmail().matches(EMAIL_REGEX);
     }
+
+    public boolean isCorrectEmail(final String email) {
+        return email.matches(EMAIL_REGEX);
+    }
 }

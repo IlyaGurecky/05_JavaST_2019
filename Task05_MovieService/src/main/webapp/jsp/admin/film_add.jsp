@@ -5,6 +5,7 @@
 <c:set var="context"
        value="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}"/>
 <c:url var="films" value="/films"/>
+
 <html>
 <head>
     <title>Add film</title>
@@ -27,10 +28,11 @@
         </div>
 
         <div class="form-group" style="padding: 10px 10px 0 10px">
-            <label for="country">Premier date*</label>
-            <input type="date" min="1895-01-01" name="country"
+            <label for="premier_date">Premier date*</label>
+            <input type="date" min="1895-01-01" name="premier_date"
                    class="form-control"
-                   id="country" placeholder="Country" required autocomplete="off">
+                   id="premier_date" required
+                   autocomplete="off">
         </div>
         <div class="form-group" style="padding: 10px 10px 0 10px">
             <label for="countrySelect">Country</label>
@@ -65,9 +67,10 @@
         </div>
         <div class="form-group" style="padding: 10px 10px 0 10px">
             <label for="ImageNameArea">Image name</label>
-            <input type="text" name="imageName" class="form-control" id="ImageNameArea"
+            <input type="text" name="imageName" class="form-control"
+                   id="ImageNameArea"
                    placeholder="Enter future image name">
-            <input type="file"  id="customFile" placeholder="Choose Image">
+            <input type="file" id="customFile" placeholder="Choose Image">
         </div>
         <div class="form-group" style="padding: 10px 10px 0 10px">
             <input type="hidden" name="command" value="addFilm"/>
@@ -76,6 +79,8 @@
             </button>
             <c:url var="home" value="/home"/>
             <a href="${home}" style="color: #030005">Home</a>
+            <c:url var="filmsList" value="/films"/>
+            <a href="${filmsList}" style="color: #030005; margin-left: 20px">To films list</a>
         </div>
 </form>
 </body>

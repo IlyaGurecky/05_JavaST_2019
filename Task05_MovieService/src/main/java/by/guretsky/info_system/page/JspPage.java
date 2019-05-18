@@ -2,14 +2,16 @@ package by.guretsky.info_system.page;
 
 import by.guretsky.info_system.entity.role.Role;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class JspPage {
     private Set<Role> allowRoles = new HashSet<>();
     private String uri;
     private boolean isRedirect = false;
-    //private String parameters;
+    private Map<String, String> parameters = new HashMap<>();
 
     public JspPage(final String pageUri, final Set<Role> roles) {
         allowRoles.addAll(roles);
@@ -40,5 +42,7 @@ public class JspPage {
         this.uri = uri;
     }
 
-
+    public void addParameter(final String name, final String message) {
+        parameters.put(name, message);
+    }
 }

@@ -12,9 +12,10 @@
     <title>Users</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
 
@@ -23,19 +24,45 @@
 <br/>
 <br/>
 <div class="container">
-    <form action="${userslist}" method="post"
-          onsubmit="return confirm('Delete this user?')">
-    <div>
+    <div style="display: block;">
         <a href="${home}" class="btn btn-info">Go Home</a>
         <a href="${userAdd}" class="btn btn-success">Add Account</a>
-
-            <input type="hidden" name="command" value="deleteUser">
-            <input type="text" placeholder="Login" name="login" required autocomplete="off"
-                   style="border-radius: 5px; border: none; padding: 5px; margin-left: 30px"/>
-            <button type="submit" class="btn btn btn-danger">Delete by login
-            </button>
+        <div style="display: inline-block">
+            <form action="${userslist}" method="post"
+                  onsubmit="return confirm('Delete this user?')"
+                  style="margin: 0">
+                <input type="hidden" name="command" value="deleteUser">
+                <input type="text" placeholder="Login" name="login" required
+                       autocomplete="off"
+                       style="border-radius: 5px; border: none; padding: 6px; margin-left: 30px"/>
+                <button type="submit" class="btn btn btn-danger">Delete by login
+                </button>
+            </form>
+        </div>
+        <div style="display: inline-block">
+            <form action="${userslist}" method="get">
+                <input type="text" placeholder="Login" name="u_login" required
+                       autocomplete="off"
+                       style="border-radius: 5px; border: none; padding: 6px; margin-left: 30px"/>
+                <button type="submit" class="btn btn btn-success">Find by login
+                </button>
+            </form>
+        </div>
+        <div style="display: inline-block">
+            <form action="${userslist}" method="get">
+            <button type="submit" class="btn btn-warning"
+                   style="color: white; margin-left: 30px"
+                    value="tr" name="edt">Editors</button>
+            </form>
+        </div>
+        <c:if test="${isAfterSearch}">
+            <div style="display: inline-block">
+                <a href="${userslist}"
+                   style="color: black; font-size: 15px; margin-left: 500px">Back
+                    to users list</a>
+            </div>
+        </c:if>
     </div>
-    </form>
     <br/>
     <c:choose>
         <c:when test="${not empty users}">
@@ -52,7 +79,7 @@
                     <th></th>
                 </tr>
                 </thead>
-                <tbody
+                <tbody>
                 <c:forEach items="${users}" var="user">
                     <tr style="font-weight: bold; color: #030005">
                         <td>${user.id}</td>
@@ -81,9 +108,42 @@
                 </c:forEach>
                 </tbody>
             </table>
+            <c:if test="${amount_of_pages gt 0}">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <c:if test="${pageNumber != 1}">
+                            <li class="page-item"><a class="page-link a-nav"
+                                                     href="${userslist}?page=${pageNumber - 1}">Prev</a>
+                            </li>
+                        </c:if>
+                        <c:forEach begin="1" end="${amount_of_pages}" var="i">
+                            <c:choose>
+                                <c:when test="${pageNumber eq i}">
+                                    <li class="page-item disabled"><a
+                                            class="page-link a-nav"
+                                            href="${userslist}?page=${i}">${i}</a>
+                                        <span class="sr-only">(current)</span>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a
+                                            class="page-link a-nav"
+                                            href="${userslist}?page=${i}">${i}</a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <c:if test="${pageNumber lt amount_of_pages}">
+                            <li class="page-item"><a class="page-link a-nav"
+                                                     href="${userslist}?page=${pageNumber + 1}">Next</a>
+                            </li>
+                        </c:if>
+                    </ul>
+                </nav>
+            </c:if>
         </c:when>
         <c:otherwise>
-            <P>User list is empty</P>
+            <h2 align="center" style="color: black">User list is empty</h2>
         </c:otherwise>
     </c:choose>
 </div>

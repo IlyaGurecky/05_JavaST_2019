@@ -14,6 +14,7 @@ import by.guretsky.info_system.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -77,20 +78,7 @@ public class EmptyCommand extends Command {
 
         //This block is used for load users list
         if (jspPage.getUri().equals(PageEnum.USERS.getPageUri())) {
-            UserService service = factory.createService(UserService.class);
-            List<User> users = new LinkedList<>();
-            if (request.getParameter("u_login") != null
-                    && !request.getParameter("u_login").isEmpty()) {
-                String login = request.getParameter("u_login");
-                User user = service.findByLogin(login);
-                if (user != null) {
-                    users.add(user);
-                }
-                request.setAttribute("isAfterSearch", true);
-            } else {
-                users = loadUsersPage(request);
-            }
-            request.setAttribute("users", users);
+            request.setAttribute("users", loadUsersPage(request));
         }
 
         return jspPage;
@@ -99,17 +87,28 @@ public class EmptyCommand extends Command {
     private List<User> loadUsersPage(final HttpServletRequest request)
             throws CustomException {
         UserService service = factory.createService(UserService.class);
-        int pageNumber = 1;
-        String currentPage = request.getParameter("page");
-        if (currentPage != null && !currentPage.isEmpty()) {
-            pageNumber = Integer.parseInt(currentPage);
+        List<User> users = new ArrayList<>();
+        if (request.getParameter("u_login") != null
+                && !request.getParameter("u_login").isEmpty()) {
+            String login = request.getParameter("u_login");
+            User user = service.findByLogin(login);
+            if (user != null) {
+                users.add(user);
+            }
+            request.setAttribute("isAfterSearch", true);
+        } else {
+            int pageNumber = 1;
+            String currentPage = request.getParameter("page");
+            if (currentPage != null && !currentPage.isEmpty()) {
+                pageNumber = Integer.parseInt(currentPage);
+            }
+            int amountOfPages = (int) Math.ceil(service.countUsers() * 1.0
+                    / ONE_PAGE_USERS_LIMIT);
+            users = service.readAll(pageNumber,
+                    ONE_PAGE_USERS_LIMIT);
+            request.setAttribute("amount_of_pages", amountOfPages);
+            request.setAttribute("pageNumber", pageNumber);
         }
-        int amountOfPages = (int) Math.ceil(service.countUsers() * 1.0
-                / ONE_PAGE_USERS_LIMIT);
-        List<User> users = service.readAll(pageNumber,
-                ONE_PAGE_USERS_LIMIT);
-        request.setAttribute("amount_of_pages", amountOfPages);
-        request.setAttribute("pageNumber", pageNumber);
         return users;
     }
 

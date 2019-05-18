@@ -6,7 +6,10 @@ import by.guretsky.info_system.exception.CustomException;
 import java.util.List;
 
 public interface UserService extends Service {
-    List<User> readAll() throws CustomException;
+    List<User> readAll(final int page, final int amountPerPage)
+            throws CustomException;
+
+    Integer countUsers() throws CustomException;
 
     User findByLoginAndPassword(final String login, final String password)
             throws CustomException;
@@ -20,6 +23,9 @@ public interface UserService extends Service {
     Integer create(final User user) throws CustomException;
 
     boolean update(final User user) throws CustomException;
+
+    boolean changePassword(final String pass, final int userId)
+            throws CustomException;
 
     User findByLogin(final String login) throws CustomException;
 

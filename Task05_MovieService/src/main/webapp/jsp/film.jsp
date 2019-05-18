@@ -6,6 +6,9 @@
        value="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}"/>
 <c:url var="filmsList" value="/films"/>
 <c:url var="signin" value="/signin"/>
+<c:url var="home" value="/home"/>
+<c:url var="seeLaterList" value="/user/see_later"/>
+<c:url var="profile" value="/user/profile"/>
 
 <html>
 <head>
@@ -23,6 +26,8 @@
 <nav class="navbar fixed-top navbar-dark">
     <a class="navbar-brand btn btn-warning" href="${home}" style="background: gold;
      padding: 10px; border-radius: 5px; color: black">KinoMan</a>
+    <a href="${filmsList}" style="background: gold;
+     padding: 5px; border-radius: 5px; color: black; margin-bottom: 20px; text-decoration-line: none">Back to films list</a>
     <div class="row">
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button"
@@ -83,10 +88,20 @@
                     <div class="card-title mb-4">
                         <div class="d-flex justify-content-start">
                             <div class="image-container">
+                                <c:choose>
+                                    <c:when test="${not empty film.imageName}">
                                 <img src="${context}/img/films/${film.imageName}"
                                      id="imgProfile"
                                      style="width: 270px; height: 340px;"
                                      class="img-thumbnail"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${context}/img/imageNotFound.jpg"
+                                             id="imgProfile"
+                                             style="width: 270px; height: 340px;"
+                                             class="img-thumbnail"/>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                             <div class="userData ml-3"
                                  style="position: relative">

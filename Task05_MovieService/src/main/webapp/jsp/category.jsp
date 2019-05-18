@@ -75,6 +75,7 @@
         </div>
     </div>
 </nav>
+
 <c:choose>
     <c:when test="${not empty films}">
         <div class="container" style="margin: 100px 100px 100px 130px">

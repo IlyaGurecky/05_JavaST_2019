@@ -11,9 +11,16 @@ import java.util.List;
 public class UserServiceImpl extends ServiceImpl implements UserService {
 
     @Override
-    public List<User> readAll() throws CustomException {
+    public List<User> readAll(final int page, final int amountPerPage)
+            throws CustomException {
         UserDao dao = daoManager.createAndGetDao(UserDao.class);
-        return dao.readAll();
+        return dao.readAll(page, amountPerPage);
+    }
+
+    @Override
+    public Integer countUsers() throws CustomException {
+        UserDao dao = daoManager.createAndGetDao(UserDao.class);
+        return dao.countUsers();
     }
 
     @Override
@@ -118,6 +125,25 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             return isCorrect;
         } else {
             throw new CustomException("User obj is null");
+        }
+    }
+
+    @Override
+    public boolean changePassword(String pass, int userId)
+            throws CustomException {
+        if (pass != null && !pass.isEmpty()) {
+            UserDao dao = daoManager.createAndGetDao(UserDao.class);
+            daoManager.setAutoCommit(false);
+            boolean isCorrect = dao.changePassword(pass, userId);
+            if (isCorrect) {
+                daoManager.commit();
+            } else {
+                daoManager.rollback();
+            }
+            daoManager.setAutoCommit(true);
+            return isCorrect;
+        } else {
+            throw new CustomException("Password is incorrect");
         }
     }
 

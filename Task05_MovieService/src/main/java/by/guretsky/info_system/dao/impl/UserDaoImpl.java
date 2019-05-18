@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             + "`user_info`.birth_date, `user_info`.email, `user_info`.sex, "
             + "`countries_catalog`.name AS `country` FROM `users` LEFT OUTER JOIN user_info ON users.id"
             + " = user_info.user_id LEFT OUTER JOIN countries_catalog ON user_info.country_id = "
-            + "countries_catalog.id ORDER BY `users`.id";
+            + "countries_catalog.id ORDER BY `users`.id LIMIT ? OFFSET ?";
     private static final String SELECT_BY_LOGIN = "SELECT `users`.id, `users`.role, `users`.password,"
             + "`user_info`.birth_date, `user_info`.email, `user_info`.sex, "
             + "`countries_catalog`.name AS `country` FROM `users` LEFT OUTER JOIN user_info ON users.id"
@@ -38,19 +39,23 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     private static final String CREATE = "INSERT INTO `users` (login, password, role) VALUES (?, ?, ?)";
 
     private static final String CREATE_USER_INFO = "INSERT INTO `user_info` (email, user_id) VALUES (?, ?)";
-    private static final String UPDATE = "UPDATE `users` SET login = ?, password = ?, role = ? WHERE id = ?";
+    private static final String UPDATE = "UPDATE `users` SET login = ?, role = ? WHERE id = ?";
     private static final String UPDATE_USER_INFO = " UPDATE `user_info` SET email = ?, sex = ?, "
             + "birth_date = ?, country_id = ? WHERE user_id = ?";
     private static final String SELECT_COUNTRY_BY_NAME = "SELECT `countries_catalog`.id AS `country_id` "
             + "FROM `countries_catalog` WHERE `countries_catalog`.name = ?";
+    private static final String COUNT_USERS = "SELECT COUNT(id) AS `users_amount` FROM `users`";
+    private static final String CHANGE_PASSWORD = "UPDATE `users` SET password = ? WHERE id = ?";
 
     @Override
-    public List<User> readAll() {
+    public List<User> readAll(final int page, final int amountPerPage) {
         List<User> users = new LinkedList<>();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(SELECT_ALL);
+            statement.setInt(1, amountPerPage);
+            statement.setInt(2, (page - 1) * amountPerPage);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
@@ -74,6 +79,28 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             }
         }
         return users;
+    }
+
+    @Override
+    public Integer countUsers() {
+        ResultSet result = null;
+        PreparedStatement st = null;
+        try {
+            st = connection.prepareStatement(COUNT_USERS);
+            result = st.executeQuery();
+            if (result.next()) {
+                return result.getInt("users_amount");
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Count users errors", e);
+        } finally {
+            try {
+                closeResources(st, result);
+            } catch (SQLException e) {
+                LOGGER.error("Close error");
+            }
+        }
+        return null;
     }
 
     @Override
@@ -133,7 +160,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             try {
                 closeResources(statement, resultSet);
             } catch (SQLException e) {
-                LOGGER.error("Resource closeResources error", e);
+                LOGGER.error("Resource close error", e);
             }
         }
         return user;
@@ -152,8 +179,8 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 user = new User();
                 user.setLogin(resultSet.getString("login"));
                 user.setPassword(resultSet.getString("password"));
+                LOGGER.debug(resultSet.getDate("birth_date").toLocalDate());
                 user.setBirthDate(resultSet.getDate("birth_date"));
-                user.setCountry(resultSet.getString("country"));
                 user.setCountry(resultSet.getString("country"));
                 user.setEmail(resultSet.getString("email"));
                 user.setRole(Role.findById(resultSet.getInt("role")));
@@ -166,7 +193,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             try {
                 closeResources(statement, resultSet);
             } catch (SQLException e) {
-                LOGGER.error("Resource closeResources error", e);
+                LOGGER.error("Resource close error", e);
             }
         }
         return user;
@@ -220,7 +247,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             try {
                 closeResources(statement, resultSet);
             } catch (SQLException e) {
-                LOGGER.error("Resource closeResources error", e);
+                LOGGER.error("Resource close error", e);
             }
         }
         return 0;
@@ -240,13 +267,25 @@ public class UserDaoImpl extends BaseDao implements UserDao {
     }
 
     @Override
+    public boolean changePassword(final String pass, final int userId) {
+        try (PreparedStatement statement =
+                     connection.prepareStatement(CHANGE_PASSWORD)) {
+            statement.setString(1, pass);
+            statement.setInt(2, userId);
+            return statement.executeUpdate() != 0;
+        } catch (SQLException e) {
+            LOGGER.error("Prepare statement error", e);
+        }
+        return false;
+    }
+
+    @Override
     public boolean update(final User entity) {
         try (PreparedStatement statement =
                      connection.prepareStatement(UPDATE)) {
             statement.setString(1, entity.getLogin());
-            statement.setString(2, entity.getPassword());
-            statement.setInt(3, entity.getRole().ordinal());
-            statement.setInt(4, entity.getId());
+            statement.setInt(2, entity.getRole().ordinal());
+            statement.setInt(3, entity.getId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             LOGGER.error("Prepare statement error", e);
@@ -260,12 +299,12 @@ public class UserDaoImpl extends BaseDao implements UserDao {
         ResultSet resultSet = null;
         try {
             Integer countryId = null;
-            if (user.getCountry() != null) {
+            if (user.getCountry() != null && !user.getCountry().isEmpty()) {
                 statement = connection.prepareStatement(SELECT_COUNTRY_BY_NAME);
                 statement.setString(1, user.getCountry());
                 resultSet = statement.executeQuery();
                 if (resultSet.next()) {
-                    countryId = resultSet.getInt("id");
+                    countryId = resultSet.getInt("country_id");
                 } else {
                     return false;
                 }

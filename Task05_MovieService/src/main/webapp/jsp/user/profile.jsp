@@ -7,7 +7,7 @@
        value="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}"/>
 <c:url value="/user/profile" var="profile"/>
 <c:url value="/home" var="home"/>
-
+<%--<c:set value="${sessionScope.user}" var="user"/>--%>
 
 <html>
 <head>
@@ -80,28 +80,26 @@
                     </tr>
                     </tbody>
                 </table>
-                <button type="button" class="btn btn-danger"
-                        style="float: right">
-                    <a href="${home}"
-                       style="color: white; text-decoration-line: none">
-                        Home</a></button>
+                <a href="${home}" class="btn btn-danger"
+                   style="text-decoration-line: none; float: right">
+                    Home</a>
             </div>
 
             <div class="tab-pane fade" id="nav-profile" role="tabpanel"
                  aria-labelledby="nav-profile-tab">
                 <form action="${profile}" method="post"
                       style="padding-top: 7%;">
-                    <input type="hidden" name="command" value="change_email">
+                    <input type="hidden" name="command" value="editProfile">
                     <div class="form-group">
                         <label for="loginField"
-                               style="color: #ffffff">Login</label>
+                               style="color: #ffffff">Login*</label>
                         <input type="text" class="form-control" name="login"
                                id="loginField" required
                                placeholder="Enter login"
                                value="${user.login}" style="color: black">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1" style="color: #ffffff">Email</label>
+                        <label for="exampleInputEmail1" style="color: #ffffff">Email*</label>
                         <input type="email" class="form-control" name="email"
                                id="exampleInputEmail1" required
                                placeholder="Enter email"
@@ -112,7 +110,6 @@
                             Date</label>
                         <input type="date" class="form-control" name="date"
                                id="date"
-                               placeholder="Enter email"
                                value="${user.birthDate}" style="color: black">
                     </div>
                     <div class="form-group">
@@ -120,7 +117,7 @@
                                style="color: #ffffff">Country</label>
                         <select class="form-control" id="countrySelect"
                                 name="country" style="color: black">
-                            <option>None</option>
+                            <option></option>
                             <option value="США">USA</option>
                             <option value="Великобритания">Great Britain
                             </option>
@@ -142,7 +139,7 @@
                                    style="color: #ffffff; margin-right: 4px">Male</label>
                             <input type="radio" class="form-check-input"
                                    id="radio1" name="sex"
-                                   value="option1"
+                                   value="м"
                                    <c:if test="${user.sex eq 'м'}">checked</c:if>/>
                         </div>
                         <div class="form-check-inline">
@@ -150,7 +147,7 @@
                                    style="color: #ffffff; margin-right: 4px">Female</label>
                             <input type="radio" class="form-check-input"
                                    id="radio2" name="sex"
-                                   value="option2"
+                                   value="ж"
                                    <c:if test="${user.sex eq 'ж'}">checked</c:if>
                                    style="color: #ffffff"/>
                         </div>
@@ -167,11 +164,9 @@
                     <div>
                         <button type="submit" class="btn btn-danger">Submit
                         </button>
-                        <button type="button" class="btn btn-danger"
-                                style="float: right">
-                            <a href="${home}"
-                               style="color: white; text-decoration-line: none">
-                                Home</a></button>
+                        <a href="${home}" class="btn btn-danger"
+                           style="text-decoration-line: none; float: right">
+                            Home</a>
                     </div>
                 </form>
             </div>
@@ -180,10 +175,10 @@
                  aria-labelledby="nav-contact-tab">
                 <form action="${profile}" method="post"
                       style="padding-top: 7%;">
-                    <input type="hidden" name="command" value="change_password">
+                    <input type="hidden" name="command" value="changePass">
                     <div class="form-group">
                         <label for="exampleInputEmail1" style="color: #ffffff">Old
-                            password</label>
+                            password*</label>
                         <input type="password" name="old_password"
                                class="form-control" required
                                aria-describedby="emailHelp"
@@ -191,7 +186,7 @@
                     </div>
                     <div class="form-group">
                         <label for="new_pass" style="color: #ffffff">New
-                            password</label>
+                            password*</label>
                         <input type="password" name="new_password1"
                                id="new_pass"
                                class="form-control" required
@@ -199,7 +194,7 @@
                     </div>
                     <div class="form-group">
                         <label for="confirm" style="color: #ffffff">Confirm new
-                            password</label>
+                            password*</label>
                         <input type="password" name="new_password2"
                                id="confirm"
                                class="form-control" required
@@ -208,11 +203,9 @@
                     <div>
                         <button type="submit" class="btn btn-danger">Submit
                         </button>
-                        <button type="button" class="btn btn-danger"
-                                style="float: right">
-                            <a href="${home}"
-                               style="color: white; text-decoration-line: none">
-                                Home</a></button>
+                        <a href="${home}" class="btn btn-danger"
+                           style="text-decoration-line: none; float: right">
+                            Home</a>
                     </div>
                 </form>
             </div>

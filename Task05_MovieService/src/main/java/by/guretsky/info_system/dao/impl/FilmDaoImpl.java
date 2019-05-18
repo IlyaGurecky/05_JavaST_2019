@@ -6,11 +6,7 @@ import by.guretsky.info_system.entity.Film;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -216,7 +212,8 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
         ResultSet resultSet = null;
         try {
             Integer categoryId = null;
-            if (entity.getCategory() != null) {
+            if (entity.getCategory() != null
+                    && !entity.getCategory().isEmpty()) {
                 statement = connection.prepareStatement(SELECT_CATEGORY_BY_NAME);
                 statement.setString(1, entity.getCategory());
                 resultSet = statement.executeQuery();
@@ -229,7 +226,8 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
             }
 
             Integer countryId = null;
-            if (entity.getCountry() != null) {
+            if (entity.getCountry() != null
+                    && !entity.getCountry().isEmpty()) {
                 statement = connection.prepareStatement(SELECT_COUNTRY_BY_NAME);
                 statement.setString(1, entity.getCountry());
                 resultSet = statement.executeQuery();
@@ -241,7 +239,8 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
                 closeResources(statement, resultSet);
             }
 
-            statement = connection.prepareStatement(CREATE_FILM);
+            statement = connection.prepareStatement(CREATE_FILM,
+                    Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, entity.getName());
             statement.setDate(2,
                     new Date(entity.getPremierDate().getTime()));
@@ -250,12 +249,14 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
             } else {
                 statement.setNull(4, Types.INTEGER);
             }
-            if (entity.getDescription() != null) {
+            if (entity.getDescription() != null
+                    && !entity.getDescription().isEmpty()) {
                 statement.setString(6, entity.getDescription());
             } else {
                 statement.setNull(6, Types.LONGNVARCHAR);
             }
-            if (entity.getImageName() != null) {
+            if (entity.getImageName() != null
+                    && !entity.getImageName().isEmpty()) {
                 statement.setString(5, entity.getImageName());
             } else {
                 statement.setNull(5, Types.VARCHAR);

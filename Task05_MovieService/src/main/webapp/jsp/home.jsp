@@ -11,6 +11,8 @@
 <c:url var="categories" value="/category"/>
 <c:url var="seeLater" value="/user/see_later"/>
 <c:url var="profile" value="/user/profile"/>
+<c:url var="addFilm" value="/admin/film_add"/>
+<c:url var="about" value="/about"/>
 
 <html>
 <head>
@@ -23,7 +25,8 @@
 </head>
 
 
-<body style="background: url(${context}/img/background/mainback2.jpg) no-repeat; background-size: 100%">
+<body style="background: url(${context}/img/background/mainback2.jpg) no-repeat;
+        background-size: 100%;">
 
 <header>
     <div class="container">
@@ -63,10 +66,13 @@
                         </div>
                     </li>
                 </c:if>
+                <c:if test="${user.role.value.equals('admin')}">
+                    <li><a href="${addFilm}">ADD FILM</a></li>
+                </c:if>
                 <li><a href="${films}">FILMS</a></li>
-                <li><a href="#">ABOUT</a></li>
+                <li><a href="${about}">ABOUT</a></li>
                 <c:choose>
-                    <c:when test="${user == null}">
+                    <c:when test="${empty user}">
                         <li class="auth"><a href="${signin}">SignIn</a>
                         </li>
                     </c:when>

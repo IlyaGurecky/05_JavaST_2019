@@ -9,7 +9,7 @@
 <c:url var="seeLaterList" value="/user/see_later"/>
 <c:url var="profile" value="/user/profile"/>
 <c:url var="filmPage" value="/film"/>
-
+<c:url var="filmAdd" value="/admin/film_add"/>
 
 
 <html>
@@ -28,6 +28,13 @@
 <nav class="navbar fixed-top navbar-dark">
     <a class="navbar-brand" href="${home}" style="background: rgba(243, 214, 151, 1);
      padding: 10px; border-radius: 5px; color: black">KinoMan</a>
+    <c:if test="${empty films}"><a href="${filmslist}" style="background: rgba(243, 214, 151, 1);
+     padding: 10px; border-radius: 5px; color: black; text-decoration-line: none">Back
+        to films list</a></c:if>
+    <c:if test="${not empty user and user.role.value.equals('admin')}"><a
+            href="${filmAdd}" style="background: rgba(243, 214, 151, 1);
+     padding: 10px; border-radius: 5px; color: black; text-decoration-line: none">Add
+        Film</a></c:if>
     <div class="row">
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button"
@@ -84,7 +91,8 @@
                   style="padding: 10px 10px 10px 0" action="${filmslist}"
                   method="get">
                 <input class="form-control mr-sm-1" type="search"
-                       placeholder="Film name" aria-label="Search" name="fn" required>
+                       placeholder="Film name" aria-label="Search" name="fn"
+                       required>
                 <button class="btn btn-primary"
                         style="background: rgba(13, 20, 35, 0.9)" type="submit">
                     Search
@@ -100,9 +108,20 @@
                      style="background: rgba(13, 20, 35, 0.9); border-radius: 7px">
                     <tr>
                         <div class="col-1-3">
-                            <td><img width="255px" height="340px"
-                                     src="${context}/img/films/${film.imageName}"/>
-                            </td>
+                            <c:choose>
+                                <c:when test="${not empty film.imageName}">
+                                    <td>
+                                        <img width="255px" height="340px"
+                                             src="${context}/img/films/${film.imageName}"/>
+                                    </td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>
+                                        <img width="255px" height="340px"
+                                             src="${context}/img/imageNotFound.jpg"/>
+                                    </td>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <div style="text-align: left; color: white">
                             <div class="col-2-3">

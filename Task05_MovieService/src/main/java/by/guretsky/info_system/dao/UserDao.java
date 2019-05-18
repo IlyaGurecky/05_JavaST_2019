@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserDao extends Dao<User> {
 
-    List<User> readAll();
+    List<User> readAll(final int page, final int amountPerPage);
 
     boolean createUserInfo(final User user);
 
@@ -17,4 +17,8 @@ public interface UserDao extends Dao<User> {
     boolean deleteByLogin(final String login);
 
     boolean updateUserInfo(final User user);
+
+    boolean changePassword(final String pass, final int userId);
+
+    Integer countUsers();
 }

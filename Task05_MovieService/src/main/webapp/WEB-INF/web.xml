@@ -34,6 +34,7 @@
         <url-pattern>/user/see_later</url-pattern>
         <url-pattern>/user/profile</url-pattern>
         <url-pattern>/film</url-pattern>
+        <url-pattern>/about</url-pattern>
     </servlet-mapping>
 
     <filter>
@@ -65,6 +66,9 @@
         <url-pattern>/user/see_later</url-pattern>
         <url-pattern>/user/profile</url-pattern>
         <url-pattern>/film</url-pattern>
+        <url-pattern>/admin/film_add</url-pattern>
+        <url-pattern>/about</url-pattern>
+
 
     </filter-mapping>
 
@@ -84,6 +88,9 @@
         <url-pattern>/user/see_later</url-pattern>
         <url-pattern>/user/profile</url-pattern>
         <url-pattern>/film</url-pattern>
+        <url-pattern>/admin/film_add</url-pattern>
+        <url-pattern>/about</url-pattern>
+
 
     </filter-mapping>
 

@@ -30,7 +30,7 @@ public class EditProfileCommand extends Command {
         String birthDateStr = request.getParameter("date");
         Date birthDate = null;
         try {
-            birthDate = new SimpleDateFormat("yyyy-mm-dd")
+            birthDate = new SimpleDateFormat("yyyy-MM-dd")
                     .parse(birthDateStr);
         } catch (ParseException e) {
             LOGGER.error("Date parse error");
