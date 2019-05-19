@@ -7,6 +7,7 @@
 <c:url var="home" value="/home"/>
 <c:url var="filmslist" value="/films"/>
 <c:url var="profile" value="/user/profile"/>
+<c:url var="seeLater" value="/user/see_later"/>
 
 <html>
 <head>
@@ -93,47 +94,54 @@
     </div>
 </nav>
 <h1 align="center">See later</h1>
-<div class="table-wrapper-scroll-y my-custom-scrollbar"
-     style="height: 580px; margin: 40px; border-radius: 7px">
-
-    <table class="table" style="background: #222222; height: 800px">
-        <thead>
-        <tr style="color: gold">
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Premier Date</th>
-            <th scope="col">Country</th>
-            <th scope="col">Added Date</th>
-            <th></th>
+<table class="table" style="padding: 30px">
+    <thead>
+    <tr style="color: gold">
+        <th></th>
+        <th>Name</th>
+        <th>Premier Date</th>
+        <th>Category</th>
+        <th>Country</th>
+        <th>Added Date</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${seeLaterFilms}" var="sFilm">
+        <tr style="font-weight: bold; color: white">
+            <td>
+                <c:choose>
+                    <c:when test="${not empty sFilm.film.imageName}">
+                        <img src="${context}/img/films/${sFilm.film.imageName}"
+                             style="width: 90px; height: 110px"/>
+                    </c:when>
+                    <c:otherwise>
+                        <img src="${context}/img/imageNotFound.jpg"
+                             style="width: 90px; height: 110px"/>
+                    </c:otherwise>
+                </c:choose>
+            </td>
+            <td>${sFilm.film.name}</td>
+            <td>${sFilm.film.premierDate}</td>
+            <td>${sFilm.film.category}</td>
+            <td>${sFilm.film.country}</td>
+            <td>${sFilm.addedDate}</td>
+            <td>
+                <form action="${seeLater}" method="post"
+                      style="margin: 0"
+                      onsubmit="return confirm('Delete film?');">
+                    <input type="hidden" name="command"
+                           value="deleteFromSeeLater" id="delete">
+                    <input type="hidden" name="id"
+                           value="${user.id}">
+                    <input type="submit" name="id"
+                           value="Delete"
+                           class="btn btn-danger"/>
+                </form>
+            </td>
         </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${seeLaterFilms}" var="sFilm">
-            <tr style="font-weight: bold; color: white">
-                <td><img src="${context}/img/films/${sFilm.film.imageName}"
-                         style="width: 90px; height: 110px"/></td>
-                <td>${sFilm.film.name}</td>
-                <td>${sFilm.film.premierDate}</td>
-                <td>${sFilm.film.country}</td>
-                <td>${sFilm.addedDate}</td>
-                <td>
-                    <form action="" method="post"
-                          style="margin: 0"
-                          onsubmit="return confirm('Delete film?');">
-                        <input type="hidden" name="command"
-                               value="deleteUser" id="delete">
-                        <input type="hidden" name="id"
-                               value="${user.id}">
-                        <input type="submit" name="id"
-                               value="Delete"
-                               class="btn btn-danger"/>
-                    </form>
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-
-</div>
+    </c:forEach>
+    </tbody>
+</table>
 </body>
 </html>
