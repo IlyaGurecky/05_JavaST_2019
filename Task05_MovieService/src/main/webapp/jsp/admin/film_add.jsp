@@ -15,7 +15,7 @@
           crossorigin="anonymous"/>
 </head>
 <body style="background: url(${context}/img/background/useraddback1.jpg)">
-<form action="${films}" method="post">
+<form action="${films}" method="post" enctype="multipart/form-data">
     <div class="container"
          style="width: 500px; background: rgba(188,196,189,1);
          margin-top: 40px; border-radius: 10px;">
@@ -65,12 +65,11 @@
                 <option value="Детективы">Detective</option>
             </select>
         </div>
-        <div class="form-group" style="padding: 10px 10px 0 10px">
-            <label for="ImageNameArea">Image name</label>
-            <input type="text" name="imageName" class="form-control"
-                   id="ImageNameArea"
-                   placeholder="Enter future image name">
-            <input type="file" id="customFile" placeholder="Choose Image">
+        <div class="form-group custom-file"
+             style="width: 450px; margin-left: 10px">
+            <label class="custom-file-label" for="customFile">Film photo</label>
+            <input class="custom-file-input" name="filmImage" accept="/image/*"
+                   type="file" id="customFile" placeholder="Choose Image">
         </div>
         <div class="form-group" style="padding: 10px 10px 0 10px">
             <input type="hidden" name="command" value="addFilm"/>
@@ -80,7 +79,8 @@
             <c:url var="home" value="/home"/>
             <a href="${home}" style="color: #030005">Home</a>
             <c:url var="filmsList" value="/films"/>
-            <a href="${filmsList}" style="color: #030005; margin-left: 20px">To films list</a>
+            <a href="${filmsList}" style="color: #030005; margin-left: 20px">To
+                films list</a>
         </div>
 </form>
 </body>

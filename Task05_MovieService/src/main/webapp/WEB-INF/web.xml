@@ -5,10 +5,6 @@
          version="4.0">
     <request-character-encoding>UTF-8</request-character-encoding>
 
-    <!--<session-config>-->
-        <!--<tracking-mode>COOKIE</tracking-mode>-->
-    <!--</session-config>-->
-
     <display-name>Task05_Movie_Service</display-name>
 
     <welcome-file-list>
@@ -35,6 +31,7 @@
         <url-pattern>/user/profile</url-pattern>
         <url-pattern>/film</url-pattern>
         <url-pattern>/about</url-pattern>
+        <url-pattern>/user/watched</url-pattern>
     </servlet-mapping>
 
     <filter>
@@ -68,6 +65,7 @@
         <url-pattern>/film</url-pattern>
         <url-pattern>/admin/film_add</url-pattern>
         <url-pattern>/about</url-pattern>
+        <url-pattern>/user/watched</url-pattern>
 
 
     </filter-mapping>
@@ -90,6 +88,7 @@
         <url-pattern>/film</url-pattern>
         <url-pattern>/admin/film_add</url-pattern>
         <url-pattern>/about</url-pattern>
+        <url-pattern>/user/watched</url-pattern>
 
 
     </filter-mapping>

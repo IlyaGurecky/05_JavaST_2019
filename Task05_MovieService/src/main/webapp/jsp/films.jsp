@@ -10,6 +10,7 @@
 <c:url var="profile" value="/user/profile"/>
 <c:url var="filmPage" value="/film"/>
 <c:url var="filmAdd" value="/admin/film_add"/>
+<c:url var="watched" value="/user/watched"/>
 
 
 <html>
@@ -61,7 +62,7 @@
                         and not user.role.value.equals('editor')}">
                             <a class="dropdown-item" href="${seeLaterList}">See
                                 later</a>
-                            <a class="dropdown-item" href="#">Watched</a>
+                            <a class="dropdown-item" href="${watched}">Watched</a>
                         </c:if>
                         <a class="dropdown-item" href="${profile}">Profile</a>
                         <form action="${home}" method="post"
@@ -72,7 +73,6 @@
                             <input type="submit"
                                    value="LogOut" style="background: none;
                            color: black; "></form>
-                        </form>
                     </c:when>
                     <c:otherwise>
                         <c:url var="signin" value="/signin"/>

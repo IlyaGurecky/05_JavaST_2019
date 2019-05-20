@@ -13,6 +13,7 @@
 <c:url var="profile" value="/user/profile"/>
 <c:url var="addFilm" value="/admin/film_add"/>
 <c:url var="about" value="/about"/>
+<c:url var="watched" value="/user/watched"/>
 
 <html>
 <head>
@@ -84,8 +85,9 @@
                             <div class="dropdown">
                                 <a href="${profile}">${user.login}</a>
                                 <div>
-                                    <c:if test="${not user.role.value.equals('admin')}">
-                                        <a href="#"><img
+                                    <c:if test="${not user.role.value.equals('admin')
+                                    and not user.role.value.equals('editor')}">
+                                        <a href="${watched}"><img
                                                 src="https://img.icons8.com/material-outlined/48/000000/visible.png"
                                                 width="25px" align="center">
                                             Watched
@@ -111,7 +113,6 @@
                                              style="margin-left: 9px; margin-right: 0"/>
                                         <input type="submit"
                                                value="LogOut"></form>
-                                    </form>
                                 </div>
                             </div>
                         </li>
@@ -122,5 +123,4 @@
     </div>
 </header>
 </body>
-
 </html>

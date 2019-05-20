@@ -7,14 +7,13 @@
 <c:url var="home" value="/home"/>
 <c:url var="filmslist" value="/films"/>
 <c:url var="profile" value="/user/profile"/>
-<c:url var="seeLater" value="/user/see_later"/>
-<c:url var="filmPage" value="/film"/>
 <c:url var="watched" value="/user/watched"/>
-
+<c:url var="filmPage" value="/film"/>
+<c:url var="seeLaterList" value="/user/see_later"/>
 
 <html>
 <head>
-    <title>See Later</title>
+    <title>Watched</title>
     <link rel="icon" href="${context}/img/seeLaterIcon.png" type="image/png"/>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -86,9 +85,9 @@
         </div>
     </div>
 </nav>
-<h1 align="center">See later</h1>
+<h1 align="center">Watched films</h1>
 <c:choose>
-    <c:when test="${not empty seeLaterFilms}">
+    <c:when test="${not empty watchedFilms}">
         <div class="container">
             <table class="table"
                    style="margin-top: 30px; background: rgba(23,4,0,0.55);">
@@ -104,12 +103,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${seeLaterFilms}" var="sFilm">
+                <c:forEach items="${watchedFilms}" var="wFilm">
                     <tr style="font-weight: bold; color: white">
                         <td>
                             <c:choose>
-                                <c:when test="${not empty sFilm.film.imageName}">
-                                    <img src="${context}/img/films/${sFilm.film.imageName}"
+                                <c:when test="${not empty wFilm.film.imageName}">
+                                    <img src="${context}/img/films/${wFilm.film.imageName}"
                                          style="width: 50px; height: 70px"/>
                                 </c:when>
                                 <c:otherwise>
@@ -119,21 +118,21 @@
                             </c:choose>
                         </td>
                         <td>
-                            <a href="${filmPage}?fId=${sFilm.film.id}"
-                               style="color: white; text-decoration-line: none; font-size: larger">${sFilm.film.name}</a>
+                            <a href="${filmPage}?fId=${wFilm.film.id}"
+                               style="color: white; text-decoration-line: none; font-size: larger">${wFilm.film.name}</a>
                         </td>
-                        <td>${sFilm.film.premierDate}</td>
-                        <td>${sFilm.film.category}</td>
-                        <td>${sFilm.film.country}</td>
-                        <td>${sFilm.addedDate}</td>
+                        <td>${wFilm.film.premierDate}</td>
+                        <td>${wFilm.film.category}</td>
+                        <td>${wFilm.film.country}</td>
+                        <td>${wFilm.viewingDate}</td>
                         <td>
-                            <form action="${seeLater}" method="post"
+                            <form action="${watched}" method="post"
                                   style="margin: 0"
                                   onsubmit="return confirm('Delete film?');">
                                 <input type="hidden" name="command"
                                        value="deleteFromSeeLater" id="delete">
                                 <input type="hidden" name="id"
-                                       value="${sFilm.film.id}">
+                                       value="${wFilm.film.id}">
                                 <input type="submit"
                                        value="Delete"
                                        class="btn btn-danger"/>

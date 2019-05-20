@@ -1,6 +1,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <c:set var="url">${pageContext.request.requestURL}</c:set>
 <c:set var="context"
        value="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}"/>
@@ -9,6 +9,8 @@
 <c:url var="home" value="/home"/>
 <c:url var="seeLaterList" value="/user/see_later"/>
 <c:url var="profile" value="/user/profile"/>
+<c:url var="watched" value="/user/watched"/>
+<c:url var="filmPage" value="/film"/>
 
 <html>
 <head>
@@ -27,7 +29,8 @@
     <a class="navbar-brand btn btn-warning" href="${home}" style="background: gold;
      padding: 10px; border-radius: 5px; color: black">KinoMan</a>
     <a href="${filmsList}" style="background: gold;
-     padding: 5px; border-radius: 5px; color: black; margin-bottom: 20px; text-decoration-line: none">Back to films list</a>
+     padding: 5px; border-radius: 5px; color: black; margin-bottom: 20px; text-decoration-line: none">Back
+        to films list</a>
     <div class="row">
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button"
@@ -54,7 +57,8 @@
                         and not user.role.value.equals('editor')}">
                             <a class="dropdown-item" href="${seeLaterList}">See
                                 later</a>
-                            <a class="dropdown-item" href="#">Watched</a>
+                            <a class="dropdown-item"
+                               href="${watched}">Watched</a>
                         </c:if>
                         <a class="dropdown-item" href="${profile}">Profile</a>
                         <form action="${home}" method="post"
@@ -65,7 +69,6 @@
                             <input type="submit"
                                    value="LogOut" style="background: none;
                            color: black; "></form>
-                        </form>
                     </c:when>
                     <c:otherwise>
                         <c:url var="signin" value="/signin"/>
@@ -90,10 +93,10 @@
                             <div class="image-container">
                                 <c:choose>
                                     <c:when test="${not empty film.imageName}">
-                                <img src="${context}/img/films/${film.imageName}"
-                                     id="imgProfile"
-                                     style="width: 270px; height: 340px;"
-                                     class="img-thumbnail"/>
+                                        <img src="${context}/img/films/${film.imageName}"
+                                             id="imgProfile"
+                                             style="width: 270px; height: 340px;"
+                                             class="img-thumbnail"/>
                                     </c:when>
                                     <c:otherwise>
                                         <img src="${context}/img/imageNotFound.jpg"
@@ -284,20 +287,104 @@
                             <div class="tab-pane fade"
                                  id="connectedServices" role="tabpanel"
                                  aria-labelledby="ConnectedServices-tab">
-                                Facebook, Google, Twitter Account that are
-                                connected to this account
+                                <form action="${filmPage}" method="post">
+                                    <input type="hidden" name="command"
+                                           value="editFilm">
+                                    <div class="form-group">
+                                        <label for="nameField"
+                                               style="color: #ffffff">Name*</label>
+                                        <input type="text" class="form-control"
+                                               name="name"
+                                               id="nameField" required
+                                               placeholder="Enter name"
+                                               value="${film.name}"
+                                               style="color: black">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="premierDate"
+                                               style="color: #ffffff">Premier
+                                            Date*</label>
+                                        <input type="date" class="form-control"
+                                               name="premier_date"
+                                               id="premierDate" required
+                                               value="${film.premierDate}"
+                                               style="color: black">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="countrySelect"
+                                               style="color: #ffffff">Country</label>
+                                        <select class="form-control"
+                                                id="countrySelect"
+                                                name="country"
+                                                style="color: black">
+                                            <option></option>
+                                            <option value="США">USA</option>
+                                            <option value="Великобритания">Great
+                                                Britain
+                                            </option>
+                                            <option value="Россия">Russia
+                                            </option>
+                                            <option value="Новая Зеландия">New
+                                                Zealand
+                                            </option>
+                                            <option value="Австралия">
+                                                Australia
+                                            </option>
+                                            <option value="Испания">Spain
+                                            </option>
+                                            <option value="Франция">France
+                                            </option>
+                                            <option value="Германия">Germany
+                                            </option>
+                                            <option value="Китай">China</option>
+                                            <option value="Беларусь">Belarus
+                                            </option>
+                                            <option value="Украина">Ukraine
+                                            </option>
+                                            <option value="Польша">Poland
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="category"
+                                               style="color: white">Category</label>
+                                        <select class="form-control"
+                                                id="category" name="category">
+                                            <option></option>
+                                            <option value="Комедия">Comedy
+                                            </option>
+                                            <option value="Ужасы">Horror
+                                            </option>
+                                            <option value="Драмы">Drama</option>
+                                            <option value="Фэнтези">Fantasy
+                                            </option>
+                                            <option value="Боевик">Action
+                                            </option>
+                                            <option value="Семейные">Family
+                                            </option>
+                                            <option value="Детективы">
+                                                Detective
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1" style="color: white">Description</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">${film.description}</textarea>
+                                    </div>
+                                    <button type="submit" class="btn"
+                                            style="background: gold">Submit
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
+
         </div>
+
     </div>
 </div>
-</div>
-
 </body>
 </html>
