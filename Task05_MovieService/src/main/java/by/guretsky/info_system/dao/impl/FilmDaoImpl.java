@@ -12,6 +12,17 @@ import java.util.List;
 
 public class FilmDaoImpl extends BaseDao implements FilmDao {
     private static final Logger LOGGER = LogManager.getLogger(FilmDaoImpl.class);
+    private static final String SELECT_ALL = "SELECT `f`.id, `f`.name, `f`.premier_date, "
+            + "`f`.description, `f`.image_path, `countries_catalog`.name  AS `country`, "
+            + "`categories_catalog`.name AS `category` FROM `films` AS `f` LEFT OUTER JOIN "
+            + "categories_catalog ON `f`.category_id = `categories_catalog`.id LEFT OUTER JOIN "
+            + "countries_catalog ON f.country_id = countries_catalog.id ORDER BY `f`.id DESC "
+            + "LIMIT ? OFFSET ?";
+    private static final String SELECT_BY_NAME = "SELECT `f`.id, `f`.name, `f`.premier_date, "
+            + "`f`.description, `f`.image_path, `countries_catalog`.name  AS `country`, "
+            + "`categories_catalog`.name AS `category` FROM `films` AS `f` LEFT OUTER JOIN "
+            + "categories_catalog ON `f`.category_id = `categories_catalog`.id LEFT OUTER JOIN "
+            + "countries_catalog ON f.country_id = countries_catalog.id WHERE `f`.name LIKE ?";
     private static final String SELECT_BY_ID = "SELECT `f`.name, `f`.premier_date, "
             + "`f`.description, `f`.image_path, `countries_catalog`.name  AS `country`, "
             + "`categories_catalog`.name AS `category` FROM `films` AS `f` LEFT OUTER JOIN "
@@ -36,18 +47,13 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
 
     @Override
     public List<Film> readAll(final int page, final int amountPerPage) {
-        String selectAll = String.format("SELECT `f`.id, `f`.name, `f`.premier_date, "
-                + "`f`.description, `f`.image_path, `countries_catalog`.name  AS `country`, "
-                + "`categories_catalog`.name AS `category` FROM `films` AS `f` LEFT OUTER JOIN "
-                + "categories_catalog ON `f`.category_id = `categories_catalog`.id LEFT OUTER JOIN "
-                + "countries_catalog ON f.country_id = countries_catalog.id ORDER BY `f`.id DESC "
-                + "LIMIT %s OFFSET %s", amountPerPage, (page - 1) * amountPerPage);
-
         List<Film> films = new LinkedList<>();
         ResultSet result = null;
         PreparedStatement st = null;
         try {
-            st = connection.prepareStatement(selectAll);
+            st = connection.prepareStatement(SELECT_ALL);
+            st.setInt(1, amountPerPage);
+            st.setInt(2, (page - 1) * amountPerPage);
             result = st.executeQuery();
             while (result.next()) {
                 Film film = new Film();
@@ -96,16 +102,11 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
 
     @Override
     public List<Film> findByName(final String name) {
-        String selectByName = "SELECT `f`.id, `f`.name, `f`.premier_date, "
-                + "`f`.description, `f`.image_path, `countries_catalog`.name  AS `country`, "
-                + "`categories_catalog`.name AS `category` FROM `films` AS `f` LEFT OUTER JOIN "
-                + "categories_catalog ON `f`.category_id = `categories_catalog`.id LEFT OUTER JOIN "
-                + "countries_catalog ON f.country_id = countries_catalog.id WHERE `f`.name LIKE ?";
         List<Film> films = new LinkedList<>();
         ResultSet result = null;
         PreparedStatement st = null;
         try {
-            st = connection.prepareStatement(selectByName);
+            st = connection.prepareStatement(SELECT_BY_NAME);
             st.setString(1, "%" + name + "%");
             result = st.executeQuery();
             while (result.next()) {
@@ -291,7 +292,8 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
         ResultSet resultSet = null;
         try {
             Integer categoryId = null;
-            if (entity.getCategory() != null) {
+            if (entity.getCategory() != null
+                    && !entity.getCategory().isEmpty()) {
                 statement = connection.prepareStatement(SELECT_CATEGORY_BY_NAME);
                 statement.setString(1, entity.getCategory());
                 resultSet = statement.executeQuery();
@@ -304,7 +306,8 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
             }
 
             Integer countryId = null;
-            if (entity.getCountry() != null) {
+            if (entity.getCountry() != null
+                    && !entity.getCountry().isEmpty()) {
                 statement = connection.prepareStatement(SELECT_COUNTRY_BY_NAME);
                 statement.setString(1, entity.getCountry());
                 resultSet = statement.executeQuery();
@@ -317,14 +320,16 @@ public class FilmDaoImpl extends BaseDao implements FilmDao {
             }
 
             statement = connection.prepareStatement(UPDATE);
-            if (entity.getDescription() != null) {
+            if (entity.getDescription() != null
+                    && !entity.getDescription().isEmpty()) {
                 statement.setString(3, entity.getDescription());
             } else {
                 statement.setNull(3, Types.LONGNVARCHAR);
             }
             statement.setString(1, entity.getName());
             statement.setDate(2, new Date(entity.getPremierDate().getTime()));
-            if (entity.getImageName() != null) {
+            if (entity.getImageName() != null
+                    && !entity.getImageName().isEmpty()) {
                 statement.setString(4, entity.getImageName());
             } else {
                 statement.setNull(4, Types.VARCHAR);
