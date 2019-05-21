@@ -25,22 +25,28 @@ public class WatchedDaoImpl extends BaseDao implements WatchedDao {
             + " `c`.name  AS `country` FROM `watched_films` AS `w_f` INNER JOIN films"
             + " ON `w_f`.film_id = films.id LEFT OUTER JOIN categories_catalog cc "
             + "ON films.category_id = cc.id LEFT OUTER JOIN countries_catalog c "
-            + "ON films.country_id = c.id WHERE `w_f`.user_id = ? ORDER BY `w_f`.viewing_date DESC";
+            + "ON films.country_id = c.id WHERE `w_f`.user_id = ? ORDER BY "
+            + "`w_f`.viewing_date DESC LIMIT ? OFFSET ?";
     private static final String SELECT_ID_BY_USER_AND_FILM_ID = "SELECT id FROM `watched_films`"
             + " WHERE user_id = ? AND film_id = ?";
     private static final String CREATE = "INSERT INTO `watched_films` (user_id, " +
             "film_id, viewing_date)  VALUES (?, ?, ?)";
     private static final String UPDATE_VIEWING_DATE = "UPDATE `watched_films` "
             + "SET viewing_date = ? WHERE user_id = ? AND film_id = ?";
+    private static final String COUNT_FILMS = "SELECT COUNT(id) AS `amount` FROM `watched_films` WHERE user_id = ?";
 
     @Override
-    public List<Watched> readAllByUserId(final Integer id) {
+    public List<Watched> readAllByUserId(final Integer id,
+                                         final int pageNum,
+                                         final int amountPerPage) {
         List<Watched> films = new LinkedList<>();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(SELECT_ALL_BY_USER_ID);
             statement.setInt(1, id);
+            statement.setInt(2, amountPerPage);
+            statement.setInt(3, (pageNum - 1) * amountPerPage);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Watched watched = new Watched();
@@ -73,7 +79,7 @@ public class WatchedDaoImpl extends BaseDao implements WatchedDao {
 
     @Override
     public Integer findIdByUserAndFilmId(final Integer userId,
-                                       final Integer filmId) {
+                                         final Integer filmId) {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -123,6 +129,29 @@ public class WatchedDaoImpl extends BaseDao implements WatchedDao {
             LOGGER.error("Prepare statement error", e);
         }
         return 0;
+    }
+
+    @Override
+    public Integer countFilms(final int userId) {
+        ResultSet result = null;
+        PreparedStatement st = null;
+        try {
+            st = connection.prepareStatement(COUNT_FILMS);
+            st.setInt(1, userId);
+            result = st.executeQuery();
+            if (result.next()) {
+                return result.getInt("amount");
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Count films errors", e);
+        } finally {
+            try {
+                closeResources(st, result);
+            } catch (SQLException e) {
+                LOGGER.error("Close error");
+            }
+        }
+        return null;
     }
 
     @Override

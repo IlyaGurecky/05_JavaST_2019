@@ -9,11 +9,13 @@ import java.util.List;
 
 public class WatchedServiceImpl extends ServiceImpl implements WatchedService {
     @Override
-    public List<Watched> readAllByUserId(final Integer id) throws
+    public List<Watched> readAllByUserId(final Integer id,
+                                         final int pageNum,
+                                         final int amountPerPage) throws
             CustomException {
         WatchedDao dao = daoManager.createAndGetDao(WatchedDao.class);
         if (id != null) {
-            return dao.readAllByUserId(id);
+            return dao.readAllByUserId(id, pageNum, amountPerPage);
         } else {
             throw new CustomException("User id is null");
         }
@@ -32,7 +34,7 @@ public class WatchedServiceImpl extends ServiceImpl implements WatchedService {
 
     @Override
     public void updateViewingDate(final Integer userId,
-                                     final Integer filmId) throws
+                                  final Integer filmId) throws
             CustomException {
         WatchedDao dao = daoManager.createAndGetDao(WatchedDao.class);
         if (userId != null && filmId != null) {
@@ -65,5 +67,11 @@ public class WatchedServiceImpl extends ServiceImpl implements WatchedService {
         } else {
             throw new CustomException("Watched obj is null");
         }
+    }
+
+    @Override
+    public Integer countFilms(final int userId) throws CustomException {
+        WatchedDao dao = daoManager.createAndGetDao(WatchedDao.class);
+        return dao.countFilms(userId);
     }
 }
