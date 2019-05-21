@@ -25,11 +25,13 @@ public class WatchedDaoImpl extends BaseDao implements WatchedDao {
             + " `c`.name  AS `country` FROM `watched_films` AS `w_f` INNER JOIN films"
             + " ON `w_f`.film_id = films.id LEFT OUTER JOIN categories_catalog cc "
             + "ON films.category_id = cc.id LEFT OUTER JOIN countries_catalog c "
-            + "ON films.country_id = c.id WHERE `w_f`.user_id = ? ORDER BY `w_f`.id DESC";
+            + "ON films.country_id = c.id WHERE `w_f`.user_id = ? ORDER BY `w_f`.viewing_date DESC";
+    private static final String SELECT_ID_BY_USER_AND_FILM_ID = "SELECT id FROM `watched_films`"
+            + " WHERE user_id = ? AND film_id = ?";
     private static final String CREATE = "INSERT INTO `watched_films` (user_id, " +
             "film_id, viewing_date)  VALUES (?, ?, ?)";
-    private static final String DELETE = "DELETE FROM `watched_films`" +
-            " WHERE user_id = ? AND film_id = ?";
+    private static final String UPDATE_VIEWING_DATE = "UPDATE `watched_films` "
+            + "SET viewing_date = ? WHERE user_id = ? AND film_id = ?";
 
     @Override
     public List<Watched> readAllByUserId(final Integer id) {
@@ -63,19 +65,46 @@ public class WatchedDaoImpl extends BaseDao implements WatchedDao {
             try {
                 closeResources(statement, resultSet);
             } catch (SQLException e) {
-                LOGGER.error("Resources closeResources error");
+                LOGGER.error("Resources close error");
             }
         }
         return films;
     }
 
     @Override
-    public boolean deleteByUserAndFilmId(final Integer userId,
-                                      final Integer filmId) {
-        try (PreparedStatement statement =
-                     connection.prepareStatement(DELETE)) {
+    public Integer findIdByUserAndFilmId(final Integer userId,
+                                       final Integer filmId) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement =
+                    connection.prepareStatement(SELECT_ID_BY_USER_AND_FILM_ID);
             statement.setInt(1, userId);
             statement.setInt(2, filmId);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("id");
+            }
+        } catch (SQLException e) {
+            LOGGER.error("SQL error", e);
+        } finally {
+            try {
+                closeResources(statement, resultSet);
+            } catch (SQLException e) {
+                LOGGER.error("Resources close error");
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean updateViewingDate(final Integer userId,
+                                     final Integer filmId) {
+        try (PreparedStatement statement =
+                     connection.prepareStatement(UPDATE_VIEWING_DATE)) {
+            statement.setDate(1, Date.valueOf(LocalDate.now()));
+            statement.setInt(2, userId);
+            statement.setInt(3, filmId);
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             LOGGER.error("SQL error", e);

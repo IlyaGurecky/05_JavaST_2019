@@ -7,5 +7,7 @@ import java.util.List;
 public interface WatchedDao extends Dao<Watched> {
     List<Watched> readAllByUserId(final Integer id);
 
-    boolean deleteByUserAndFilmId(final Integer userId, final Integer filmId);
+    boolean updateViewingDate(final Integer userId, final Integer filmId);
+
+    Integer findIdByUserAndFilmId(final Integer userId, final Integer filmId);
 }
