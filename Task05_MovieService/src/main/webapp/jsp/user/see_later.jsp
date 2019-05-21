@@ -91,7 +91,7 @@
     <c:when test="${not empty seeLaterFilms}">
         <div class="container">
             <table class="table"
-                   style="margin-top: 30px; background: rgba(23,4,0,0.55);">
+                   style="margin-top: 30px; background: rgba(23,4,0,0.85);">
                 <thead>
                 <tr style="color: gold; font-size: larger">
                     <th></th>

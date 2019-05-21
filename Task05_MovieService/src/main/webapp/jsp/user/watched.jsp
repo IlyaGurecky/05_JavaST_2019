@@ -62,7 +62,8 @@
                         and not user.role.value.equals('editor')}">
                             <a class="dropdown-item" href="${seeLaterList}">See
                                 later</a>
-                            <a class="dropdown-item" href="${watched}">Watched</a>
+                            <a class="dropdown-item"
+                               href="${watched}">Watched</a>
                         </c:if>
                         <a class="dropdown-item" href="${profile}">Profile</a>
                         <form action="${home}" method="post"
@@ -85,12 +86,19 @@
         </div>
     </div>
 </nav>
-<h1 align="center">Watched films</h1>
+<c:choose>
+    <c:when test="${not empty watchedFilms}">
+        <h1 align="center">Watched films(${watchedFilms.size()})</h1>
+    </c:when>
+    <c:otherwise>
+        <h1 align="center">Watched films</h1>
+    </c:otherwise>
+</c:choose>
 <c:choose>
     <c:when test="${not empty watchedFilms}">
         <div class="container">
             <table class="table"
-                   style="margin-top: 30px; background: rgba(23,4,0,0.55);">
+                   style="margin-top: 30px; background: rgba(23,4,0,0.85);">
                 <thead>
                 <tr style="color: gold; font-size: larger">
                     <th></th>
@@ -98,7 +106,7 @@
                     <th>Premier Date</th>
                     <th>Category</th>
                     <th>Country</th>
-                    <th>Added Date</th>
+                    <th>Viewing Date</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -125,19 +133,6 @@
                         <td>${wFilm.film.category}</td>
                         <td>${wFilm.film.country}</td>
                         <td>${wFilm.viewingDate}</td>
-                        <td>
-                            <form action="${watched}" method="post"
-                                  style="margin: 0"
-                                  onsubmit="return confirm('Delete film?');">
-                                <input type="hidden" name="command"
-                                       value="deleteFromSeeLater" id="delete">
-                                <input type="hidden" name="id"
-                                       value="${wFilm.film.id}">
-                                <input type="submit"
-                                       value="Delete"
-                                       class="btn btn-danger"/>
-                            </form>
-                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -145,7 +140,8 @@
         </div>
     </c:when>
     <c:otherwise>
-        <h1 style="color: white; margin-top: 180px" align="center">List is empty</h1>
+        <h1 style="color: white; margin-top: 180px" align="center">List is
+            empty</h1>
     </c:otherwise>
 </c:choose>
 </body>
