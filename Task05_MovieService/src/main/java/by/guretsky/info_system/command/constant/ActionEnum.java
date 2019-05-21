@@ -8,10 +8,8 @@ import by.guretsky.info_system.command.admin.FilmAddCommand;
 import by.guretsky.info_system.command.admin.FilmDeleteCommand;
 import by.guretsky.info_system.command.admin.UserAddCommand;
 import by.guretsky.info_system.command.admin.UserDeleteCommand;
-import by.guretsky.info_system.command.user.AddToSeeLaterCommand;
-import by.guretsky.info_system.command.user.ChangePasswordCommand;
-import by.guretsky.info_system.command.user.EditProfileCommand;
-import by.guretsky.info_system.command.user.WatchFilmCommand;
+import by.guretsky.info_system.command.editor.EditFilmCommand;
+import by.guretsky.info_system.command.user.*;
 
 public enum ActionEnum {
     SIGN_IN(new SignInCommand(), "signin"),
@@ -23,8 +21,11 @@ public enum ActionEnum {
     DELETE_FILM(new FilmDeleteCommand(), "deleteFilm"),
     CHANGE_PASS(new ChangePasswordCommand(), "changePass"),
     EDIT_PROFILE(new EditProfileCommand(), "editProfile"),
+    EDIT_FILM(new EditFilmCommand(), "editFilm"),
     ADD_FILM(new FilmAddCommand(), "addFilm"),
-    WATCH_FILM(new WatchFilmCommand(), "watchFilm");
+    WATCH_FILM(new WatchFilmCommand(), "watchFilm"),
+    DELETE_FROM_SEE_LATER(new DeleteFromSeeLaterCommand(),
+            "deleteFromSeeLater");
 
     private Command command;
     private String actionName;
