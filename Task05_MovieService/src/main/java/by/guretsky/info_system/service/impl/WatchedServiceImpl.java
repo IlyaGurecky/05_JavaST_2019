@@ -9,7 +9,7 @@ import java.util.List;
 
 public class WatchedServiceImpl extends ServiceImpl implements WatchedService {
     @Override
-    public List<Watched> readAllByUserId(Integer id) throws
+    public List<Watched> readAllByUserId(final Integer id) throws
             CustomException {
         WatchedDao dao = daoManager.createAndGetDao(WatchedDao.class);
         if (id != null) {
@@ -20,26 +20,37 @@ public class WatchedServiceImpl extends ServiceImpl implements WatchedService {
     }
 
     @Override
-    public boolean deleteByUserAndFilmId(Integer userId, Integer filmId) throws
+    public Integer findIdByUserAndFilmId(Integer userId, Integer filmId) throws
+            CustomException {
+        WatchedDao dao = daoManager.createAndGetDao(WatchedDao.class);
+        if (userId != null && filmId != null) {
+            return dao.findIdByUserAndFilmId(userId, filmId);
+        } else {
+            throw new CustomException("Id is null");
+        }
+    }
+
+    @Override
+    public void updateViewingDate(final Integer userId,
+                                     final Integer filmId) throws
             CustomException {
         WatchedDao dao = daoManager.createAndGetDao(WatchedDao.class);
         if (userId != null && filmId != null) {
             daoManager.setAutoCommit(false);
-            boolean isCorrect = dao.deleteByUserAndFilmId(userId, filmId);
+            boolean isCorrect = dao.updateViewingDate(userId, filmId);
             if (isCorrect) {
                 daoManager.commit();
             } else {
                 daoManager.rollback();
             }
             daoManager.setAutoCommit(true);
-            return isCorrect;
         } else {
             throw new CustomException("Incorrect arguments");
         }
     }
 
     @Override
-    public Integer create(Watched entity) throws CustomException {
+    public Integer create(final Watched entity) throws CustomException {
         WatchedDao dao = daoManager.createAndGetDao(WatchedDao.class);
         if (entity != null) {
             daoManager.setAutoCommit(false);
