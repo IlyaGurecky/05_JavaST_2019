@@ -1,6 +1,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <c:set var="url">${pageContext.request.requestURL}</c:set>
 <c:set var="context"
        value="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}"/>
@@ -287,14 +287,15 @@
                             <div class="tab-pane fade"
                                  id="connectedServices" role="tabpanel"
                                  aria-labelledby="ConnectedServices-tab">
-                                <form action="${filmPage}" method="post">
+                                <form action="${filmPage}?fId=${film.id}" method="post"
+                                      enctype="multipart/form-data">
                                     <input type="hidden" name="command"
                                            value="editFilm">
                                     <div class="form-group">
                                         <label for="nameField"
                                                style="color: #ffffff">Name*</label>
                                         <input type="text" class="form-control"
-                                               name="name"
+                                               name="film_name"
                                                id="nameField" required
                                                placeholder="Enter name"
                                                value="${film.name}"
@@ -305,7 +306,7 @@
                                                style="color: #ffffff">Premier
                                             Date*</label>
                                         <input type="date" class="form-control"
-                                               name="premier_date"
+                                               name="film_premier_date"
                                                id="premierDate" required
                                                value="${film.premierDate}"
                                                style="color: black">
@@ -315,7 +316,7 @@
                                                style="color: #ffffff">Country</label>
                                         <select class="form-control"
                                                 id="countrySelect"
-                                                name="country"
+                                                name="film_country"
                                                 style="color: black">
                                             <option></option>
                                             <option value="США">USA</option>
@@ -349,7 +350,7 @@
                                         <label for="category"
                                                style="color: white">Category</label>
                                         <select class="form-control"
-                                                id="category" name="category">
+                                                id="category" name="film_category">
                                             <option></option>
                                             <option value="Комедия">Comedy
                                             </option>
@@ -368,8 +369,23 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlTextarea1" style="color: white">Description</label>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">${film.description}</textarea>
+                                        <label for="exampleFormControlTextarea1"
+                                               style="color: white">Description</label>
+                                        <textarea class="form-control"
+                                                  id="exampleFormControlTextarea1"
+                                                  name="description"
+                                                  rows="3">${film.description}</textarea>
+                                    </div>
+                                    <div class="form-group custom-file"
+                                         style="margin-bottom: 10px">
+                                        <label class="custom-file-label"
+                                               for="customFile">Film
+                                            photo</label>
+                                        <input class="custom-file-input"
+                                               name="filmImage"
+                                               accept="/image/*"
+                                               type="file" id="customFile"
+                                               placeholder="Choose Image">
                                     </div>
                                     <button type="submit" class="btn"
                                             style="background: gold">Submit
@@ -380,10 +396,7 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-
     </div>
 </div>
 </body>
