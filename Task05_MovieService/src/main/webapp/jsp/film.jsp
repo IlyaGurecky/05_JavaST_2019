@@ -29,8 +29,8 @@
     <a class="navbar-brand btn btn-warning" href="${home}" style="background: gold;
      padding: 10px; border-radius: 5px; color: black">KinoMan</a>
     <a href="${filmsList}" style="background: gold;
-     padding: 5px; border-radius: 5px; color: black; margin-bottom: 20px; text-decoration-line: none">Back
-        to films list</a>
+     padding: 5px; border-radius: 5px; color: black; margin-bottom: 20px; text-decoration-line: none">To
+        films list</a>
     <div class="row">
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button"
@@ -135,7 +135,9 @@
                                 <c:if test="${not empty user
                                     and not user.role.value.equals('admin')
                                     and not user.role.value.equals('editor')}">
-                                <form style="margin-left: 5px; position: absolute; bottom: 40px">
+                                <form action="${filmPage}?fId=${film.id}"
+                                      method="post"
+                                      style="margin-left: 5px; position: absolute; bottom: 40px">
                                     <input type="hidden" name="id"
                                            value="${film.id}"/>
                                     <input type="hidden"
@@ -287,7 +289,8 @@
                             <div class="tab-pane fade"
                                  id="connectedServices" role="tabpanel"
                                  aria-labelledby="ConnectedServices-tab">
-                                <form action="${filmPage}?fId=${film.id}" method="post"
+                                <form action="${filmPage}?fId=${film.id}"
+                                      method="post"
                                       enctype="multipart/form-data">
                                     <input type="hidden" name="command"
                                            value="editFilm">
@@ -350,7 +353,8 @@
                                         <label for="category"
                                                style="color: white">Category</label>
                                         <select class="form-control"
-                                                id="category" name="film_category">
+                                                id="category"
+                                                name="film_category">
                                             <option></option>
                                             <option value="Комедия">Comedy
                                             </option>
