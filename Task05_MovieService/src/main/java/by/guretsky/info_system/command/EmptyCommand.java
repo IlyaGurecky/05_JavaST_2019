@@ -3,6 +3,7 @@ package by.guretsky.info_system.command;
 import by.guretsky.info_system.entity.Film;
 import by.guretsky.info_system.entity.SeeLater;
 import by.guretsky.info_system.entity.User;
+import by.guretsky.info_system.entity.Watched;
 import by.guretsky.info_system.entity.role.Role;
 import by.guretsky.info_system.exception.CustomException;
 import by.guretsky.info_system.page.JspPage;
@@ -11,7 +12,9 @@ import by.guretsky.info_system.page.PageManager;
 import by.guretsky.info_system.service.FilmService;
 import by.guretsky.info_system.service.SeeLaterService;
 import by.guretsky.info_system.service.UserService;
+import by.guretsky.info_system.service.WatchedService;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -81,7 +84,20 @@ public class EmptyCommand extends Command {
             request.setAttribute("users", loadUsersPage(request));
         }
 
+        //This block is used for load watched films
+        if (jspPage.getUri().equals(PageEnum.WATCHED.getPageUri())) {
+            request.setAttribute("watchedFilms", loadWatchedPage(request));
+        }
+
         return jspPage;
+    }
+
+    private List<Watched> loadWatchedPage(final HttpServletRequest request)
+            throws CustomException {
+        WatchedService service = factory.createService(WatchedService.class);
+        HttpSession session = request.getSession(false);
+        User user = (User) session.getAttribute("user");
+        return service.readAllByUserId(user.getId());
     }
 
     private List<User> loadUsersPage(final HttpServletRequest request)
