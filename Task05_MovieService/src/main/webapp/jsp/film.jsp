@@ -402,7 +402,7 @@
                                                    type="file" id="customFile">
                                         </div>
                                         <button type="submit" class="btn"
-                                                style="background: gold"><fmt:message key="submit_button"/>
+                                                style="background: gold"><fmt:message key="submit"/>
                                         </button>
                                     </form>
                                 </div>
