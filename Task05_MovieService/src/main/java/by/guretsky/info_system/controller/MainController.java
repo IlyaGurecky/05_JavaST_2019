@@ -74,7 +74,8 @@ public class MainController extends HttpServlet {
             JspPage page = manager.execute(action, req);
             manager.close();
 
-            resp.sendRedirect(req.getContextPath() + page.getUri());
+            resp.sendRedirect(req.getContextPath() + page.getUri()
+                    + page.getParameters());
 
         } catch (CustomException | IOException e) {
             LOGGER.error("Data processing error", e);
