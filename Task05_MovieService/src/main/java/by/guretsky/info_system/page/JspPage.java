@@ -11,7 +11,7 @@ public class JspPage {
     private Set<Role> allowRoles = new HashSet<>();
     private String uri;
     private boolean isRedirect = false;
-    private Map<String, String> parameters = new HashMap<>();
+    private StringBuilder parameters = new StringBuilder();
 
     public JspPage(final String pageUri, final Set<Role> roles) {
         allowRoles.addAll(roles);
@@ -43,6 +43,24 @@ public class JspPage {
     }
 
     public void addParameter(final String name, final String message) {
-        parameters.put(name, message);
+       if (parameters.toString().isEmpty()) {
+           parameters.append("?");
+           parameters.append(name);
+           parameters.append("=");
+           parameters.append(message);
+       } else {
+           parameters.append("&");
+           parameters.append(name);
+           parameters.append("=");
+           parameters.append(message);
+       }
+    }
+
+    public String getParameters() {
+        return parameters.toString();
+    }
+
+    public boolean isEmptyParameters() {
+        return parameters.toString().isEmpty();
     }
 }
