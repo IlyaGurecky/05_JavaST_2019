@@ -9,17 +9,38 @@ import java.util.List;
 
 public class SeeLaterServiceImpl extends ServiceImpl implements SeeLaterService {
     @Override
-    public List<SeeLater> readAllByUserId(Integer id) throws CustomException {
+    public List<SeeLater> readAllByUserId(final Integer id,
+                                          final int pageNum,
+                                          final int amountPerPage)
+            throws CustomException {
         SeeLaterDao dao = daoManager.createAndGetDao(SeeLaterDao.class);
         if (id != null) {
-            return dao.readAllByUserId(id);
+            return dao.readAllByUserId(id, pageNum, amountPerPage);
         } else {
             throw new CustomException("User id is null");
         }
     }
 
     @Override
-    public boolean deleteByUserAndFilmId(Integer userId, Integer filmId) throws
+    public List<SeeLater> readAllByUserId(final Integer userId)
+            throws CustomException {
+        SeeLaterDao dao = daoManager.createAndGetDao(SeeLaterDao.class);
+        if (userId != null) {
+            return dao.readAllByUserId(userId);
+        } else {
+            throw new CustomException("User id is null");
+        }
+    }
+
+    @Override
+    public Integer countFilms(final int userId) throws CustomException {
+        SeeLaterDao dao = daoManager.createAndGetDao(SeeLaterDao.class);
+        return dao.countFilms(userId);
+    }
+
+    @Override
+    public boolean deleteByUserAndFilmId(final Integer userId,
+                                         final Integer filmId) throws
             CustomException {
         SeeLaterDao dao = daoManager.createAndGetDao(SeeLaterDao.class);
         if (userId != null && filmId != null) {
@@ -38,7 +59,7 @@ public class SeeLaterServiceImpl extends ServiceImpl implements SeeLaterService 
     }
 
     @Override
-    public Integer create(SeeLater entity) throws CustomException {
+    public Integer create(final SeeLater entity) throws CustomException {
         SeeLaterDao dao = daoManager.createAndGetDao(SeeLaterDao.class);
         if (entity != null) {
             daoManager.setAutoCommit(false);
