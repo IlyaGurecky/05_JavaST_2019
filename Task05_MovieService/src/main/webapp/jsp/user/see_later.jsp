@@ -143,6 +143,39 @@
                 </c:forEach>
                 </tbody>
             </table>
+            <c:if test="${amount_of_pages gt 0}">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <c:if test="${pageNumber != 1}">
+                            <li class="page-item"><a class="page-link a-nav"
+                                                     href="${seeLater}?page=${pageNumber - 1}">Prev</a>
+                            </li>
+                        </c:if>
+                        <c:forEach begin="1" end="${amount_of_pages}" var="i">
+                            <c:choose>
+                                <c:when test="${pageNumber eq i}">
+                                    <li class="page-item disabled"><a
+                                            class="page-link a-nav"
+                                            href="${seeLater}?page=${i}">${i}</a>
+                                        <span class="sr-only">(current)</span>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item"><a
+                                            class="page-link a-nav"
+                                            href="${seeLater}?page=${i}">${i}</a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <c:if test="${pageNumber lt amount_of_pages}">
+                            <li class="page-item"><a class="page-link a-nav"
+                                                     href="${seeLater}?page=${pageNumber + 1}">Next</a>
+                            </li>
+                        </c:if>
+                    </ul>
+                </nav>
+            </c:if>
         </div>
     </c:when>
     <c:otherwise>
