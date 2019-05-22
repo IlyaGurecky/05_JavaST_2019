@@ -183,7 +183,6 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 user = new User();
                 user.setLogin(resultSet.getString("login"));
                 user.setPassword(resultSet.getString("password"));
-                LOGGER.debug(resultSet.getDate("birth_date").toLocalDate());
                 user.setBirthDate(resultSet.getDate("birth_date"));
                 user.setCountry(resultSet.getString("country"));
                 user.setEmail(resultSet.getString("email"));
