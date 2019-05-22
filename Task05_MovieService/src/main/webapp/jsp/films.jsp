@@ -229,7 +229,7 @@
                     </div>
                     <hr/>
                 </c:forEach>
-                <c:if test="${amount_of_pages gt 0}">
+                <c:if test="${amount_of_pages gt 1}">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
                             <c:if test="${pageNumber != 1}">

@@ -1,17 +1,17 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<c:if test="${param.language == 'en'}">
-    <fmt:setLocale value="en_EN" scope="session"/>
-</c:if>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <c:if test="${param.language == 'ru'}">
     <fmt:setLocale value="ru_RU" scope="session"/>
 </c:if>
 <c:if test="${param.language == 'de'}">
     <fmt:setLocale value="de_DE" scope="session"/>
 </c:if>
+<c:if test="${param.language == 'en'}">
+    <fmt:setLocale value="en_EN" scope="session"/>
+</c:if>
 <fmt:bundle basename="home_page">
-    <%@ page contentType="text/html;charset=UTF-8" %>
     <c:set var="url">${pageContext.request.requestURL}</c:set>
     <c:set var="context"
            value="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}"/>
@@ -80,18 +80,21 @@
                         </li>
                     </c:if>
                     <c:if test="${user.role.value.equals('admin')}">
-                        <li><a href="${addFilm}"><fmt:message key="add_film"/></a></li>
+                        <li><a href="${addFilm}"><fmt:message
+                                key="add_film"/></a></li>
                     </c:if>
                     <li><a href="${films}"><fmt:message key="films"/></a></li>
                     <li><a href="${about}"><fmt:message key="about"/></a></li>
                     <c:choose>
                         <c:when test="${empty user}">
-                            <li class="auth"><a href="${signin}"><fmt:message key="signin"/></a>
+                            <li class="auth"><a href="${signin}"><fmt:message
+                                    key="signin"/></a>
                             </li>
                         </c:when>
                         <c:otherwise>
                             <c:if test="${user.role.value.equals('admin')}">
-                                <li><a href="${users}"><fmt:message key="users_config"/></a></li>
+                                <li><a href="${users}"><fmt:message
+                                        key="users_config"/></a></li>
                             </c:if>
                             <li>
                                 <div class="dropdown">
@@ -107,7 +110,8 @@
                                             <a href="${seeLater}"><img
                                                     src="https://img.icons8.com/material-outlined/48/000000/clock.png"
                                                     width="25px" align="center">
-                                                <fmt:message key="see_later"/></a>
+                                                <fmt:message
+                                                        key="see_later"/></a>
                                             <hr>
                                         </c:if>
                                         <c:url value="/user/profile"
@@ -124,7 +128,8 @@
                                                  width="25px" align="center"
                                                  style="margin-left: 9px; margin-right: 0"/>
                                             <input type="submit"
-                                                   value="<fmt:message key="logout"/>"></form>
+                                                   value="<fmt:message key="logout"/>">
+                                        </form>
                                     </div>
                                 </div>
                             </li>
