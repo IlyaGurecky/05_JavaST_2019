@@ -5,11 +5,15 @@ import by.guretsky.info_system.page.PageEnum;
 import by.guretsky.info_system.page.PageManager;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class LogoutCommand extends Command {
     @Override
     public JspPage execute(HttpServletRequest request) {
-        request.getSession(false).invalidate();
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
         return PageManager.createPage(PageEnum.HOME);
     }
 }
