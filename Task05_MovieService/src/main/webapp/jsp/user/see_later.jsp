@@ -76,6 +76,29 @@
                                value="<fmt:message key="logout"/>" style="background: none;
                                    border: none; margin-left: 40px;
                            color: black; "></form>
+                    <c:choose>
+                        <c:when test="${not empty param.page}">
+                            <c:set var="href_with_lang"
+                                   value="${seeLater}?page=${param.page}&language"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="href_with_lang"
+                                   value="${seeLater}?language"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <div class="dropdown-item">
+                        <a href="${href_with_lang}=en"><img
+                                src="${context}/img/america.png"
+                                width="22" height="19" alt="EN"/></a>
+                        <a href="${href_with_lang}=ru"
+                           style="margin-left: 5px"><img
+                                src="${context}/img/russia.png"
+                                width="22" height="19" alt="RU"/></a>
+                        <a href="${href_with_lang}=de"
+                           style="margin-left: 5px"><img
+                                src="${context}/img/germany.png"
+                                width="22" height="19" alt="DE"/></a>
+                    </div>
                 </div>
             </div>
         </div>

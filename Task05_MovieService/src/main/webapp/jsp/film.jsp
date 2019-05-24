@@ -87,6 +87,19 @@
                             <a class="dropdown-item" href="${signin}"><fmt:message key="signin"/></a>
                         </c:otherwise>
                     </c:choose>
+                    <div class="dropdown-item">
+                        <a href="${filmPage}?fId=${film.id}&language=en"><img
+                                src="${context}/img/america.png"
+                                width="22" height="19" alt="EN"/></a>
+                        <a href="${filmPage}?fId=${film.id}&language=ru"
+                           style="margin-left: 5px"><img
+                                src="${context}/img/russia.png"
+                                width="22" height="19" alt="RU"/></a>
+                        <a href="${filmPage}?fId=${film.id}&language=de"
+                           style="margin-left: 5px"><img
+                                src="${context}/img/germany.png"
+                                width="22" height="19" alt="DE"/></a>
+                    </div>
                 </div>
             </div>
         </div>

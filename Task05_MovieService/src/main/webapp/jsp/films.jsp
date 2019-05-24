@@ -38,13 +38,13 @@
     </head>
     <body style="background: url(${context}/img/background/filmsback.jpg); background-size: 100%">
     <nav class="navbar fixed-top navbar-dark">
-        <a class="navbar-brand" href="${home}" style="background: rgba(243, 214, 151, 1);
+        <a class="navbar-brand" href="${home}" style="background: gold;
      padding: 10px; border-radius: 5px; color: black">KinoMan</a>
-        <c:if test="${empty films}"><a href="${filmslist}" style="background: rgba(243, 214, 151, 1);
+        <c:if test="${empty films}"><a href="${filmslist}" style="background: gold;
      padding: 10px; border-radius: 5px; color: black; text-decoration-line: none"><fmt:message
                 key="back_to_list"/></a></c:if>
         <c:if test="${not empty user and user.role.value.equals('admin')}"><a
-                href="${filmAdd}" style="background: rgba(243, 214, 151, 1);
+                href="${filmAdd}" style="background: gold;
      padding: 10px; border-radius: 5px; color: black; text-decoration-line: none"><fmt:message
                 key="add_film"/></a></c:if>
         <div class="row">
@@ -52,7 +52,7 @@
                 <button class="btn btn-secondary dropdown-toggle" type="button"
                         id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false"
-                        style="background: #efd69f; color: black; padding: 13px;
+                        style="background: gold; color: black; padding: 13px;
                     border-radius: 5px;
                     margin-right: 10px">
                     <c:choose>
@@ -99,6 +99,33 @@
                                href="${signin}"><fmt:message key="signin"/></a>
                         </c:otherwise>
                     </c:choose>
+                    <c:choose>
+                        <c:when test="${not empty param.fn}">
+                            <c:set value="${filmslist}?fn=${param.fn}&language"
+                                   var="href_with_lang"/>
+                        </c:when>
+                        <c:when test="${not empty param.page}">
+                            <c:set value="${filmslist}?page=${param.page}&language"
+                                   var="href_with_lang"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set value="${filmslist}?language"
+                                   var="href_with_lang"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <div class="dropdown-item">
+                        <a href="${href_with_lang}=en"><img
+                                src="${context}/img/america.png"
+                                width="22" height="19" alt="EN"/></a>
+                        <a href="${href_with_lang}=ru"
+                           style="margin-left: 5px"><img
+                                src="${context}/img/russia.png"
+                                width="22" height="19" alt="RU"/></a>
+                        <a href="${href_with_lang}=de"
+                           style="margin-left: 5px"><img
+                                src="${context}/img/germany.png"
+                                width="22" height="19" alt="DE"/></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -203,7 +230,8 @@
                                                                    value="addToSeeLater">
                                                             <input type="submit"
                                                                    value="<fmt:message key="see_later"/>"
-                                                                   class="btn btn-success" style="width: 100%"/>
+                                                                   class="btn btn-success"
+                                                                   style="width: 100%"/>
                                                         </td>
                                                     </form>
                                                 </c:when>

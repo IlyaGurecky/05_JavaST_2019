@@ -34,7 +34,21 @@
         <link rel="icon" href="${context}/img/mainTittleIcon.png"
               type="image/png"/>
         <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600"/>
-
+            <%--<link rel="stylesheet"--%>
+            <%--href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--%>
+            <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>--%>
+            <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>--%>
+            <%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>--%>
+        <style>
+            .footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: rgba(16, 22, 37, 0.65);
+                text-align: center;
+            }
+        </style>
     </head>
 
 
@@ -85,6 +99,16 @@
                     </c:if>
                     <li><a href="${films}"><fmt:message key="films"/></a></li>
                     <li><a href="${about}"><fmt:message key="about"/></a></li>
+                    <li>
+                        <div class="dropdown">
+                            <a href="#"><fmt:message key="language"/></a>
+                            <div>
+                                <a href="${home}?language=en">English</a>
+                                <a href="${home}?language=ru">Русский</a>
+                                <a href="${home}?language=de">Deutsch</a>
+                            </div>
+                        </div>
+                    </li>
                     <c:choose>
                         <c:when test="${empty user}">
                             <li class="auth"><a href="${signin}"><fmt:message
@@ -139,6 +163,11 @@
             </nav>
         </div>
     </header>
+    <div class="footer">
+        <p style="font-size: 25px; color: gold; font-weight: bold">
+            KinoMan</p>
+    </div>
     </body>
     </html>
 </fmt:bundle>
+s
