@@ -1,7 +1,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <c:if test="${param.language == 'ru'}">
     <fmt:setLocale value="ru_RU" scope="session"/>
 </c:if>
@@ -106,7 +106,8 @@
             <div class="form-group" style="padding: 10px 10px 0 10px">
                 <input type="hidden" name="command" value="addFilm"/>
                 <button type="submit" class="btn btn-primary"
-                        style="padding: 5px; margin: 10px 10px 10px 0;"><fmt:message key="submit_button"/>
+                        style="padding: 5px; margin: 10px 10px 10px 0;">
+                    <fmt:message key="submit_button"/>
                 </button>
                 <c:url var="home" value="/home"/>
                 <a href="${home}" style="color: #030005"><fmt:message

@@ -34,11 +34,7 @@
         <link rel="icon" href="${context}/img/mainTittleIcon.png"
               type="image/png"/>
         <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600"/>
-            <%--<link rel="stylesheet"--%>
-            <%--href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--%>
-            <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>--%>
-            <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>--%>
-            <%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>--%>
+
         <style>
             .footer {
                 position: fixed;
@@ -94,8 +90,11 @@
                         </li>
                     </c:if>
                     <c:if test="${user.role.value.equals('admin')}">
-                        <li><a href="${addFilm}"><fmt:message
-                                key="add_film"/></a></li>
+                        <li>
+                            <a href="${addFilm}"
+                               style="color: rgba(255,145,0,1)">
+                                <fmt:message key="add_film"/></a>
+                        </li>
                     </c:if>
                     <li><a href="${films}"><fmt:message key="films"/></a></li>
                     <li><a href="${about}"><fmt:message key="about"/></a></li>
@@ -170,4 +169,3 @@
     </body>
     </html>
 </fmt:bundle>
-s
