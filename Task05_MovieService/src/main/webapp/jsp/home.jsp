@@ -34,7 +34,6 @@
         <link rel="icon" href="${context}/img/mainTittleIcon.png"
               type="image/png"/>
         <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600"/>
-
         <style>
             .footer {
                 position: fixed;
@@ -47,10 +46,8 @@
         </style>
     </head>
 
-
     <body style="background: url(${context}/img/background/mainback2.jpg) no-repeat;
             background-size: 100%;">
-
     <header>
         <div class="container">
             <nav>
