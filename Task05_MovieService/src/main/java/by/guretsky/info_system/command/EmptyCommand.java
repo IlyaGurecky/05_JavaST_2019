@@ -32,6 +32,12 @@ public class EmptyCommand extends Command {
     public JspPage execute(HttpServletRequest request) throws CustomException {
         JspPage jspPage = (JspPage) request.getAttribute("page");
 
+        if (jspPage.getUri().equals(PageEnum.SIGN_IN.getPageUri())
+                && request.getParameter("msg") != null
+                && request.getParameter("msg").equals("err")) {
+            request.setAttribute("msg", "Login or password is incorrect");
+        }
+
         //This block is used for load film by id on film.jsp
         if (jspPage.getUri().equals(PageEnum.FILM.getPageUri())
                 || (jspPage.getUri().equals(PageEnum.CATEGORY.getPageUri())

@@ -151,6 +151,7 @@
                                 key="back_to_list"/></a>
                     </c:if>
                 </form>
+
                 <c:forEach var="film" items="${films}" varStatus="status">
                     <div class="row"
                          style="background: rgba(13, 20, 35, 0.9); border-radius: 7px">

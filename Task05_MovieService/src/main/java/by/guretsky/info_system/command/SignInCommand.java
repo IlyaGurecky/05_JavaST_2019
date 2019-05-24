@@ -25,9 +25,9 @@ public class SignInCommand extends Command {
             session.setAttribute("user", user);
             return PageManager.createPage(PageEnum.HOME);
         } else {
-            request.setAttribute("signinError",
-                    "Login or Password is incorrect");
+            JspPage page = PageManager.createPage(PageEnum.SIGN_IN);
+            page.addParameter("msg", "err");
+            return page;
         }
-        return PageManager.createPage(PageEnum.SIGN_IN);
     }
 }
