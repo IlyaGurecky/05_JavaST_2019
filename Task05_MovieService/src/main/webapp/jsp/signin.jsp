@@ -28,13 +28,26 @@
         <link rel="icon"
               href="https://img.icons8.com/metro/26/000000/gender-neutral-user.png"
               type="image/png">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 
     <body style="background: url(${context}/img/background/background.jpg) no-repeat; background-size: 100%">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <div style="margin: 10px 30px 0 10px">
+    <a href="${signin}?language=en"><img
+            src="${context}/img/america.png"
+            width="22" height="19" alt="EN"/></a>
+    <a href="${signin}?language=ru"
+       style="margin-left: 5px"><img
+            src="${context}/img/russia.png"
+            width="22" height="19" alt="RU"/></a>
+    <a href="${signin}?language=de"
+       style="margin-left: 5px"><img
+            src="${context}/img/germany.png"
+            width="22" height="19" alt="DE"/></a>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-offset-5 col-md-6">

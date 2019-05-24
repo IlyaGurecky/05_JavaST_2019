@@ -58,6 +58,20 @@
                        aria-controls="nav-contact" aria-selected="false"
                        style="color: rgb(269, 83, 90); border: none"><fmt:message
                             key="change_password"/></a>
+                    <div style="margin-left: 60px">
+                        <a href="${profile}?language=en"><img
+                                src="${context}/img/america.png"
+                                width="22" height="19" alt="EN"/></a>
+                        <a href="${profile}?language=ru"
+                           style="margin-left: 5px"><img
+                                src="${context}/img/russia.png"
+                                width="22" height="19" alt="RU"/></a>
+                        <a href="${profile}?language=de"
+                           style="margin-left: 5px"><img
+                                src="${context}/img/germany.png"
+                                width="22" height="19" alt="DE"/></a>
+                    </div>
+
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">

@@ -16,6 +16,7 @@
     <c:set var="context"
            value="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}"/>
     <c:url var="films" value="/films"/>
+    <c:url var="film_add" value="/admin/film_add"/>
     <html>
     <head>
         <title><fmt:message key="tittle"/></title>
@@ -25,6 +26,19 @@
               crossorigin="anonymous"/>
     </head>
     <body style="background: url(${context}/img/background/useraddback1.jpg)">
+    <div style="margin: 10px 0 0 10px;">
+        <a href="${film_add}?language=en"><img
+                src="${context}/img/america.png"
+                width="22" height="19" alt="EN"/></a>
+        <a href="${film_add}?language=ru"
+           style="margin-left: 5px"><img
+                src="${context}/img/russia.png"
+                width="22" height="19" alt="RU"/></a>
+        <a href="${film_add}?language=de"
+           style="margin-left: 5px"><img
+                src="${context}/img/germany.png"
+                width="22" height="19" alt="DE"/></a>
+    </div>
     <form action="${films}" method="post" enctype="multipart/form-data">
         <div class="container"
              style="width: 500px; background: rgba(188,196,189,1);

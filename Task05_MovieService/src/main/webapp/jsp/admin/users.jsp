@@ -31,28 +31,64 @@
 
 
     <body style="background: url(${context}/img/background/usersback2.jpg)">
-    <h1 align="center" style="color: #030005"><fmt:message key="main_str"/></h1>
+    <c:choose>
+        <c:when test="${not empty param.u_login}">
+            <c:set value="${userslist}?u_login=${param.u_login}&language"
+                   var="href_with_lang"/>
+        </c:when>
+        <c:when test="${not empty param.page}">
+            <c:set value="${userslist}?page=${param.page}&language"
+                   var="href_with_lang"/>
+        </c:when>
+        <c:otherwise>
+            <c:set value="${userslist}?language"
+                   var="href_with_lang"/>
+        </c:otherwise>
+    </c:choose>
+    <div style="margin: 10px 0 0 10px;">
+        <a href="${href_with_lang}=en"><img
+                src="${context}/img/america.png"
+                width="22" height="19" alt="EN"/></a>
+        <a href="${href_with_lang}=ru"
+           style="margin-left: 5px"><img
+                src="${context}/img/russia.png"
+                width="22" height="19" alt="RU"/></a>
+        <a href="${href_with_lang}=de"
+           style="margin-left: 5px"><img
+                src="${context}/img/germany.png"
+                width="22" height="19" alt="DE"/></a>
+    </div>
+    <h1 align="center" style="color: #030005"><fmt:message
+            key="main_str"/></h1>
+
     <br/>
     <br/>
     <div class="container">
         <div style="display: block;">
             <a href="${home}" class="btn btn-info"><fmt:message key="home"/></a>
-            <a href="${userAdd}" class="btn btn-success"><fmt:message key="add_account_button"/></a>
+            <a href="${userAdd}" class="btn btn-success"><fmt:message
+                    key="add_account_button"/></a>
             <div style="display: inline-block">
                 <form action="${userslist}" method="post"
-                      onsubmit="return confirm('<fmt:message key="confirm_message"/>')"
+                      onsubmit="return confirm('<fmt:message
+                              key="confirm_message"/>')"
                       style="margin: 0">
                     <input type="hidden" name="command" value="deleteUser">
-                    <input type="text" placeholder="<fmt:message key="login_placeholder"/>" name="login" required
+                    <input type="text"
+                           placeholder="<fmt:message key="login_placeholder"/>"
+                           name="login" required
                            autocomplete="off"
                            style="border-radius: 5px; border: none; padding: 6px; margin-left: 30px"/>
-                    <button type="submit" class="btn btn btn-danger"><fmt:message key="delete_by_login_button"/>
+                    <button type="submit" class="btn btn btn-danger">
+                        <fmt:message key="delete_by_login_button"/>
                     </button>
                 </form>
             </div>
             <div style="display: inline-block">
                 <form action="${userslist}" method="get">
-                    <input type="text" placeholder="<fmt:message key="login_placeholder"/>" name="u_login"
+                    <input type="text"
+                           placeholder="<fmt:message key="login_placeholder"/>"
+                           name="u_login"
                            required
                            autocomplete="off"
                            style="border-radius: 5px; border: none; padding: 6px; margin-left: 30px"/>
@@ -61,22 +97,11 @@
                     </button>
                 </form>
             </div>
-
-
-            <div style="display: inline-block">
-                <form action="${userslist}" method="get">
-                    <button type="submit" class="btn btn-warning"
-                            style="color: white; margin-left: 30px"
-                            value="tr" name="edt"><fmt:message key="editors_button"/>
-                    </button>
-                </form>
-            </div>
-
-
             <c:if test="${isAfterSearch}">
                 <div style="display: inline-block">
                     <a href="${userslist}"
-                       style="color: black; font-size: 15px; margin-left: 500px"><fmt:message key="after_search_link"/></a>
+                       style="color: black; font-size: 15px; margin-left: 500px"><fmt:message
+                            key="after_search_link"/></a>
                 </div>
             </c:if>
         </div>
@@ -110,7 +135,8 @@
                                 <c:if test="${not user.role.value.equals('admin')}">
                                     <form action="${userslist}" method="post"
                                           style="margin: 0"
-                                          onsubmit="return confirm('<fmt:message key="confirm_message"/>');">
+                                          onsubmit="return confirm('<fmt:message
+                                                  key="confirm_message"/>');">
                                         <input type="hidden" name="command"
                                                value="deleteUser" id="delete">
                                         <input type="hidden" name="id"
@@ -130,7 +156,8 @@
                         <ul class="pagination justify-content-center">
                             <c:if test="${pageNumber != 1}">
                                 <li class="page-item"><a class="page-link a-nav"
-                                                         href="${userslist}?page=${pageNumber - 1}"><fmt:message key="pagin_prev"/></a>
+                                                         href="${userslist}?page=${pageNumber - 1}"><fmt:message
+                                        key="pagin_prev"/></a>
                                 </li>
                             </c:if>
                             <c:forEach begin="1" end="${amount_of_pages}"
@@ -153,7 +180,8 @@
                             </c:forEach>
                             <c:if test="${pageNumber lt amount_of_pages}">
                                 <li class="page-item"><a class="page-link a-nav"
-                                                         href="${userslist}?page=${pageNumber + 1}"><fmt:message key="pagin_next"/></a>
+                                                         href="${userslist}?page=${pageNumber + 1}"><fmt:message
+                                        key="pagin_next"/></a>
                                 </li>
                             </c:if>
                         </ul>
@@ -161,7 +189,8 @@
                 </c:if>
             </c:when>
             <c:otherwise>
-                <h2 align="center" style="color: black"><fmt:message key="empty_list_str"/></h2>
+                <h2 align="center" style="color: black"><fmt:message
+                        key="empty_list_str"/></h2>
             </c:otherwise>
         </c:choose>
     </div>
