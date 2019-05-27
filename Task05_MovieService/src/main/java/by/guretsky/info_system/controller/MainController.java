@@ -26,7 +26,8 @@ public class MainController extends HttpServlet {
     private static final String DB_USER = "movie_service_user";
     private static final String DB_PASSW = "password";
     private static final String DB_URL =
-            "jdbc:mysql://localhost:3306/movie_service_db";
+            "jdbc:mysql://localhost:3306/movie_service_db?useSSL=false"
+                    + "&allowPublicKeyRetrieval=true";
     private static final int TIMEOUT = 0;
     private static final int START_POOL_SIZE = 15;
     private static final int MAX_POOL_SIZE = 700;
