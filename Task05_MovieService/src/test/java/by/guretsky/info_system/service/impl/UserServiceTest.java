@@ -45,16 +45,17 @@ public class UserServiceTest {
         Assert.assertEquals(actualUser, expectedUser);
     }
 
+    @Test(description = "Negative test for findById method",
+            expectedExceptions = CustomException.class)
+    public void testFindById2() throws CustomException {
+        User actualUser = service.findById(null);
+        Assert.assertEquals(actualUser, expectedUser);
+    }
+
     @Test(description = "Positive test for findByEmail method")
     public void testFindByEmail() throws CustomException {
         User actualUser = service.findByEmail("oracle@gmail.com");
         Assert.assertEquals(actualUser, expectedUser);
-    }
-
-    @Test(description = "Positive test for countUsers method")
-    public void testCountUsers() throws CustomException {
-        final Integer amount = 4;
-        Assert.assertEquals(service.countUsers(), amount);
     }
 
     @Test(description = "Negative test for findByEmail method",
@@ -64,18 +65,17 @@ public class UserServiceTest {
         Assert.assertEquals(actualUser, expectedUser);
     }
 
-    @Test(description = "Negative test for findById method",
-            expectedExceptions = CustomException.class)
-    public void testFindById2() throws CustomException {
-        User actualUser = service.findById(null);
-        Assert.assertEquals(actualUser, expectedUser);
-    }
-
     @Test(description = "Negative test for findByEmail method",
             expectedExceptions = CustomException.class)
     public void testFindByEmail3() throws CustomException {
         User actualUser = service.findByEmail("");
         Assert.assertEquals(actualUser, expectedUser);
+    }
+
+    @Test(description = "Positive test for countUsers method")
+    public void testCountUsers() throws CustomException {
+        final Integer amount = 4;
+        Assert.assertEquals(service.countUsers(), amount);
     }
 
     @AfterClass
