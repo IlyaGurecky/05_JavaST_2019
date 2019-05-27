@@ -2,10 +2,10 @@ package by.guretsky.info_system.service.impl;
 
 import by.guretsky.info_system.dao.DaoManager;
 
-public abstract class ServiceImpl {
-    protected DaoManager daoManager;
+abstract class ServiceImpl {
+    DaoManager daoManager;
 
-    public void setDaoManager(final DaoManager manager) {
+    void setDaoManager(final DaoManager manager) {
         this.daoManager = manager;
     }
 }
