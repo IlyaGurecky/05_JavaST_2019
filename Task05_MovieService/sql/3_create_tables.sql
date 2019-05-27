@@ -11,7 +11,7 @@ CREATE TABLE `users`
    * 2 - пользователь (Role. USER)
    */
   `role`     TINYINT      NOT NULL CHECK (`role` IN (0, 1, 2)),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
 ) DEFAULT CHARACTER SET utf8;
 
 CREATE TABLE `countries_catalog`
@@ -99,3 +99,6 @@ CREATE TABLE `watched_films`
     ON UPDATE CASCADE
     ON DELETE CASCADE
 ) DEFAULT CHARACTER SET utf8;
+
+CREATE INDEX `user_login_index` ON users(login);
+CREATE INDEX `film_id_index` ON films(id);
