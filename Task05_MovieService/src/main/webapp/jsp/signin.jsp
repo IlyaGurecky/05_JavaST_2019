@@ -84,8 +84,11 @@
                                             key="reset"/>
                                 </button>
                                 <br>
-                                <div class="text">
+                                <div class="error_text">
                                         ${msg}
+                                </div>
+                                <div class="well_text">
+                                        ${success_msg}
                                 </div>
                                 <br/>
                                 <div class="form-group">

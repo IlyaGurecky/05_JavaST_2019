@@ -94,7 +94,7 @@
                                     <fmt:message key="reset"/>
                                 </button>
                                 <br>
-                                <div class="text">${signUpError}</div>
+                                <div class="error_text">${msg}</div>
                                 <div class="form-group">
                                     <input type="hidden" value="signup"
                                            name="command">
