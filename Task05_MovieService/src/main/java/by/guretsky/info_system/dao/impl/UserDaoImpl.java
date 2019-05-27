@@ -18,7 +18,7 @@ import java.util.List;
 
 public class UserDaoImpl extends BaseDao implements UserDao {
     private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
-    private static final String SELECT_ALL = "SELECT `users`.id, `users`.login, `users`.password, `users`.role, "
+    private static final String SELECT_ALL = "SELECT `users`.id, `users`.login, `users`.role, "
             + "`user_info`.birth_date, `user_info`.email, `user_info`.sex, "
             + "`countries_catalog`.name AS `country` FROM `users` LEFT OUTER JOIN user_info ON users.id"
             + " = user_info.user_id LEFT OUTER JOIN countries_catalog ON user_info.country_id = "
@@ -33,7 +33,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             + "`countries_catalog`.name AS `country` FROM `users` LEFT OUTER JOIN user_info ON users.id"
             + " = user_info.user_id LEFT OUTER JOIN countries_catalog ON user_info.country_id = "
             + "countries_catalog.id WHERE `user_info`.email = ?";
-    private static final String SELECT_BY_ID = "SELECT `users`.id, `users`.role, `users`.login, `users`.password,"
+    private static final String SELECT_BY_ID = "SELECT `users`.id, `users`.role, `users`.login,"
             + "`user_info`.birth_date, `user_info`.email, `user_info`.sex, "
             + "`countries_catalog`.name AS `country` FROM `users` LEFT OUTER JOIN user_info ON users.id"
             + " = user_info.user_id LEFT OUTER JOIN countries_catalog ON user_info.country_id = "
@@ -67,7 +67,6 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 user.setCountry(resultSet.getString("country"));
                 user.setEmail(resultSet.getString("email"));
                 user.setLogin(resultSet.getString("login"));
-                user.setPassword(resultSet.getString("password"));
                 user.setRole(Role.findById(resultSet.getInt("role")));
                 user.setSex(resultSet.getString("sex"));
                 user.setId(resultSet.getInt("id"));
@@ -182,7 +181,6 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             if (resultSet.next()) {
                 user = new User();
                 user.setLogin(resultSet.getString("login"));
-                user.setPassword(resultSet.getString("password"));
                 user.setBirthDate(resultSet.getDate("birth_date"));
                 user.setCountry(resultSet.getString("country"));
                 user.setEmail(resultSet.getString("email"));
