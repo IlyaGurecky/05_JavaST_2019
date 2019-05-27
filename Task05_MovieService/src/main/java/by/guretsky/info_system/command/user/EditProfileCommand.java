@@ -52,11 +52,11 @@ public class EditProfileCommand extends Command {
                 editedUser.setBirthDate(birthDate);
                 editedUser.setCountry(country);
                 editedUser.setSex(sex);
+                editedUser.setPassword(user.getPassword());
                 if (service.update(editedUser)) {
                     HttpSession session = request.getSession(false);
                     session.removeAttribute("user");
-                    session.setAttribute("user",
-                            service.findById(editedUser.getId()));
+                    session.setAttribute("user", editedUser);
                 }
             }
         } else {
