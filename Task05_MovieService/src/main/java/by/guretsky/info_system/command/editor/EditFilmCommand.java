@@ -21,7 +21,8 @@ public class EditFilmCommand extends Command {
             LogManager.getLogger(EditFilmCommand.class);
 
     @Override
-    public JspPage execute(HttpServletRequest request) throws CustomException {
+    public JspPage execute(final HttpServletRequest request)
+            throws CustomException {
         String name = request.getParameter("film_name");
         String premierDateStr = request.getParameter("film_premier_date");
         String description = request.getParameter("description");
@@ -60,7 +61,9 @@ public class EditFilmCommand extends Command {
             film.setId(Integer.parseInt(filmId));
             if (service.update(film)) {
                 return PageManager.createPage(PageEnum.FILM);
-            } else return PageManager.createPage(PageEnum.ERROR);
+            } else {
+                return PageManager.createPage(PageEnum.ERROR);
+            }
 
         } else {
             LOGGER.error("Film name or premier date is incorrect");

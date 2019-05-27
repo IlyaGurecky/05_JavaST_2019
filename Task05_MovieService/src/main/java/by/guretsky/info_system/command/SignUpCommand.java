@@ -19,7 +19,8 @@ public class SignUpCommand extends Command {
     private static final String EMAIL = "email";
 
     @Override
-    public JspPage execute(HttpServletRequest request) throws CustomException {
+    public JspPage execute(final HttpServletRequest request)
+            throws CustomException {
         String pass = request.getParameter(PASSWORD_PARAM).trim();
         String login = request.getParameter(LOGIN_PARAM).trim();
         String email = request.getParameter(EMAIL).trim();

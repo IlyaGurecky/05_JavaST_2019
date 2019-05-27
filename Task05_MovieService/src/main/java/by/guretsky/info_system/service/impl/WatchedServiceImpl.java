@@ -22,7 +22,8 @@ public class WatchedServiceImpl extends ServiceImpl implements WatchedService {
     }
 
     @Override
-    public Integer findIdByUserAndFilmId(Integer userId, Integer filmId) throws
+    public Integer findIdByUserAndFilmId(final Integer userId,
+                                         final Integer filmId) throws
             CustomException {
         WatchedDao dao = daoManager.createAndGetDao(WatchedDao.class);
         if (userId != null && filmId != null) {

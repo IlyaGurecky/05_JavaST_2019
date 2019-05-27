@@ -5,13 +5,13 @@ import by.guretsky.info_system.entity.SeeLater;
 import java.util.List;
 
 public interface SeeLaterDao extends Dao<SeeLater> {
-    List<SeeLater> readAllByUserId(final Integer id,
-                                   final int pageNum,
-                                   final int amountPerPage);
+    List<SeeLater> readAllByUserId(Integer id,
+                                   int pageNum,
+                                   int amountPerPage);
 
-    List<SeeLater> readAllByUserId(final Integer userId);
+    List<SeeLater> readAllByUserId(Integer userId);
 
-    boolean deleteByUserAndFilmId(final Integer userId, final Integer filmId);
+    boolean deleteByUserAndFilmId(Integer userId, Integer filmId);
 
-    Integer countFilms(final int userId);
+    Integer countFilms(int userId);
 }

@@ -19,7 +19,7 @@ public class UriActionFilter implements Filter {
             LogManager.getLogger(UriActionFilter.class);
 
     @Override
-    public void init(FilterConfig filterConfig) {
+    public void init(final FilterConfig filterConfig) {
     }
 
     @Override
@@ -27,31 +27,24 @@ public class UriActionFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest,
-                         ServletResponse servletResponse,
-                         FilterChain filterChain) throws
+    public void doFilter(final ServletRequest servletRequest,
+                         final ServletResponse servletResponse,
+                         final FilterChain filterChain) throws
             IOException, ServletException {
-        if (servletRequest instanceof HttpServletRequest) {
-            HttpServletRequest request = (HttpServletRequest) servletRequest;
-            String contextPath = request.getContextPath();
-            String uri = request.getRequestURI();
-            LOGGER.debug("Processing uri", uri);
-            int beginAction = contextPath.length();
-            String pageUri = uri.substring(beginAction);
-            JspPage page = PageManager.defineAndGet(pageUri);
-            if (page != null) {
-                request.setAttribute("page", page);
-                filterChain.doFilter(servletRequest, servletResponse);
-            } else {
-                request.getServletContext()
-                        .setAttribute("error", "Unknown " + uri + " page");
-                request.getServletContext()
-                        .getRequestDispatcher("/jsp/error.jsp")
-                        .forward(servletRequest, servletResponse);
-            }
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        String contextPath = request.getContextPath();
+        String uri = request.getRequestURI();
+        LOGGER.debug("Processing uri", uri);
+        int beginAction = contextPath.length();
+        String pageUri = uri.substring(beginAction);
+        JspPage page = PageManager.defineAndGet(pageUri);
+        if (page != null) {
+            request.setAttribute("page", page);
+            filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            LOGGER.error("It's impossible to use HTTP filter");
-            servletRequest.getServletContext()
+            request.getServletContext()
+                    .setAttribute("error", "Unknown " + uri + " page");
+            request.getServletContext()
                     .getRequestDispatcher("/jsp/error.jsp")
                     .forward(servletRequest, servletResponse);
         }

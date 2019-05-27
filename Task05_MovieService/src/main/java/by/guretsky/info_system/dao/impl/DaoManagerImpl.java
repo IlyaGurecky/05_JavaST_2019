@@ -37,7 +37,8 @@ public class DaoManagerImpl implements DaoManager {
     }
 
     @Override
-    public <T extends Dao<?>> T createAndGetDao(Class<T> key) throws CustomException {
+    public <T extends Dao<?>> T createAndGetDao(final Class<T> key)
+            throws CustomException {
         Class<? extends BaseDao> daoClass = DAO_MAP.get(key);
         if (daoClass != null) {
             try {
@@ -74,7 +75,8 @@ public class DaoManagerImpl implements DaoManager {
     }
 
     @Override
-    public void setAutoCommit(boolean isAutoCommit) throws CustomException {
+    public void setAutoCommit(final boolean isAutoCommit)
+            throws CustomException {
         try {
             connection.setAutoCommit(isAutoCommit);
         } catch (SQLException e) {

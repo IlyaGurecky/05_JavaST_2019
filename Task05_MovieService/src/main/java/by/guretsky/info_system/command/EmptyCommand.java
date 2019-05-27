@@ -29,7 +29,8 @@ public class EmptyCommand extends Command {
     private static final int ONE_PAGE_SEE_LATER_FILMS_LIMIT = 5;
 
     @Override
-    public JspPage execute(HttpServletRequest request) throws CustomException {
+    public JspPage execute(final HttpServletRequest request)
+            throws CustomException {
         JspPage jspPage = (JspPage) request.getAttribute("page");
 
         if (jspPage.getUri().equals(PageEnum.SIGN_IN.getPageUri())

@@ -17,7 +17,7 @@ public final class ActionFactory {
     private ActionFactory() {
     }
 
-    public static Command defineCommand(String actionName) {
+    public static Command defineCommand(final String actionName) {
         if (actionName == null || actionName.isEmpty()) {
             return new EmptyCommand();
         }

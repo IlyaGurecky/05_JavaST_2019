@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 public class DeleteFromSeeLaterCommand extends Command {
     @Override
-    public JspPage execute(HttpServletRequest request) throws CustomException {
+    public JspPage execute(final HttpServletRequest request) throws CustomException {
         Integer filmId = Integer.parseInt(request.getParameter("id"));
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");

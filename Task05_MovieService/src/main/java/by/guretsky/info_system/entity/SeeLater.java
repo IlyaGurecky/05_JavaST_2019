@@ -28,12 +28,12 @@ public class SeeLater extends Entity {
         return addedDate;
     }
 
-    public void setAddedDate(final Date addedDate) {
-        this.addedDate = addedDate;
+    public void setAddedDate(final Date date) {
+        this.addedDate = date;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

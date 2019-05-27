@@ -18,7 +18,8 @@ public class UserAddCommand extends Command {
     private static final String ROLE_FIELD = "role";
 
     @Override
-    public JspPage execute(HttpServletRequest request) throws CustomException {
+    public JspPage execute(final HttpServletRequest request)
+            throws CustomException {
         String login = request.getParameter(LOGIN_FIELD).trim();
         String email = request.getParameter(EMAIL_FIELD).trim();
         String password = request.getParameter(PASSWORD_FIELD).trim();

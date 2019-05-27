@@ -16,7 +16,8 @@ import javax.servlet.http.HttpSession;
 
 public class AddToSeeLaterCommand extends Command {
     @Override
-    public JspPage execute(HttpServletRequest request) throws CustomException {
+    public JspPage execute(final HttpServletRequest request)
+            throws CustomException {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("user") != null) {
             FilmService filmService = factory.createService(FilmService.class);

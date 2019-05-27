@@ -7,7 +7,8 @@ import by.guretsky.info_system.service.SeeLaterService;
 
 import java.util.List;
 
-public class SeeLaterServiceImpl extends ServiceImpl implements SeeLaterService {
+public class SeeLaterServiceImpl extends ServiceImpl
+        implements SeeLaterService {
     @Override
     public List<SeeLater> readAllByUserId(final Integer id,
                                           final int pageNum,

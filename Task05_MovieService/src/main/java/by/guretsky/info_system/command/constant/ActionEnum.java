@@ -9,7 +9,11 @@ import by.guretsky.info_system.command.admin.FilmDeleteCommand;
 import by.guretsky.info_system.command.admin.UserAddCommand;
 import by.guretsky.info_system.command.admin.UserDeleteCommand;
 import by.guretsky.info_system.command.editor.EditFilmCommand;
-import by.guretsky.info_system.command.user.*;
+import by.guretsky.info_system.command.user.AddToSeeLaterCommand;
+import by.guretsky.info_system.command.user.ChangePasswordCommand;
+import by.guretsky.info_system.command.user.DeleteFromSeeLaterCommand;
+import by.guretsky.info_system.command.user.EditProfileCommand;
+import by.guretsky.info_system.command.user.WatchFilmCommand;
 
 public enum ActionEnum {
     SIGN_IN(new SignInCommand(), "signin"),
@@ -30,7 +34,7 @@ public enum ActionEnum {
     private Command command;
     private String actionName;
 
-    ActionEnum(Command command, String name) {
+    ActionEnum(final Command command, final String name) {
         this.command = command;
         actionName = name;
     }

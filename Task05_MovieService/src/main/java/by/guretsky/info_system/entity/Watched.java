@@ -19,15 +19,15 @@ public class Watched extends Entity {
         return film;
     }
 
-    public void setFilm(final Film film) {
-        this.film = film;
+    public void setFilm(final Film watchedFilm) {
+        this.film = watchedFilm;
     }
 
     public Date getViewingDate() {
         return viewingDate;
     }
 
-    public void setViewingDate(final Date viewingDate) {
-        this.viewingDate = viewingDate;
+    public void setViewingDate(final Date date) {
+        this.viewingDate = date;
     }
 }

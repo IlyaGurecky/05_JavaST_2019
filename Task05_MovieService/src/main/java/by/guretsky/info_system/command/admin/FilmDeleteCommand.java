@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class FilmDeleteCommand extends Command {
     @Override
-    public JspPage execute(HttpServletRequest request) throws CustomException {
+    public JspPage execute(final HttpServletRequest request)
+            throws CustomException {
         FilmService service = factory.createService(FilmService.class);
         Integer filmId = Integer.parseInt(request.getParameter("id"));
         service.delete(filmId);

@@ -43,7 +43,8 @@ public class MainController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(final HttpServletRequest req,
+                         final HttpServletResponse resp)
             throws ServletException, IOException {
         try {
             CommandManager manager = CommandManagerFactory.getManager();
@@ -65,7 +66,8 @@ public class MainController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(final HttpServletRequest req,
+                          final HttpServletResponse resp)
             throws ServletException, IOException {
         try {
             String actionName = req.getParameter("command");

@@ -6,7 +6,7 @@ import by.guretsky.info_system.dao.impl.DaoManagerFactoryImpl;
 import by.guretsky.info_system.exception.CustomException;
 import by.guretsky.info_system.service.impl.ServiceFactoryImpl;
 
-public class CommandManagerFactory {
+public final class CommandManagerFactory {
     private CommandManagerFactory() {
     }
 

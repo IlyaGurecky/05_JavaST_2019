@@ -7,18 +7,18 @@ import java.util.List;
 
 public interface WatchedService extends Service {
 
-    List<Watched> readAllByUserId(final Integer id,
-                                  final int pageNum,
-                                  final int amountPerPage)
+    List<Watched> readAllByUserId(Integer id,
+                                  int pageNum,
+                                  int amountPerPage)
             throws CustomException;
 
-    void updateViewingDate(final Integer userId, final Integer filmId)
+    void updateViewingDate(Integer userId, Integer filmId)
             throws CustomException;
 
-    Integer findIdByUserAndFilmId(final Integer userId, final Integer filmId)
+    Integer findIdByUserAndFilmId(Integer userId, Integer filmId)
             throws CustomException;
 
-    Integer create(final Watched entity) throws CustomException;
+    Integer create(Watched entity) throws CustomException;
 
-    Integer countFilms(final int userId) throws CustomException;
+    Integer countFilms(int userId) throws CustomException;
 }

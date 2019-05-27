@@ -23,7 +23,8 @@ public class WatchFilmCommand extends Command {
         if (filmIdStr != null && !filmIdStr.isEmpty()) {
             Integer filmId = Integer.parseInt(filmIdStr);
             Integer userId = user.getId();
-            WatchedService service = factory.createService(WatchedService.class);
+            WatchedService service =
+                    factory.createService(WatchedService.class);
             Integer watchedId = service.findIdByUserAndFilmId(userId, filmId);
             if (watchedId != null) {
                 service.updateViewingDate(userId, filmId);

@@ -9,12 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 public class CommandManagerImpl implements CommandManager {
     private ServiceFactory factory;
 
-    public CommandManagerImpl(ServiceFactory serviceFactory) {
+    public CommandManagerImpl(final ServiceFactory serviceFactory) {
         factory = serviceFactory;
     }
 
     @Override
-    public JspPage execute(Command action, HttpServletRequest request)
+    public JspPage execute(final Command action,
+                           final HttpServletRequest request)
             throws CustomException {
         action.setFactory(factory);
         return action.execute(request);

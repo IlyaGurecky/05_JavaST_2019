@@ -17,14 +17,14 @@ public abstract class Command {
     private static final String SPLIT_DIR_REGEX = "/";
     protected ServiceFactory factory;
 
-    public abstract JspPage execute(final HttpServletRequest request) throws
+    public abstract JspPage execute(HttpServletRequest request) throws
             CustomException;
 
     public void setFactory(final ServiceFactory serviceFactory) {
         this.factory = serviceFactory;
     }
 
-    protected String uploadImage(HttpServletRequest request)
+    protected String uploadImage(final HttpServletRequest request)
             throws IOException, ServletException {
         Part part = request.getPart("filmImage");
         InputStream fileContent = part.getInputStream();

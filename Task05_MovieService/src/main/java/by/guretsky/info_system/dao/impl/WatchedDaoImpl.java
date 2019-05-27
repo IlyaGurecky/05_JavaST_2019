@@ -29,8 +29,8 @@ public class WatchedDaoImpl extends BaseDao implements WatchedDao {
             + "`w_f`.viewing_date DESC LIMIT ? OFFSET ?";
     private static final String SELECT_ID_BY_USER_AND_FILM_ID = "SELECT id FROM `watched_films`"
             + " WHERE user_id = ? AND film_id = ?";
-    private static final String CREATE = "INSERT INTO `watched_films` (user_id, " +
-            "film_id, viewing_date)  VALUES (?, ?, ?)";
+    private static final String CREATE = "INSERT INTO `watched_films` (user_id, "
+            + "film_id, viewing_date)  VALUES (?, ?, ?)";
     private static final String UPDATE_VIEWING_DATE = "UPDATE `watched_films` "
             + "SET viewing_date = ? WHERE user_id = ? AND film_id = ?";
     private static final String COUNT_FILMS = "SELECT COUNT(id) AS `amount` FROM `watched_films` WHERE user_id = ?";

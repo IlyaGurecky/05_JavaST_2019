@@ -2,9 +2,7 @@ package by.guretsky.info_system.page;
 
 import by.guretsky.info_system.entity.role.Role;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class JspPage {
@@ -16,10 +14,6 @@ public class JspPage {
     public JspPage(final String pageUri, final Set<Role> roles) {
         allowRoles.addAll(roles);
         uri = pageUri;
-    }
-
-    public void setAllowRoles(final Set<Role> allowRoles) {
-        this.allowRoles = allowRoles;
     }
 
     public boolean isRedirect() {

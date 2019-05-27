@@ -39,9 +39,10 @@ public final class ConnectionPool {
         return SingletonHolder.POOL;
     }
 
-    public void initialize(String dbUser, String dbPassword, String dbUrl,
-                           int startPoolSize, int maxPoolSize,
-                           int connectionTimeout, String driver) throws
+    public void initialize(final String dbUser, final String dbPassword,
+                           final String dbUrl,
+                           final int startPoolSize, final int maxPoolSize,
+                           final int connectionTimeout, final String driver) throws
             CustomException {
         locker1.lock();
         invalidate();
@@ -110,7 +111,7 @@ public final class ConnectionPool {
         return connection;
     }
 
-    public void releaseConnection(PooledConnection connection) {
+    public void releaseConnection(final PooledConnection connection) {
         locker2.lock();
         try {
             if (connection.isValid(timeout)) {
@@ -120,8 +121,8 @@ public final class ConnectionPool {
                 freeConnections.put(connection);
             }
         } catch (SQLException | InterruptedException e) {
-            LOGGER.error("It is impossible to return" +
-                    " database connection into pool", e);
+            LOGGER.error("It is impossible to return"
+                    + " database connection into pool", e);
             try {
                 connection.getConnection().close();
             } catch (SQLException e1) {

@@ -5,15 +5,15 @@ public class CustomException extends Exception {
         super();
     }
 
-    public CustomException(String message) {
+    public CustomException(final String message) {
         super(message);
     }
 
-    public CustomException(String message, Throwable cause) {
+    public CustomException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public CustomException(Throwable cause) {
+    public CustomException(final Throwable cause) {
         super(cause);
     }
 }

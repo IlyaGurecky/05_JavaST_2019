@@ -37,13 +37,12 @@ public class SeeLaterDaoImpl extends BaseDao implements SeeLaterDao {
             + "ON films.category_id = cc.id LEFT OUTER JOIN countries_catalog c "
             + "ON films.country_id = c.id WHERE `s_l`.user_id = ? ORDER BY "
             + "`s_l`.id DESC";
-    private static final String CREATE = "INSERT INTO `see_later` (user_id, " +
-            "film_id, added_date)  VALUES (?, ?, ?)";
-    private static final String DELETE = "DELETE FROM `see_later`" +
-            " WHERE user_id = ? AND film_id = ?";
+    private static final String CREATE = "INSERT INTO `see_later` (user_id, "
+            + "film_id, added_date)  VALUES (?, ?, ?)";
+    private static final String DELETE = "DELETE FROM `see_later`"
+            + " WHERE user_id = ? AND film_id = ?";
     private static final String COUNT_FILMS = "SELECT COUNT(id) AS `films_amount`"
             + " FROM `see_later` WHERE user_id = ?";
-
 
     @Override
     public List<SeeLater> readAllByUserId(final Integer id,

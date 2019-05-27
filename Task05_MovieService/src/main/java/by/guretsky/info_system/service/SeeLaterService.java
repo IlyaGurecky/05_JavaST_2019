@@ -6,18 +6,18 @@ import by.guretsky.info_system.exception.CustomException;
 import java.util.List;
 
 public interface SeeLaterService extends Service {
-    List<SeeLater> readAllByUserId(final Integer id,
-                                   final int pageNum,
-                                   final int amountPerPage)
+    List<SeeLater> readAllByUserId(Integer id,
+                                   int pageNum,
+                                   int amountPerPage)
             throws CustomException;
 
-    List<SeeLater> readAllByUserId(final Integer userId)
+    List<SeeLater> readAllByUserId(Integer userId)
             throws CustomException;
 
-    boolean deleteByUserAndFilmId(final Integer userId, final Integer filmId)
+    boolean deleteByUserAndFilmId(Integer userId, Integer filmId)
             throws CustomException;
 
-    Integer create(final SeeLater entity) throws CustomException;
+    Integer create(SeeLater entity) throws CustomException;
 
-    Integer countFilms(final int userId) throws CustomException;
+    Integer countFilms(int userId) throws CustomException;
 }

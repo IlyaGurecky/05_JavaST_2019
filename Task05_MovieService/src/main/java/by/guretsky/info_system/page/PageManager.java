@@ -4,7 +4,7 @@ public final class PageManager {
     private PageManager() {
     }
 
-    public static JspPage defineAndGet(String uri) {
+    public static JspPage defineAndGet(final String uri) {
         PageEnum pageEnum = definePage(uri);
         if (pageEnum != null) {
             return createPage(pageEnum);

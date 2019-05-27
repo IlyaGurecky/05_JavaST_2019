@@ -20,11 +20,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class SecurityFilter implements Filter {
-    private static final Logger LOGGER =
-            LogManager.getLogger(SecurityFilter.class);
 
     @Override
-    public void init(FilterConfig filterConfig) {
+    public void init(final FilterConfig filterConfig) {
     }
 
     @Override
@@ -32,8 +30,9 @@ public class SecurityFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse
-            servletResponse, FilterChain filterChain)
+    public void doFilter(final ServletRequest servletRequest,
+                         final ServletResponse servletResponse,
+                         final FilterChain filterChain)
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 public class LogoutCommand extends Command {
     @Override
-    public JspPage execute(HttpServletRequest request) {
+    public JspPage execute(final HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();

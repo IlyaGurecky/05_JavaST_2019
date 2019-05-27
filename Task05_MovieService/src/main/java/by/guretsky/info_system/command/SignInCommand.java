@@ -15,7 +15,8 @@ public class SignInCommand extends Command {
     private static final String PASSWORD_PARAM = "password";
 
     @Override
-    public JspPage execute(HttpServletRequest request) throws CustomException {
+    public JspPage execute(final HttpServletRequest request)
+            throws CustomException {
         String login = request.getParameter(LOGIN_PARAM).trim();
         String password = request.getParameter(PASSWORD_PARAM).trim();
         UserService service = factory.createService(UserService.class);

@@ -6,28 +6,28 @@ import by.guretsky.info_system.exception.CustomException;
 import java.util.List;
 
 public interface UserService extends Service {
-    List<User> readAll(final int page, final int amountPerPage)
+    List<User> readAll(int page, int amountPerPage)
             throws CustomException;
 
     Integer countUsers() throws CustomException;
 
-    User findByLoginAndPassword(final String login, final String password)
+    User findByLoginAndPassword(String login, String password)
             throws CustomException;
 
-    User findById(final Integer id) throws CustomException;
+    User findById(Integer id) throws CustomException;
 
-    boolean delete(final Integer id) throws CustomException;
+    boolean delete(Integer id) throws CustomException;
 
-    boolean deleteByLogin(final String login) throws CustomException;
+    boolean deleteByLogin(String login) throws CustomException;
 
-    Integer create(final User user) throws CustomException;
+    Integer create(User user) throws CustomException;
 
-    boolean update(final User user) throws CustomException;
+    boolean update(User user) throws CustomException;
 
-    boolean changePassword(final String pass, final int userId)
+    boolean changePassword(String pass, int userId)
             throws CustomException;
 
-    User findByLogin(final String login) throws CustomException;
+    User findByLogin(String login) throws CustomException;
 
-    User findByEmail(final String email) throws CustomException;
+    User findByEmail(String email) throws CustomException;
 }

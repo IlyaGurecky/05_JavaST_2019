@@ -12,8 +12,10 @@ import by.guretsky.info_system.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 
 public class UserDeleteCommand extends Command {
+
     @Override
-    public JspPage execute(HttpServletRequest request) throws CustomException {
+    public JspPage execute(final HttpServletRequest request)
+            throws CustomException {
         UserService service = factory.createService(UserService.class);
         String id = request.getParameter("id");
         String login = request.getParameter("login");

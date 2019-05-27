@@ -6,19 +6,19 @@ import java.util.List;
 
 public interface UserDao extends Dao<User> {
 
-    List<User> readAll(final int page, final int amountPerPage);
+    List<User> readAll(int page, int amountPerPage);
 
-    boolean createUserInfo(final User user);
+    boolean createUserInfo(User user);
 
-    User findByLogin(final String login);
+    User findByLogin(String login);
 
-    User findByEmail(final String email);
+    User findByEmail(String email);
 
-    boolean deleteByLogin(final String login);
+    boolean deleteByLogin(String login);
 
-    boolean updateUserInfo(final User user);
+    boolean updateUserInfo(User user);
 
-    boolean changePassword(final String pass, final int userId);
+    boolean changePassword(String pass, int userId);
 
     Integer countUsers();
 }

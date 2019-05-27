@@ -16,7 +16,7 @@ public enum Role {
         return value;
     }
 
-    public static Role findById(Integer id) {
+    public static Role findById(final Integer id) {
         return Role.values()[id];
     }
 }

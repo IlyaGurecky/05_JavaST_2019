@@ -70,7 +70,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     }
 
     @Override
-    public boolean deleteByLogin(String login) throws CustomException {
+    public boolean deleteByLogin(final String login) throws CustomException {
         if (login != null) {
             UserDao dao = daoManager.createAndGetDao(UserDao.class);
             daoManager.setAutoCommit(false);
@@ -129,7 +129,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changePassword(String pass, int userId)
+    public boolean changePassword(final String pass, final int userId)
             throws CustomException {
         if (pass != null && !pass.isEmpty()) {
             UserDao dao = daoManager.createAndGetDao(UserDao.class);
@@ -148,7 +148,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     }
 
     @Override
-    public User findByLogin(String login) throws CustomException {
+    public User findByLogin(final String login) throws CustomException {
         if (login != null && !login.isEmpty()) {
             UserDao dao = daoManager.createAndGetDao(UserDao.class);
             return dao.findByLogin(login);
@@ -158,7 +158,7 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmail(String email) throws CustomException {
+    public User findByEmail(final String email) throws CustomException {
         if (email != null && !email.isEmpty()) {
             UserDao dao = daoManager.createAndGetDao(UserDao.class);
             return dao.findByEmail(email);

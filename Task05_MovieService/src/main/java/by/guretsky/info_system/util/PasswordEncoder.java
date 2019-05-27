@@ -7,7 +7,8 @@ public final class PasswordEncoder {
     private PasswordEncoder() {
     }
 
-    public static boolean checkPassword(final String password, final String hash) {
+    public static boolean checkPassword(final String password,
+                                        final String hash) {
         return BCrypt.checkpw(password, hash);
     }
 
