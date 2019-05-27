@@ -7,6 +7,7 @@ import by.guretsky.info_system.page.JspPage;
 import by.guretsky.info_system.page.PageEnum;
 import by.guretsky.info_system.page.PageManager;
 import by.guretsky.info_system.service.UserService;
+import by.guretsky.info_system.util.PasswordEncoder;
 import by.guretsky.info_system.validator.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,13 +30,11 @@ public class SignUpCommand extends Command {
             if (service.findByEmail(email) == null) {
                 User user = new User();
                 user.setLogin(login);
-                user.setPassword(pass);
+                user.setPassword(PasswordEncoder.hashPassword(pass));
                 user.setEmail(email);
                 user.setRole(Role.USER);
                 UserValidator validator = new UserValidator();
                 if (validator.validate(user) && service.create(user) != 0) {
-                    request.setAttribute("completeMessage",
-                            "User created successfully!");
                     HttpSession session = request.getSession();
                     session.setAttribute("user", user);
                     return PageManager.createPage(PageEnum.HOME);
