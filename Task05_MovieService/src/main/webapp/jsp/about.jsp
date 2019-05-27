@@ -54,6 +54,7 @@
     </div>
 </div>
 <div class="footer" style="color: white;">
-    This footer will always be positioned at the bottom of the page, but <strong>not fixed</strong>.</div>
+Training project
+</div>
 </body>
 </html>
