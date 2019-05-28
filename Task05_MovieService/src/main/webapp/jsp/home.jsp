@@ -19,7 +19,6 @@
     <c:url var="home" value="/home"/>
     <c:url var="films" value="/films"/>
     <c:url var="users" value="/admin/users"/>
-    <c:url var="categories" value="/category"/>
     <c:url var="seeLater" value="/user/see_later"/>
     <c:url var="profile" value="/user/profile"/>
     <c:url var="addFilm" value="/admin/film_add"/>
@@ -57,7 +56,7 @@
                             <div class="dropdown">
                                 <a href="#"><fmt:message key="category"/></a>
                                 <div align="center">
-                                    <form action="${categories}" method="GET">
+                                    <form action="${films}" method="GET">
                                         <button type="submit" name="cName"
                                                 value="Боевик"> Action
                                         </button>
