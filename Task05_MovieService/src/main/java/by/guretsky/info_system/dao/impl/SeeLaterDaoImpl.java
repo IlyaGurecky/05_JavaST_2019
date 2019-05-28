@@ -130,6 +130,7 @@ public class SeeLaterDaoImpl extends BaseDao implements SeeLaterDao {
         PreparedStatement st = null;
         try {
             st = connection.prepareStatement(COUNT_FILMS);
+            st.setInt(1, userId);
             result = st.executeQuery();
             if (result.next()) {
                 return result.getInt("films_amount");
