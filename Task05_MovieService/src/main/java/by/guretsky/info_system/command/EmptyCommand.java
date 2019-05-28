@@ -21,6 +21,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class EmptyCommand extends Command {
+    private static final String MESSAGE_ATTRIBUTE = "msg";
+    private static final String SUCCESS_ATTRIBUTE = "success_msg";
     private static final String AMOUNT_OF_PAGES_ATTR = "amount_of_pages";
     private static final String PAGE_NUMBER_ATTR = "pageNumber";
     private static final int ONE_PAGE_FILMS_LIMIT = 4;
@@ -33,87 +35,85 @@ public class EmptyCommand extends Command {
             throws CustomException {
         JspPage jspPage = (JspPage) request.getAttribute("page");
 
-        if (jspPage.getUri().equals(PageEnum.SIGN_IN.getPageUri())
-                && request.getParameter("msg") != null
-                && request.getParameter("msg").equals("err")) {
-            request.setAttribute("msg", "Login or password is incorrect");
-        }
-
-        //This block is used for load film by id on film.jsp
-        if (jspPage.getUri().equals(PageEnum.FILM.getPageUri())
-                || (jspPage.getUri().equals(PageEnum.CATEGORY.getPageUri())
-                && request.getParameter("fId") != null)) {
-            return loadFilmPage(request);
-        }
-
-        //This block is used for load "See later" films
-        if (jspPage.getUri().equals(PageEnum.SEE_LATER.getPageUri())) {
-            List<SeeLater> seeLater = loadSeeLaterFilmsNoPagination(request);
-            request.setAttribute("seeLaterFilms", seeLater);
-        }
-
-        //This block is used for load films by category
-        if (jspPage.getUri().equals(PageEnum.CATEGORY.getPageUri())) {
-            String category = request.getParameter("cName");
-            if (category != null && !category.isEmpty()) {
-                FilmService service = factory.createService(FilmService.class);
-                List<Film> films = service.findByCategory(category);
-                request.setAttribute("films", films);
-            } else {
-                return PageManager.createPage(PageEnum.ERROR);
+        if (jspPage.getUri().equals(PageEnum.SIGN_IN.getPageUri())) {
+            if (request.getParameter(MESSAGE_ATTRIBUTE) != null
+                    && request.getParameter(MESSAGE_ATTRIBUTE).equals("err")) {
+                request.setAttribute(MESSAGE_ATTRIBUTE,
+                        "Login or password is incorrect");
+            } else if (request.getParameter(MESSAGE_ATTRIBUTE) != null
+                    && request.getParameter(MESSAGE_ATTRIBUTE).equals("success")) {
+                request.setAttribute(SUCCESS_ATTRIBUTE,
+                        "You have successfully registered, please sign in");
             }
-        }
-
-        //This block is used for load films, which in the user "See Later" list
-        if ((jspPage.getUri().equals(PageEnum.FILMS.getPageUri())
-                || jspPage.getUri().equals(PageEnum.CATEGORY.getPageUri()))
-                && isAuthorizedUser(request)) {
-            List<SeeLater> seeLater = loadSeeLaterFilmsNoPagination(request);
-            List<Film> seeLaterFilms = new LinkedList<>();
-            seeLater.stream().map(SeeLater::getFilm).forEach(seeLaterFilms::add);
-            request.setAttribute("seeLater", seeLaterFilms);
-        }
-
-        //This block is used for search films
-        if (jspPage.getUri().equals(PageEnum.FILMS.getPageUri())
-                && request.getParameter("fn") != null) {
-            FilmService service = factory.createService(FilmService.class);
-            request.setAttribute("films",
-                    service.findByName(request.getParameter("fn")));
-            request.setAttribute("isAfterSearch", true);
             return jspPage;
         }
 
-        //This block is used for load all films considering pagination
+        if (jspPage.getUri().equals(PageEnum.SIGN_UP.getPageUri())
+                && request.getParameter(MESSAGE_ATTRIBUTE) != null) {
+            switch (request.getParameter(MESSAGE_ATTRIBUTE)) {
+                case "cr_err":
+                    request.setAttribute(MESSAGE_ATTRIBUTE,
+                            "User create error");
+                    break;
+                case "em_err":
+                    request.setAttribute(MESSAGE_ATTRIBUTE,
+                            "This email already exists");
+                    break;
+                case "log_err":
+                    request.setAttribute(MESSAGE_ATTRIBUTE,
+                            "This login already exists");
+                    break;
+                default:
+                    return jspPage;
+            }
+        }
+
+        //This block is used for load films page
         if (jspPage.getUri().equals(PageEnum.FILMS.getPageUri())) {
             try {
-                request.setAttribute("films", loadFilmsList(request));
+                jspPage = loadFilmsPage(request);
             } catch (NumberFormatException e) {
                 return PageManager.createPage(PageEnum.ERROR);
             }
         }
 
-        //This block is used for load users list
+        //This block is used for load users page
         if (jspPage.getUri().equals(PageEnum.USERS.getPageUri())) {
             try {
-                request.setAttribute("users", loadUsersList(request));
+                jspPage = loadUsersPage(request);
             } catch (NumberFormatException e) {
                 return PageManager.createPage(PageEnum.ERROR);
             }
         }
 
-        //This block is used for load watched films
+        //This block is used for load watched page
         if (jspPage.getUri().equals(PageEnum.WATCHED.getPageUri())) {
             try {
-                request.setAttribute("watchedFilms", loadWatchedList(request));
+                jspPage = loadWatchedPage(request);
             } catch (NumberFormatException e) {
                 return PageManager.createPage(PageEnum.ERROR);
             }
         }
+
+        //This block is used for load "See later" page
+        if (jspPage.getUri().equals(PageEnum.SEE_LATER.getPageUri())) {
+            try {
+                jspPage = loadSeeLaterPage(request);
+            } catch (NumberFormatException e) {
+                return PageManager.createPage(PageEnum.ERROR);
+            }
+
+        }
+
+        //This block is used for load film by id on film.jsp
+        if (jspPage.getUri().equals(PageEnum.FILM.getPageUri())) {
+            return loadFilmPage(request);
+        }
+
         return jspPage;
     }
 
-    private List<Watched> loadWatchedList(final HttpServletRequest request)
+    private JspPage loadWatchedPage(final HttpServletRequest request)
             throws CustomException {
         WatchedService service = factory.createService(WatchedService.class);
         HttpSession session = request.getSession(false);
@@ -132,10 +132,31 @@ public class EmptyCommand extends Command {
         request.setAttribute(AMOUNT_OF_PAGES_ATTR, amountOfPages);
         request.setAttribute(PAGE_NUMBER_ATTR, pageNumber);
         request.setAttribute("amountOfFilms", amountOfFilms);
-        return watchedList;
+        request.setAttribute("watchedFilms", watchedList);
+        return PageManager.createPage(PageEnum.WATCHED);
     }
 
-    private List<User> loadUsersList(final HttpServletRequest request)
+    private JspPage loadSeeLaterPage(final HttpServletRequest request)
+            throws CustomException {
+        SeeLaterService service = factory.createService(SeeLaterService.class);
+        HttpSession session = request.getSession(false);
+        User user = (User) session.getAttribute("user");
+        int pageNumber = 1;
+        String currentPage = request.getParameter("page");
+        if (currentPage != null && !currentPage.isEmpty()) {
+            pageNumber = Integer.parseInt(currentPage);
+        }
+        int amountOfPages = (int) Math.ceil(service.countFilms(user.getId())
+                * 1.0 / ONE_PAGE_USERS_LIMIT);
+        List<SeeLater> films = service.readAllByUserId(user.getId(), pageNumber,
+                ONE_PAGE_SEE_LATER_FILMS_LIMIT);
+        request.setAttribute(AMOUNT_OF_PAGES_ATTR, amountOfPages);
+        request.setAttribute(PAGE_NUMBER_ATTR, pageNumber);
+        request.setAttribute("seeLaterFilms", films);
+        return PageManager.createPage(PageEnum.SEE_LATER);
+    }
+
+    private JspPage loadUsersPage(final HttpServletRequest request)
             throws CustomException {
         UserService service = factory.createService(UserService.class);
         List<User> users = new ArrayList<>();
@@ -161,7 +182,8 @@ public class EmptyCommand extends Command {
             request.setAttribute(AMOUNT_OF_PAGES_ATTR, amountOfPages);
             request.setAttribute(PAGE_NUMBER_ATTR, pageNumber);
         }
-        return users;
+        request.setAttribute("users", users);
+        return PageManager.createPage(PageEnum.USERS);
     }
 
     private boolean isAuthorizedUser(final HttpServletRequest request) {
@@ -173,15 +195,6 @@ public class EmptyCommand extends Command {
         return false;
     }
 
-//    private List<SeeLater> loadSeeLaterFilms(final HttpServletRequest request)
-//            throws CustomException {
-//        SeeLaterService service =
-//                factory.createService(SeeLaterService.class);
-//        HttpSession session = request.getSession(false);
-//        User user = (User) session.getAttribute("user");
-//        return service.readAllByUserId(user.getId());
-//    }
-
     private List<SeeLater> loadSeeLaterFilmsNoPagination(
             final HttpServletRequest request) throws CustomException {
         SeeLaterService service =
@@ -189,23 +202,6 @@ public class EmptyCommand extends Command {
         HttpSession session = request.getSession(false);
         User user = (User) session.getAttribute("user");
         return service.readAllByUserId(user.getId());
-    }
-
-    private List<Film> loadFilmsList(final HttpServletRequest request)
-            throws CustomException {
-        FilmService service = factory.createService(FilmService.class);
-        String currentPage = request.getParameter("page");
-        int pageNumber = 1;
-        if (currentPage != null && !currentPage.isEmpty()) {
-            pageNumber = Integer.parseInt(currentPage);
-        }
-        int amountOfPages = (int) Math.ceil(service.countFilms() * 1.0
-                / ONE_PAGE_FILMS_LIMIT);
-        List<Film> films = service.readAll(pageNumber,
-                ONE_PAGE_FILMS_LIMIT);
-        request.setAttribute(AMOUNT_OF_PAGES_ATTR, amountOfPages);
-        request.setAttribute(PAGE_NUMBER_ATTR, pageNumber);
-        return films;
     }
 
     private JspPage loadFilmPage(final HttpServletRequest request)
@@ -234,5 +230,48 @@ public class EmptyCommand extends Command {
             newPage.setRedirect(true);
             return newPage;
         }
+    }
+
+    private JspPage loadFilmsPage(final HttpServletRequest request)
+            throws CustomException {
+        FilmService service = factory.createService(FilmService.class);
+        if (isAuthorizedUser(request)) {
+            List<SeeLater> seeLater = loadSeeLaterFilmsNoPagination(request);
+            List<Film> seeLaterFilms = new LinkedList<>();
+            seeLater.stream().map(SeeLater::getFilm).forEach(seeLaterFilms::add);
+            request.setAttribute("seeLater", seeLaterFilms);
+        }
+
+        if (request.getParameter("fn") != null) {
+            request.setAttribute("films",
+                    service.findByName(request.getParameter("fn")));
+            request.setAttribute("isAfterSearch", true);
+            return PageManager.createPage(PageEnum.FILMS);
+        }
+
+        if (request.getParameter("cName") != null) {
+            String category = request.getParameter("cName");
+            if (category != null && !category.isEmpty()) {
+                List<Film> films = service.findByCategory(category);
+                request.setAttribute("films", films);
+                return PageManager.createPage(PageEnum.FILMS);
+            } else {
+                return PageManager.createPage(PageEnum.ERROR);
+            }
+        }
+
+        String currentPage = request.getParameter("page");
+        int pageNumber = 1;
+        if (currentPage != null && !currentPage.isEmpty()) {
+            pageNumber = Integer.parseInt(currentPage);
+        }
+        int amountOfPages = (int) Math.ceil(service.countFilms() * 1.0
+                / ONE_PAGE_FILMS_LIMIT);
+        List<Film> films = service.readAll(pageNumber,
+                ONE_PAGE_FILMS_LIMIT);
+        request.setAttribute(AMOUNT_OF_PAGES_ATTR, amountOfPages);
+        request.setAttribute(PAGE_NUMBER_ATTR, pageNumber);
+        request.setAttribute("films", films);
+        return PageManager.createPage(PageEnum.FILMS);
     }
 }
