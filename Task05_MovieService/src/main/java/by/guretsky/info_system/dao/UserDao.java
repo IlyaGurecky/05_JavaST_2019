@@ -21,4 +21,6 @@ public interface UserDao extends Dao<User> {
     boolean changePassword(String pass, int userId);
 
     Integer countUsers();
+
+    String findPassByLogin(String login);
 }

@@ -30,4 +30,6 @@ public interface UserService extends Service {
     User findByLogin(String login) throws CustomException;
 
     User findByEmail(String email) throws CustomException;
+
+    String findPassByLogin(String login) throws CustomException;
 }

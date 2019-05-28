@@ -23,7 +23,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             + "`countries_catalog`.name AS `country` FROM `users` LEFT OUTER JOIN user_info ON users.id"
             + " = user_info.user_id LEFT OUTER JOIN countries_catalog ON user_info.country_id = "
             + "countries_catalog.id ORDER BY `users`.id LIMIT ? OFFSET ?";
-    private static final String SELECT_BY_LOGIN = "SELECT `users`.id, `users`.role, `users`.password,"
+    private static final String SELECT_BY_LOGIN = "SELECT `users`.id, `users`.role, "
             + "`user_info`.birth_date, `user_info`.email, `user_info`.sex, "
             + "`countries_catalog`.name AS `country` FROM `users` LEFT OUTER JOIN user_info ON users.id"
             + " = user_info.user_id LEFT OUTER JOIN countries_catalog ON user_info.country_id = "
@@ -33,15 +33,16 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             + "`countries_catalog`.name AS `country` FROM `users` LEFT OUTER JOIN user_info ON users.id"
             + " = user_info.user_id LEFT OUTER JOIN countries_catalog ON user_info.country_id = "
             + "countries_catalog.id WHERE `user_info`.email = ?";
-    private static final String SELECT_BY_ID = "SELECT `users`.id, `users`.role, `users`.login,"
+    private static final String SELECT_BY_ID = "SELECT `users`.id, `users`.role, `users`.login, "
             + "`user_info`.birth_date, `user_info`.email, `user_info`.sex, "
             + "`countries_catalog`.name AS `country` FROM `users` LEFT OUTER JOIN user_info ON users.id"
             + " = user_info.user_id LEFT OUTER JOIN countries_catalog ON user_info.country_id = "
             + "countries_catalog.id WHERE `users`.id = ?";
+    private static final String SELECT_PASS_BY_LOGIN = "SELECT `users`.password FROM "
+            + "`users` WHERE `users`.login = ?";
     private static final String DELETE = "DELETE FROM `users` WHERE id = ?";
     private static final String DELETE_BY_LOGIN = "DELETE FROM `users` WHERE login = ?";
     private static final String CREATE = "INSERT INTO `users` (login, password, role) VALUES (?, ?, ?)";
-
     private static final String CREATE_USER_INFO = "INSERT INTO `user_info` (email, user_id) VALUES (?, ?)";
     private static final String UPDATE = "UPDATE `users` SET login = ?, role = ? WHERE id = ?";
     private static final String UPDATE_USER_INFO = " UPDATE `user_info` SET email = ?, sex = ?, "
@@ -78,7 +79,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             try {
                 closeResources(statement, resultSet);
             } catch (SQLException e) {
-                LOGGER.error("Resource closeResources error", e);
+                LOGGER.error("Resource close error", e);
             }
         }
         return users;
@@ -95,7 +96,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
                 return result.getInt("users_amount");
             }
         } catch (SQLException e) {
-            LOGGER.error("Count users errors", e);
+            LOGGER.error("Count users error", e);
         } finally {
             try {
                 closeResources(st, result);
@@ -118,7 +119,6 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             if (resultSet.next()) {
                 user = new User();
                 user.setLogin(login);
-                user.setPassword(resultSet.getString("password"));
                 user.setBirthDate(resultSet.getDate("birth_date"));
                 user.setCountry(resultSet.getString("country"));
                 user.setEmail(resultSet.getString("email"));
@@ -132,10 +132,33 @@ public class UserDaoImpl extends BaseDao implements UserDao {
             try {
                 closeResources(statement, resultSet);
             } catch (SQLException e) {
-                LOGGER.error("Resource closeResources error", e);
+                LOGGER.error("Resource close error", e);
             }
         }
         return user;
+    }
+
+    @Override
+    public String findPassByLogin(final String login) {
+        ResultSet result = null;
+        PreparedStatement st = null;
+        try {
+            st = connection.prepareStatement(SELECT_PASS_BY_LOGIN);
+            st.setString(1, login);
+            result = st.executeQuery();
+            if (result.next()) {
+                return result.getString("password");
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Select password error", e);
+        } finally {
+            try {
+                closeResources(st, result);
+            } catch (SQLException e) {
+                LOGGER.error("Close error");
+            }
+        }
+        return null;
     }
 
     @Override

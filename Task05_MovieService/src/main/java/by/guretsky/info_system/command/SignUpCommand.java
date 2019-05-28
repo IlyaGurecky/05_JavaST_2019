@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class SignUpCommand extends Command {
-    private static final String ERROR_ATTRIBUTE = "signUpError";
     private static final String LOGIN_PARAM = "login";
     private static final String PASSWORD_PARAM = "password";
     private static final String EMAIL = "email";
@@ -22,6 +21,7 @@ public class SignUpCommand extends Command {
     @Override
     public JspPage execute(final HttpServletRequest request)
             throws CustomException {
+        JspPage page = PageManager.createPage(PageEnum.SIGN_UP);
         String pass = request.getParameter(PASSWORD_PARAM).trim();
         String login = request.getParameter(LOGIN_PARAM).trim();
         String email = request.getParameter(EMAIL).trim();
@@ -30,26 +30,24 @@ public class SignUpCommand extends Command {
             if (service.findByEmail(email) == null) {
                 User user = new User();
                 user.setLogin(login);
-                user.setPassword(PasswordEncoder.hashPassword(pass));
+                user.setPassword(pass);
                 user.setEmail(email);
                 user.setRole(Role.USER);
                 UserValidator validator = new UserValidator();
-                if (validator.validate(user) && service.create(user) != 0) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("user", user);
-                    return PageManager.createPage(PageEnum.HOME);
+                Integer userId = service.create(user);
+                if (validator.validate(user) &&  userId != 0) {
+                    page = PageManager.createPage(PageEnum.SIGN_IN);
+                    page.addParameter("msg", "success");
+                    return page;
                 } else {
-                    request.setAttribute(ERROR_ATTRIBUTE,
-                            "User create error");
+                    page.addParameter("msg", "cr_err");
                 }
             } else {
-                request.setAttribute(ERROR_ATTRIBUTE,
-                        "User with this email already exists");
+                page.addParameter("msg", "em_err");
             }
         } else {
-            request.setAttribute(ERROR_ATTRIBUTE,
-                    "User with this login already exists");
+            page.addParameter("msg", "log_err");
         }
-        return PageManager.createPage(PageEnum.SIGN_UP);
+        return page;
     }
 }

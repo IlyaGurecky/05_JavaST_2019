@@ -43,7 +43,8 @@ public class EditProfileCommand extends Command {
             UserService service = factory.createService(UserService.class);
             if (isAvailableLogin(login, service, user)
                     && isAvailableEmail(email, service, user)
-                    && isAvailablePass(pass, user)) {
+                    && isAvailablePass(pass,
+                    service.findPassByLogin(user.getLogin()))) {
                 User editedUser = new User();
                 editedUser.setId(user.getId());
                 editedUser.setRole(user.getRole());
@@ -52,11 +53,11 @@ public class EditProfileCommand extends Command {
                 editedUser.setBirthDate(birthDate);
                 editedUser.setCountry(country);
                 editedUser.setSex(sex);
-                editedUser.setPassword(user.getPassword());
                 if (service.update(editedUser)) {
                     HttpSession session = request.getSession(false);
                     session.removeAttribute("user");
-                    session.setAttribute("user", editedUser);
+                    session.setAttribute("user",
+                            service.findByLogin(editedUser.getLogin()));
                 }
             }
         } else {
@@ -95,7 +96,7 @@ public class EditProfileCommand extends Command {
         return true;
     }
 
-    private boolean isAvailablePass(final String pass, final User user) {
-        return PasswordEncoder.checkPassword(pass, user.getPassword());
+    private boolean isAvailablePass(final String pass, final String userPass) {
+        return PasswordEncoder.checkPassword(pass, userPass);
     }
 }

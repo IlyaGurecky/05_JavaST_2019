@@ -29,10 +29,10 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
             CustomException {
         if (!login.isEmpty() && !password.isEmpty()) {
             UserDao dao = daoManager.createAndGetDao(UserDao.class);
-            User user = dao.findByLogin(login);
-            if (user != null) {
+            String userPass = dao.findPassByLogin(login);
+            if (userPass != null) {
                 return PasswordEncoder.checkPassword(password,
-                        user.getPassword()) ? user : null;
+                        userPass) ? dao.findByLogin(login) : null;
             } else {
                 return null;
             }
@@ -162,6 +162,16 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         if (email != null && !email.isEmpty()) {
             UserDao dao = daoManager.createAndGetDao(UserDao.class);
             return dao.findByEmail(email);
+        } else {
+            throw new CustomException("Email is null");
+        }
+    }
+
+    @Override
+    public String findPassByLogin(final String login) throws CustomException {
+        if (login != null && !login.isEmpty()) {
+            UserDao dao = daoManager.createAndGetDao(UserDao.class);
+            return dao.findPassByLogin(login);
         } else {
             throw new CustomException("Email is null");
         }

@@ -22,7 +22,7 @@ public class ChangePasswordCommand extends Command {
                 (User) request.getSession(false).getAttribute("user");
         UserService service = factory.createService(UserService.class);
         if (!newPass1.equals(newPass2) || !isOldPassIsCorrect(service,
-                oldPass, user.getId())) {
+                oldPass, user.getLogin())) {
             return PageManager.createPage(PageEnum.PROFILE);
         }
         String hashPass = PasswordEncoder.hashPassword(newPass1);
@@ -33,9 +33,9 @@ public class ChangePasswordCommand extends Command {
 
     private boolean isOldPassIsCorrect(final UserService service,
                                        final String pass,
-                                       final int userId)
+                                       final String userLogin)
             throws CustomException {
-        User user = service.findById(userId);
-        return PasswordEncoder.checkPassword(pass, user.getPassword());
+        String userPass = service.findPassByLogin(userLogin);
+        return PasswordEncoder.checkPassword(pass,userPass);
     }
 }
