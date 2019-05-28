@@ -14,7 +14,6 @@ public enum PageEnum {
     USERS("/admin/users", Role.ADMIN),
     USER_ADD("/admin/user_add", Role.ADMIN),
     ERROR("/error"),
-    CATEGORY("/category"),
     FILM_ADD("/admin/film_add", Role.ADMIN),
     SEE_LATER("/user/see_later", Role.USER),
     PROFILE("/user/profile", Role.USER, Role.ADMIN, Role.EDITOR),
