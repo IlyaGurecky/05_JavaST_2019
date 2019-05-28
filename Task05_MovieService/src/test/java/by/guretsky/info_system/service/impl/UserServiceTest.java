@@ -74,7 +74,7 @@ public class UserServiceTest {
 
     @Test(description = "Positive test for countUsers method")
     public void testCountUsers() throws CustomException {
-        final Integer amount = 4;
+        final Integer amount = 6;
         Assert.assertEquals(service.countUsers(), amount);
     }
 
